@@ -1,0 +1,19 @@
+{
+  "tiers": [
+    { "name": "Eternal", "cost": 200 },
+    { "name": "Heavenly", "cost": 150 },
+    { "name": "Crimson Dusk", "cost": 100 },
+    { "name": "Abyssal", "cost": 80 },
+    { "name": "Cosmic", "cost": 60 },
+    { "name": "Eclipse", "cost": 40 },
+    { "name": "Mythic", "cost": 25 },
+    { "name": "Legendary", "cost": 15 },
+    { "name": "Supreme", "cost": 10 },
+    { "name": "Ultra", "cost": 7 },
+    { "name": "Epic", "cost": 5 },
+    { "name": "Rare", "cost": 4 },
+    { "name": "Uncommon", "cost": 3 },
+    { "name": "Common", "cost": 2 },
+    { "name": "Basic", "cost": 1 }
+  ]
+}
