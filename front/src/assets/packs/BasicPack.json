@@ -1,711 +1,314 @@
 {
+  "packNumber": "000",
+  "packName": "Basic Pack",
+  "pulls": 5,
+  "pullRates": {
+    "0": 0.001,
+    "1": 0.002,
+    "2": 0.003,
+    "3": 0.004,
+    "4": 0.005,
+    "5": 0.006,
+    "6": 0.008,
+    "7": 0.1,
+    "8": 0.1,
+    "9": 0.1,
+    "10": 0.1,
+    "11": 0.1,
+    "12": 0.15,
+    "13": 0.15,
+    "14": 0.2,
+    "15": 0.2,
+    "16": 0.25,
+    "17": 0.25,
+    "18": 0.3,
+    "19": 0.3,
+    "20": 0.3,
+    "21": 0.35,
+    "22": 0.35,
+    "23": 0.4,
+    "24": 0.4,
+    "25": 0.4,
+    "26": 0.4,
+    "27": 0.5,
+    "28": 0.5,
+    "29": 0.5,
+    "30": 0.5,
+    "31": 0.5,
+    "32": 0.5,
+    "33": 0.5,
+    "34": 0.5,
+    "35": 0.6,
+    "36": 0.6,
+    "37": 0.6,
+    "38": 0.6,
+    "39": 0.6,
+    "40": 0.6,
+    "41": 0.7,
+    "42": 0.7,
+    "43": 0.7,
+    "44": 0.7,
+    "45": 0.7,
+    "46": 0.7,
+    "47": 0.7,
+    "48": 0.7,
+    "49": 0.7,
+    "50": 0.7,
+    "51": 0.7,
+    "52": 0.7,
+    "53": 0.7,
+    "54": 0.7,
+    "55": 0.7,
+    "56": 0.7,
+    "57": 0.7,
+    "58": 0.7,
+    "59": 0.7,
+    "60": 0.7
+  },
   "cards": [
     {
       "number": 0,
-      "type": "Resonance",
-      "name": "Divinity",
-      "multiplier": 1000,
-      "image": "assets/packs/BasicImages/divinity.png"
+      "uniqueID": "00000-00-00-RA0-000"
     },
     {
       "number": 1,
-      "type": "Weapon",
-      "name": "Steel Sword",
-      "multiplier": 20,
-      "image": "assets/packs/BasicImages/steel_sword.png"
+      "uniqueID": "00003-00-00-RA0-000"
     },
     {
       "number": 2,
-      "type": "Relic",
-      "name": "Ancient Amulet",
-      "multiplier": 20,
-      "image": "assets/packs/BasicImages/ancient_amulet.png"
+      "uniqueID": "00006-00-00-WD0-000"
     },
     {
       "number": 3,
-      "type": "Resonance",
-      "name": "Flame",
-      "multiplier": 20,
-      "image": "assets/packs/BasicImages/flame.png"
+      "uniqueID": "00009-00-00-AJ0-000"
     },
     {
       "number": 4,
-      "type": "Artifact",
-      "name": "Mystic Crystal",
-      "multiplier": 20,
-      "image": "assets/packs/BasicImages/mystic_crystal.png"
+      "uniqueID": "00003-00-01-RA0-000"
     },
     {
       "number": 5,
-      "type": "Charm",
-      "name": "Lunar Charm",
-      "multiplier": 20,
-      "image": "assets/packs/BasicImages/lunar_charm.png"
+      "uniqueID": "00006-00-03-WD0-000"
     },
     {
       "number": 6,
-      "type": "Weapon",
-      "name": "Bronze Dagger",
-      "multiplier": 20,
-      "image": "assets/packs/BasicImages/bronze_dagger.png"
+      "uniqueID": "00009-00-04-AJ0-000"
     },
     {
       "number": 7,
-      "type": "Relic",
-      "name": "Soul Gem",
-      "multiplier": 20,
-      "image": "assets/packs/BasicImages/soul_gem.png"
+      "uniqueID": "00012-00-05-LA0-000"
     },
     {
       "number": 8,
-      "type": "Resonance",
-      "name": "Thunder Bolt",
-      "multiplier": 20,
-      "image": "assets/packs/BasicImages/thunder_bolt.png"
+      "uniqueID": "00015-00-06-CC0-000"
     },
     {
       "number": 9,
-      "type": "Artifact",
-      "name": "Echoing Stone",
-      "multiplier": 20,
-      "image": "assets/packs/BasicImages/echoing_stone.png"
+      "uniqueID": "00018-00-06-RA0-000"
     },
     {
       "number": 10,
-      "type": "Charm",
-      "name": "Dream Catcher",
-      "multiplier": 10,
-      "image": "assets/packs/BasicImages/dream_catcher.png"
+      "uniqueID": "00020-00-06-CC0-000"
     },
     {
       "number": 11,
-      "type": "Weapon",
-      "name": "Silver Blade",
-      "multiplier": 10,
-      "image": "assets/packs/BasicImages/silver_blade.png"
+      "uniqueID": "00021-00-06-WD0-000"
     },
     {
       "number": 12,
-      "type": "Relic",
-      "name": "Phoenix Feather",
-      "multiplier": 10,
-      "image": "assets/packs/BasicImages/phoenix_feather.png"
+      "uniqueID": "00006-00-07-WD0-000"
     },
     {
       "number": 13,
-      "type": "Resonance",
-      "name": "Frost Bolt",
-      "multiplier": 10,
-      "image": "assets/packs/BasicImages/frost_bolt.png"
+      "uniqueID": "00021-00-07-WD0-000"
     },
     {
       "number": 14,
-      "type": "Artifact",
-      "name": "Radiant Crystal",
-      "multiplier": 10,
-      "image": "assets/packs/BasicImages/radiant_crystal.png"
+      "uniqueID": "00009-00-10-AJ0-000"
     },
     {
       "number": 15,
-      "type": "Charm",
-      "name": "Astral Talisman",
-      "multiplier": 10,
-      "image": "assets/packs/BasicImages/astral_talisman.png"
+      "uniqueID": "00012-00-10-LA0-000"
     },
     {
       "number": 16,
-      "type": "Weapon",
-      "name": "Enchanted Sword",
-      "multiplier": 10,
-      "image": "assets/packs/BasicImages/enchanted_sword.png"
+      "uniqueID": "00015-00-10-CC0-000"
     },
     {
       "number": 17,
-      "type": "Relic",
-      "name": "Dragon Scale",
-      "multiplier": 10,
-      "image": "assets/packs/BasicImages/dragon_scale.png"
+      "uniqueID": "00003-00-11-CC0-000"
     },
     {
       "number": 18,
-      "type": "Resonance",
-      "name": "Mystic Wind",
-      "multiplier": 10,
-      "image": "assets/packs/BasicImages/mystic_wind.png"
+      "uniqueID": "00006-00-11-WD0-000"
     },
     {
       "number": 19,
-      "type": "Artifact",
-      "name": "Time Shard",
-      "multiplier": 10,
-      "image": "assets/packs/BasicImages/time_shard.png"
+      "uniqueID": "00009-00-11-AJ0-000"
     },
     {
       "number": 20,
-      "type": "Charm",
-      "name": "Celestial Charm",
-      "multiplier": 6,
-      "image": "assets/packs/BasicImages/celestial_charm.png"
+      "uniqueID": "00012-00-11-LA0-000"
     },
     {
       "number": 21,
-      "type": "Weapon",
-      "name": "Golden Spear",
-      "multiplier": 6,
-      "image": "assets/packs/BasicImages/golden_spear.png"
+      "uniqueID": "00015-00-11-CC0-000"
     },
     {
       "number": 22,
-      "type": "Relic",
-      "name": "Mystic Locket",
-      "multiplier": 6,
-      "image": "assets/packs/BasicImages/mystic_locket.png"
+      "uniqueID": "00018-00-11-RA0-000"
     },
     {
       "number": 23,
-      "type": "Resonance",
-      "name": "Tornado",
-      "multiplier": 6,
-      "image": "assets/packs/BasicImages/tornado.png"
+      "uniqueID": "00012-00-12-CC0-000"
     },
     {
       "number": 24,
-      "type": "Artifact",
-      "name": "Ancient Relic",
-      "multiplier": 6,
-      "image": "assets/packs/BasicImages/ancient_relic.png"
+      "uniqueID": "00015-00-12-WD0-000"
     },
     {
       "number": 25,
-      "type": "Charm",
-      "name": "Star Crystal",
-      "multiplier": 6,
-      "image": "assets/packs/BasicImages/star_crystal.png"
+      "uniqueID": "00018-00-12-AJ0-000"
     },
     {
       "number": 26,
-      "type": "Weapon",
-      "name": "Obsidian Dagger",
-      "multiplier": 6,
-      "image": "assets/packs/BasicImages/obsidian_dagger.png"
+      "uniqueID": "00021-00-12-WD0-000"
     },
     {
       "number": 27,
-      "type": "Relic",
-      "name": "Seer's Stone",
-      "multiplier": 6,
-      "image": "assets/packs/BasicImages/seers_stone.png"
+      "uniqueID": "00093-00-12-RA0-000"
     },
     {
       "number": 28,
-      "type": "Resonance",
-      "name": "Inferno",
-      "multiplier": 6,
-      "image": "assets/packs/BasicImages/inferno.png"
+      "uniqueID": "00094-00-12-AJ0-000"
     },
     {
       "number": 29,
-      "type": "Artifact",
-      "name": "Spirit Totem",
-      "multiplier": 6,
-      "image": "assets/packs/BasicImages/spirit_totem.png"
+      "uniqueID": "00095-00-12-CA0-000"
     },
     {
       "number": 30,
-      "type": "Charm",
-      "name": "Galaxy Pendant",
-      "multiplier": 4,
-      "image": "assets/packs/BasicImages/galaxy_pendant.png"
+      "uniqueID": "00096-00-12-WS0-000"
     },
     {
       "number": 31,
-      "type": "Weapon",
-      "name": "Emerald Blade",
-      "multiplier": 4,
-      "image": "assets/packs/BasicImages/emerald_blade.png"
+      "uniqueID": "00097-00-12-LM0-000"
     },
     {
       "number": 32,
-      "type": "Relic",
-      "name": "Starlight Pendant",
-      "multiplier": 4,
-      "image": "assets/packs/BasicImages/starlight_pendant.png"
+      "uniqueID": "00098-00-12-RA0-000"
     },
     {
       "number": 33,
-      "type": "Resonance",
-      "name": "Earthquake",
-      "multiplier": 4,
-      "image": "assets/packs/BasicImages/earthquake.png"
+      "uniqueID": "00099-00-12-AJ0-000"
     },
     {
       "number": 34,
-      "type": "Artifact",
-      "name": "Thunder Gem",
-      "multiplier": 4,
-      "image": "assets/packs/BasicImages/thunder_gem.png"
+      "uniqueID": "00100-00-12-AA0-000"
     },
     {
       "number": 35,
-      "type": "Charm",
-      "name": "Moonstone",
-      "multiplier": 4,
-      "image": "assets/packs/BasicImages/moonstone.png"
+      "uniqueID": "00003-00-13-RA0-000"
     },
     {
       "number": 36,
-      "type": "Weapon",
-      "name": "Blood Sword",
-      "multiplier": 4,
-      "image": "assets/packs/BasicImages/blood_sword.png"
+      "uniqueID": "00006-00-13-WD0-000"
     },
     {
       "number": 37,
-      "type": "Relic",
-      "name": "Phoenix Ring",
-      "multiplier": 4,
-      "image": "assets/packs/BasicImages/phoenix_ring.png"
+      "uniqueID": "00009-00-13-AJ0-000"
     },
     {
       "number": 38,
-      "type": "Resonance",
-      "name": "Blizzard",
-      "multiplier": 4,
-      "image": "assets/packs/BasicImages/blizzard.png"
+      "uniqueID": "00012-00-13-LA0-000"
     },
     {
       "number": 39,
-      "type": "Artifact",
-      "name": "Ghostly Crystal",
-      "multiplier": 4,
-      "image": "assets/packs/BasicImages/ghostly_crystal.png"
+      "uniqueID": "00015-00-13-CC0-000"
     },
     {
       "number": 40,
-      "type": "Charm",
-      "name": "Frost Pendant",
-      "multiplier": 3,
-      "image": "assets/packs/BasicImages/frost_pendant.png"
+      "uniqueID": "00018-00-13-RA0-000"
     },
     {
       "number": 41,
-      "type": "Weapon",
-      "name": "Iron Mace",
-      "multiplier": 3,
-      "image": "assets/packs/BasicImages/iron_mace.png"
+      "uniqueID": "00021-00-13-WD0-000"
     },
     {
       "number": 42,
-      "type": "Relic",
-      "name": "Shadow Amulet",
-      "multiplier": 3,
-      "image": "assets/packs/BasicImages/shadow_amulet.png"
+      "uniqueID": "00093-00-13-RA0-000"
     },
     {
       "number": 43,
-      "type": "Resonance",
-      "name": "Earth's Wrath",
-      "multiplier": 3,
-      "image": "assets/packs/BasicImages/earths_wrath.png"
+      "uniqueID": "00094-00-13-AJ0-000"
     },
     {
       "number": 44,
-      "type": "Artifact",
-      "name": "Illusion Gem",
-      "multiplier": 3,
-      "image": "assets/packs/BasicImages/illusion_gem.png"
+      "uniqueID": "00095-00-13-CA0-000"
     },
     {
       "number": 45,
-      "type": "Charm",
-      "name": "Sapphire Charm",
-      "multiplier": 3,
-      "image": "assets/packs/BasicImages/sapphire_charm.png"
+      "uniqueID": "00096-00-13-WS0-000"
     },
     {
       "number": 46,
-      "type": "Weapon",
-      "name": "Platinum Sword",
-      "multiplier": 3,
-      "image": "assets/packs/BasicImages/platinum_sword.png"
+      "uniqueID": "00003-00-14-RA0-000"
     },
     {
       "number": 47,
-      "type": "Relic",
-      "name": "Golden Amulet",
-      "multiplier": 3,
-      "image": "assets/packs/BasicImages/golden_amulet.png"
+      "uniqueID": "00006-00-14-WD0-000"
     },
     {
       "number": 48,
-      "type": "Resonance",
-      "name": "Sandstorm",
-      "multiplier": 3,
-      "image": "assets/packs/BasicImages/sandstorm.png"
+      "uniqueID": "00009-00-14-AJ0-000"
     },
     {
       "number": 49,
-      "type": "Artifact",
-      "name": "Twilight Gem",
-      "multiplier": 3,
-      "image": "assets/packs/BasicImages/twilight_gem.png"
+      "uniqueID": "00012-00-14-LA0-000"
     },
     {
       "number": 50,
-      "type": "Charm",
-      "name": "Hallowed Talisman",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/hallowed_talisman.png"
+      "uniqueID": "00015-00-14-CC0-000"
     },
     {
       "number": 51,
-      "type": "Weapon",
-      "name": "Diamond Dagger",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/diamond_dagger.png"
+      "uniqueID": "00018-00-14-RA0-000"
     },
     {
       "number": 52,
-      "type": "Relic",
-      "name": "Emerald Ring",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/emerald_ring.png"
+      "uniqueID": "00021-00-14-WD0-000"
     },
     {
       "number": 53,
-      "type": "Resonance",
-      "name": "Gust",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/gust.png"
+      "uniqueID": "00093-00-14-RA0-000"
     },
     {
       "number": 54,
-      "type": "Artifact",
-      "name": "Cursed Crystal",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/cursed_crystal.png"
+      "uniqueID": "00094-00-14-AJ0-000"
     },
     {
       "number": 55,
-      "type": "Charm",
-      "name": "Infernal Charm",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/infernal_charm.png"
+      "uniqueID": "00095-00-14-CA0-000"
     },
     {
       "number": 56,
-      "type": "Weapon",
-      "name": "Ashen Blade",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/ashen_blade.png"
+      "uniqueID": "00096-00-14-WS0-000"
     },
     {
       "number": 57,
-      "type": "Relic",
-      "name": "Spectral Amulet",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/spectral_amulet.png"
+      "uniqueID": "00097-00-14-LM0-000"
     },
     {
       "number": 58,
-      "type": "Resonance",
-      "name": "Hand Of Chaos",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/hand_of_chaos.png"
+      "uniqueID": "00098-00-14-RA0-000"
     },
     {
       "number": 59,
-      "type": "Artifact",
-      "name": "Crimson Gem",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/crimson_gem.png"
+      "uniqueID": "00099-00-14-AJ0-000"
     },
     {
       "number": 60,
-      "type": "Charm",
-      "name": "Light Crystal",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/light_crystal.png"
-    },
-    {
-      "number": 61,
-      "type": "Weapon",
-      "name": "Rusty Sword",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/rusty_sword.png"
-    },
-    {
-      "number": 62,
-      "type": "Relic",
-      "name": "Weathered Amulet",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/weathered_amulet.png"
-    },
-    {
-      "number": 63,
-      "type": "Resonance",
-      "name": "Darkness",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/darkness.png"
-    },
-    {
-      "number": 64,
-      "type": "Artifact",
-      "name": "Moon Gem",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/moon_gem.png"
-    },
-    {
-      "number": 65,
-      "type": "Charm",
-      "name": "Wooden Talisman",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/wooden_talisman.png"
-    },
-    {
-      "number": 66,
-      "type": "Weapon",
-      "name": "Training Sword",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/training_sword.png"
-    },
-    {
-      "number": 67,
-      "type": "Relic",
-      "name": "Old Amulet",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/old_amulet.png"
-    },
-    {
-      "number": 68,
-      "type": "Resonance",
-      "name": "Sonic Boom",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/sonic_boom.png"
-    },
-    {
-      "number": 69,
-      "type": "Artifact",
-      "name": "Rusted Crystal",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/rusted_crystal.png"
-    },
-    {
-      "number": 70,
-      "type": "Charm",
-      "name": "Simple Charm",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/simple_charm.png"
-    },
-    {
-      "number": 71,
-      "type": "Weapon",
-      "name": "Basic Axe",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/basic_axe.png"
-    },
-    {
-      "number": 72,
-      "type": "Relic",
-      "name": "Basic Talisman",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/basic_talisman.png"
-    },
-    {
-      "number": 73,
-      "type": "Resonance",
-      "name": "Frostbite",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/frostbite.png"
-    },
-    {
-      "number": 74,
-      "type": "Artifact",
-      "name": "Basic Gem",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/basic_gem.png"
-    },
-    {
-      "number": 75,
-      "type": "Charm",
-      "name": "Faded Charm",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/faded_charm.png"
-    },
-    {
-      "number": 76,
-      "type": "Weapon",
-      "name": "Wooden Club",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/wooden_club.png"
-    },
-    {
-      "number": 77,
-      "type": "Relic",
-      "name": "Ancient Amulet",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/ancient_amulet.png"
-    },
-    {
-      "number": 78,
-      "type": "Resonance",
-      "name": "Cold Chill",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/cold_chill.png"
-    },
-    {
-      "number": 79,
-      "type": "Artifact",
-      "name": "Sundering Stone",
-      "multiplier": 2,
-      "image": "assets/packs/BasicImages/sundering_stone.png"
-    },
-    {
-      "number": 80,
-      "type": "Charm",
-      "name": "Star Amulet",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/star_amulet.png"
-    },
-    {
-      "number": 81,
-      "type": "Weapon",
-      "name": "Crimson Katana",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/crimson_katana.png"
-    },
-    {
-      "number": 82,
-      "type": "Relic",
-      "name": "Shimmering Stone",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/shimmering_stone.png"
-    },
-    {
-      "number": 83,
-      "type": "Resonance",
-      "name": "Hail",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/hail.png"
-    },
-    {
-      "number": 84,
-      "type": "Artifact",
-      "name": "Sun Shard",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/sun_shard.png"
-    },
-    {
-      "number": 85,
-      "type": "Charm",
-      "name": "Galaxy Charm",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/galaxy_charm.png"
-    },
-    {
-      "number": 86,
-      "type": "Weapon",
-      "name": "Void Blade",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/void_blade.png"
-    },
-    {
-      "number": 87,
-      "type": "Relic",
-      "name": "Eternal Band",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/eternal_band.png"
-    },
-    {
-      "number": 88,
-      "type": "Resonance",
-      "name": "Celestial Gift",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/celestial_gift.png"
-    },
-    {
-      "number": 89,
-      "type": "Artifact",
-      "name": "Essence Stone",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/essence_stone.png"
-    },
-    {
-      "number": 90,
-      "type": "Charm",
-      "name": "Worldstone",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/worldstone.png"
-    },
-    {
-      "number": 91,
-      "type": "Weapon",
-      "name": "Twilight Blade",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/twilight_blade.png"
-    },
-    {
-      "number": 92,
-      "type": "Relic",
-      "name": "Nova Crystal",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/nova_crystal.png"
-    },
-    {
-      "number": 93,
-      "type": "Resonance",
-      "name": "Blind",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/blind.png"
-    },
-    {
-      "number": 94,
-      "type": "Artifact",
-      "name": "Omni Gem",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/omni_gem.png"
-    },
-    {
-      "number": 95,
-      "type": "Charm",
-      "name": "Heavenly Charm",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/heavenly_charm.png"
-    },
-    {
-      "number": 96,
-      "type": "Weapon",
-      "name": "Vortex Blade",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/vortex_blade.png"
-    },
-    {
-      "number": 97,
-      "type": "Relic",
-      "name": "Light's Jewel",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/lights_jewel.png"
-    },
-    {
-      "number": 98,
-      "type": "Resonance",
-      "name": "Howl",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/howl.png"
-    },
-    {
-      "number": 99,
-      "type": "Artifact",
-      "name": "Crystal of Eternity",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/crystal_of_eternity.png"
-    },
-    {
-      "number": 100,
-      "type": "Charm",
-      "name": "Talisman of the Cosmos",
-      "multiplier": 1,
-      "image": "assets/packs/BasicImages/talisman_of_the_cosmos.png"
+      "uniqueID": "00100-00-14-AA0-000"
     }
   ]
 }

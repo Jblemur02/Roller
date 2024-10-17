@@ -1,0 +1,709 @@
+[
+  {
+    "number": "00000",
+    "type": "Resonance",
+    "name": "Divinity",
+    "multiplier": 1000,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/divinity.jpeg"
+  },
+  {
+    "number": "00001",
+    "type": "Weapon",
+    "name": "Steel Sword",
+    "multiplier": 20,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/steel_sword.png"
+  },
+  {
+    "number": "00002",
+    "type": "Relic",
+    "name": "Ancient Amulet",
+    "multiplier": 20,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/ancient_amulet.png"
+  },
+  {
+    "number": "00003",
+    "type": "Resonance",
+    "name": "Flame",
+    "multiplier": 20,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/flame.jpg"
+  },
+  {
+    "number": "00004",
+    "type": "Artifact",
+    "name": "Mystic Crystal",
+    "multiplier": 20,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/mystic_crystal.png"
+  },
+  {
+    "number": "00005",
+    "type": "Charm",
+    "name": "Lunar Charm",
+    "multiplier": 20,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/lunar_charm.png"
+  },
+  {
+    "number": "00006",
+    "type": "Weapon",
+    "name": "Bronze Dagger",
+    "multiplier": 20,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/bronze_dagger.jpg"
+  },
+  {
+    "number": "00007",
+    "type": "Relic",
+    "name": "Soul Gem",
+    "multiplier": 20,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/soul_gem.png"
+  },
+  {
+    "number": "00008",
+    "type": "Resonance",
+    "name": "Thunder Bolt",
+    "multiplier": 20,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/thunder_bolt.png"
+  },
+  {
+    "number": "00009",
+    "type": "Artifact",
+    "name": "Echoing Stone",
+    "multiplier": 20,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/echoing_stone.png"
+  },
+  {
+    "number": "00010",
+    "type": "Charm",
+    "name": "Dream Catcher",
+    "multiplier": 10,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/dream_catcher.png"
+  },
+  {
+    "number": "00011",
+    "type": "Weapon",
+    "name": "Silver Blade",
+    "multiplier": 10,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/silver_blade.png"
+  },
+  {
+    "number": "00012",
+    "type": "Relic",
+    "name": "Phoenix Feather",
+    "multiplier": 10,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/phoenix_feather.png"
+  },
+  {
+    "number": "00013",
+    "type": "Resonance",
+    "name": "Frost Bolt",
+    "multiplier": 10,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/frost_bolt.png"
+  },
+  {
+    "number": "00014",
+    "type": "Artifact",
+    "name": "Radiant Crystal",
+    "multiplier": 10,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/radiant_crystal.png"
+  },
+  {
+    "number": "00015",
+    "type": "Charm",
+    "name": "Astral Talisman",
+    "multiplier": 10,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/astral_talisman.png"
+  },
+  {
+    "number": "00016",
+    "type": "Weapon",
+    "name": "Enchanted Sword",
+    "multiplier": 10,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/enchanted_sword.png"
+  },
+  {
+    "number": "00017",
+    "type": "Relic",
+    "name": "Dragon Scale",
+    "multiplier": 10,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/dragon_scale.png"
+  },
+  {
+    "number": "00018",
+    "type": "Resonance",
+    "name": "Mystic Wind",
+    "multiplier": 10,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/mystic_wind.png"
+  },
+  {
+    "number": "00019",
+    "type": "Artifact",
+    "name": "Time Shard",
+    "multiplier": 10,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/time_shard.png"
+  },
+  {
+    "number": "00020",
+    "type": "Charm",
+    "name": "Celestial Charm",
+    "multiplier": 6,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/celestial_charm.jpeg"
+  },
+  {
+    "number": "00021",
+    "type": "Weapon",
+    "name": "Golden Spear",
+    "multiplier": 6,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/golden_spear.png"
+  },
+  {
+    "number": "00022",
+    "type": "Relic",
+    "name": "Mystic Locket",
+    "multiplier": 6,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/mystic_locket.png"
+  },
+  {
+    "number": "00023",
+    "type": "Resonance",
+    "name": "Tornado",
+    "multiplier": 6,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/tornado.png"
+  },
+  {
+    "number": "00024",
+    "type": "Artifact",
+    "name": "Ancient Relic",
+    "multiplier": 6,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/ancient_relic.png"
+  },
+  {
+    "number": "00025",
+    "type": "Charm",
+    "name": "Star Crystal",
+    "multiplier": 6,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/star_crystal.png"
+  },
+  {
+    "number": "00026",
+    "type": "Weapon",
+    "name": "Obsidian Dagger",
+    "multiplier": 6,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/obsidian_dagger.png"
+  },
+  {
+    "number": "00027",
+    "type": "Relic",
+    "name": "Seer's Stone",
+    "multiplier": 6,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/seers_stone.png"
+  },
+  {
+    "number": "00028",
+    "type": "Resonance",
+    "name": "Inferno",
+    "multiplier": 6,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/inferno.png"
+  },
+  {
+    "number": "00029",
+    "type": "Artifact",
+    "name": "Spirit Totem",
+    "multiplier": 6,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/spirit_totem.png"
+  },
+  {
+    "number": "00030",
+    "type": "Charm",
+    "name": "Galaxy Pendant",
+    "multiplier": 4,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/galaxy_pendant.png"
+  },
+  {
+    "number": "00031",
+    "type": "Weapon",
+    "name": "Emerald Blade",
+    "multiplier": 4,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/emerald_blade.png"
+  },
+  {
+    "number": "00032",
+    "type": "Relic",
+    "name": "Starlight Pendant",
+    "multiplier": 4,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/starlight_pendant.png"
+  },
+  {
+    "number": "00033",
+    "type": "Resonance",
+    "name": "Earthquake",
+    "multiplier": 4,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/earthquake.png"
+  },
+  {
+    "number": "00034",
+    "type": "Artifact",
+    "name": "Thunder Gem",
+    "multiplier": 4,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/thunder_gem.png"
+  },
+  {
+    "number": "00035",
+    "type": "Charm",
+    "name": "Moonstone",
+    "multiplier": 4,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/moonstone.png"
+  },
+  {
+    "number": "00036",
+    "type": "Weapon",
+    "name": "Blood Sword",
+    "multiplier": 4,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/blood_sword.png"
+  },
+  {
+    "number": "00037",
+    "type": "Relic",
+    "name": "Phoenix Ring",
+    "multiplier": 4,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/phoenix_ring.png"
+  },
+  {
+    "number": "00038",
+    "type": "Resonance",
+    "name": "Blizzard",
+    "multiplier": 4,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/blizzard.png"
+  },
+  {
+    "number": "00039",
+    "type": "Artifact",
+    "name": "Ghostly Crystal",
+    "multiplier": 4,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/ghostly_crystal.png"
+  },
+  {
+    "number": "00040",
+    "type": "Charm",
+    "name": "Frost Pendant",
+    "multiplier": 3,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/frost_pendant.png"
+  },
+  {
+    "number": "00041",
+    "type": "Weapon",
+    "name": "Iron Mace",
+    "multiplier": 3,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/iron_mace.png"
+  },
+  {
+    "number": "00042",
+    "type": "Relic",
+    "name": "Shadow Amulet",
+    "multiplier": 3,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/shadow_amulet.png"
+  },
+  {
+    "number": "00043",
+    "type": "Resonance",
+    "name": "Earth's Wrath",
+    "multiplier": 3,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/earths_wrath.png"
+  },
+  {
+    "number": "00044",
+    "type": "Artifact",
+    "name": "Illusion Gem",
+    "multiplier": 3,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/illusion_gem.png"
+  },
+  {
+    "number": "00045",
+    "type": "Charm",
+    "name": "Sapphire Charm",
+    "multiplier": 3,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/sapphire_charm.png"
+  },
+  {
+    "number": "00046",
+    "type": "Weapon",
+    "name": "Platinum Sword",
+    "multiplier": 3,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/platinum_sword.png"
+  },
+  {
+    "number": "00047",
+    "type": "Relic",
+    "name": "Golden Amulet",
+    "multiplier": 3,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/golden_amulet.png"
+  },
+  {
+    "number": "00048",
+    "type": "Resonance",
+    "name": "Sandstorm",
+    "multiplier": 3,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/sandstorm.png"
+  },
+  {
+    "number": "00049",
+    "type": "Artifact",
+    "name": "Twilight Gem",
+    "multiplier": 3,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/twilight_gem.png"
+  },
+  {
+    "number": "00050",
+    "type": "Charm",
+    "name": "Hallowed Talisman",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/hallowed_talisman.png"
+  },
+  {
+    "number": "00051",
+    "type": "Weapon",
+    "name": "Diamond Dagger",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/diamond_dagger.png"
+  },
+  {
+    "number": "00052",
+    "type": "Relic",
+    "name": "Emerald Ring",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/emerald_ring.png"
+  },
+  {
+    "number": "00053",
+    "type": "Resonance",
+    "name": "Gust",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/gust.png"
+  },
+  {
+    "number": "00054",
+    "type": "Artifact",
+    "name": "Cursed Crystal",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/cursed_crystal.png"
+  },
+  {
+    "number": "00055",
+    "type": "Charm",
+    "name": "Infernal Charm",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/infernal_charm.png"
+  },
+  {
+    "number": "00056",
+    "type": "Weapon",
+    "name": "Ashen Blade",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/ashen_blade.png"
+  },
+  {
+    "number": "00057",
+    "type": "Relic",
+    "name": "Spectral Amulet",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/spectral_amulet.png"
+  },
+  {
+    "number": "00058",
+    "type": "Resonance",
+    "name": "Hand Of Chaos",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/hand_of_chaos.png"
+  },
+  {
+    "number": "00059",
+    "type": "Artifact",
+    "name": "Crimson Gem",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/crimson_gem.png"
+  },
+  {
+    "number": "00060",
+    "type": "Charm",
+    "name": "Light Crystal",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/light_crystal.png"
+  },
+  {
+    "number": "00061",
+    "type": "Weapon",
+    "name": "Rusty Sword",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/rusty_sword.png"
+  },
+  {
+    "number": "00062",
+    "type": "Relic",
+    "name": "Weathered Amulet",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/weathered_amulet.png"
+  },
+  {
+    "number": "00063",
+    "type": "Resonance",
+    "name": "Darkness",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/darkness.png"
+  },
+  {
+    "number": "00064",
+    "type": "Artifact",
+    "name": "Moon Gem",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/moon_gem.png"
+  },
+  {
+    "number": "00065",
+    "type": "Charm",
+    "name": "Wooden Talisman",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/wooden_talisman.png"
+  },
+  {
+    "number": "00066",
+    "type": "Weapon",
+    "name": "Training Sword",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/training_sword.png"
+  },
+  {
+    "number": "00067",
+    "type": "Relic",
+    "name": "Old Amulet",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/old_amulet.png"
+  },
+  {
+    "number": "00068",
+    "type": "Resonance",
+    "name": "Sonic Boom",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/sonic_boom.png"
+  },
+  {
+    "number": "00069",
+    "type": "Artifact",
+    "name": "Rusted Crystal",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/rusted_crystal.png"
+  },
+  {
+    "number": "00070",
+    "type": "Charm",
+    "name": "Simple Charm",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/simple_charm.png"
+  },
+  {
+    "number": "00071",
+    "type": "Weapon",
+    "name": "Basic Axe",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/basic_axe.png"
+  },
+  {
+    "number": "00072",
+    "type": "Relic",
+    "name": "Basic Talisman",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/basic_talisman.png"
+  },
+  {
+    "number": "00073",
+    "type": "Resonance",
+    "name": "Frostbite",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/frostbite.png"
+  },
+  {
+    "number": "00074",
+    "type": "Artifact",
+    "name": "Basic Gem",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/basic_gem.png"
+  },
+  {
+    "number": "00075",
+    "type": "Charm",
+    "name": "Faded Charm",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/faded_charm.png"
+  },
+  {
+    "number": "00076",
+    "type": "Weapon",
+    "name": "Wooden Club",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/wooden_club.png"
+  },
+  {
+    "number": "00077",
+    "type": "Relic",
+    "name": "Ancient Amulet",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/ancient_amulet.png"
+  },
+  {
+    "number": "00078",
+    "type": "Resonance",
+    "name": "Cold Chill",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/cold_chill.png"
+  },
+  {
+    "number": "00079",
+    "type": "Artifact",
+    "name": "Sundering Stone",
+    "multiplier": 2,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/sundering_stone.png"
+  },
+  {
+    "number": "00080",
+    "type": "Charm",
+    "name": "Star Amulet",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/star_amulet.png"
+  },
+  {
+    "number": "00018",
+    "type": "Weapon",
+    "name": "Crimson Katana",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/crimson_katana.png"
+  },
+  {
+    "number": "00082",
+    "type": "Relic",
+    "name": "Shimmering Stone",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/shimmering_stone.png"
+  },
+  {
+    "number": "00083",
+    "type": "Resonance",
+    "name": "Hail",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/hail.png"
+  },
+  {
+    "number": "00084",
+    "type": "Artifact",
+    "name": "Sun Shard",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/sun_shard.png"
+  },
+  {
+    "number": "00085",
+    "type": "Charm",
+    "name": "Galaxy Charm",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/galaxy_charm.png"
+  },
+  {
+    "number": "00086",
+    "type": "Weapon",
+    "name": "Void Blade",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/void_blade.png"
+  },
+  {
+    "number": "00087",
+    "type": "Relic",
+    "name": "Eternal Band",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/eternal_band.png"
+  },
+  {
+    "number": "00088",
+    "type": "Resonance",
+    "name": "Celestial Gift",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/celestial_gift.png"
+  },
+  {
+    "number": "00089",
+    "type": "Artifact",
+    "name": "Essence Stone",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/essence_stone.jpeg"
+  },
+  {
+    "number": "00009",
+    "type": "Charm",
+    "name": "Worldstone",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/worldstone.png"
+  },
+  {
+    "number": "00091",
+    "type": "Weapon",
+    "name": "Twilight Blade",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/twilight_blade.png"
+  },
+  {
+    "number": "00092",
+    "type": "Relic",
+    "name": "Nova Crystal",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/nova_crystal.png"
+  },
+  {
+    "number": "00093",
+    "type": "Resonance",
+    "name": "Blind",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/blind.png"
+  },
+  {
+    "number": "00094",
+    "type": "Artifact",
+    "name": "Omni Gem",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/omni_gem.png"
+  },
+  {
+    "number": "00095",
+    "type": "Charm",
+    "name": "Heavenly Charm",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/heavenly_charm.jpeg"
+  },
+  {
+    "number": "00096",
+    "type": "Weapon",
+    "name": "Vortex Blade",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/vortex_blade.png"
+  },
+  {
+    "number": "00097",
+    "type": "Relic",
+    "name": "Light's Jewel",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/lights_jewel.png"
+  },
+  {
+    "number": "00098",
+    "type": "Resonance",
+    "name": "Howl",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/howl.png"
+  },
+  {
+    "number": "00099",
+    "type": "Artifact",
+    "name": "Crystal of Eternity",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/crystal_of_eternity.png"
+  },
+  {
+    "number": "00100",
+    "type": "Artifact",
+    "name": "Talisman of the Cosmos",
+    "multiplier": 1,
+    "image": "https://storage.cloud.google.com/treasure_roller/packs/images/talisman_of_the_cosmos.png"
+  }
+]

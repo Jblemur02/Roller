@@ -1,19 +1,142 @@
-{
-  "tiers": [
-    { "name": "Eternal", "cost": 200 },
-    { "name": "Heavenly", "cost": 150 },
-    { "name": "Crimson Dusk", "cost": 100 },
-    { "name": "Abyssal", "cost": 80 },
-    { "name": "Cosmic", "cost": 60 },
-    { "name": "Eclipse", "cost": 40 },
-    { "name": "Mythic", "cost": 25 },
-    { "name": "Legendary", "cost": 15 },
-    { "name": "Supreme", "cost": 10 },
-    { "name": "Ultra", "cost": 7 },
-    { "name": "Epic", "cost": 5 },
-    { "name": "Rare", "cost": 4 },
-    { "name": "Uncommon", "cost": 3 },
-    { "name": "Common", "cost": 2 },
-    { "name": "Basic", "cost": 1 }
-  ]
-}
+[
+  {
+    "name": "Eternal",
+    "cost": 200,
+    "value": "00",
+    "background": "https://storage.cloud.google.com/treasure_roller/tier_backgrounds/eternal.png",
+    "backgroundType": "image",
+    "aura": "0px 0px 112px 24px rgba(255, 196, 46, 0.9)",
+    "color": "#ffffff",
+    "font": "'Cinzel', serif"
+  },
+  {
+    "name": "Heavenly",
+    "cost": 150,
+    "value": "01",
+    "background": "https://storage.cloud.google.com/treasure_roller/tier_backgrounds/heavenly.png",
+    "backgroundType": "image",
+    "aura": "0px 0px 112px 22px rgba(46, 147, 255, 0.9)",
+    "color": "#ffffff",
+    "font": "'Lobster', cursive"
+  },
+  {
+    "name": "Crimson Dusk",
+    "cost": 100,
+    "value": "02",
+    "background": "https://storage.cloud.google.com/treasure_roller/tier_backgrounds/crimson_dusk.png",
+    "backgroundType": "image",
+    "aura": "0px 0px 112px 18px rgba(255, 8, 8, 0.9)",
+    "color": "#ff0000",
+    "font": "'Montserrat', sans-serif"
+  },
+  {
+    "name": "Abyssal",
+    "cost": 80,
+    "value": "03",
+    "background": "https://storage.cloud.google.com/treasure_roller/tier_backgrounds/abyssal.png",
+    "backgroundType": "image",
+    "aura": "0px 0px 112px 12px rgba(156, 8, 255, 0.9)",
+    "color": "#ff0000",
+    "font": "'Raleway', sans-serif"
+  },
+  {
+    "name": "Cosmic",
+    "cost": 60,
+    "value": "04",
+    "background": "https://storage.cloud.google.com/treasure_roller/tier_backgrounds/cosmic.png",
+    "backgroundType": "image",
+    "aura": "0px 0px 112px 6px rgba(12, 22, 125, 0.9)",
+    "color": "#8a2be2",
+    "font": "'Oswald', sans-serif"
+  },
+  {
+    "name": "Eclipse",
+    "cost": 40,
+    "value": "05",
+    "background": "https://storage.cloud.google.com/treasure_roller/tier_backgrounds/eclipse.png",
+    "backgroundType": "image",
+    "color": "#ffd700",
+    "font": "'Pacifico', cursive"
+  },
+  {
+    "name": "Mythic",
+    "cost": 25,
+    "value": "06",
+    "background": "https://storage.cloud.google.com/treasure_roller/tier_backgrounds/mythic.png",
+    "backgroundType": "image",
+    "color": "#ffa500",
+    "fomt": "'Playfair Display', serif"
+  },
+  {
+    "name": "Legendary",
+    "cost": 15,
+    "value": "07",
+    "background": "#00008b",
+    "backgroundType": "color",
+    "color": "#ffa500",
+    "font": "'Abril Fatface', serif"
+  },
+  {
+    "name": "Supreme",
+    "cost": 10,
+    "value": "08",
+    "background": "#8b0000",
+    "backgroundType": "color",
+    "color": "#ffd700",
+    "font": "'Alegreya', serif"
+  },
+  {
+    "name": "Ultra",
+    "cost": 7,
+    "value": "09",
+    "background": "#800080",
+    "backgroundType": "color",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif"
+  },
+  {
+    "name": "Epic",
+    "cost": 5,
+    "value": "10",
+    "background": "#8a2be2",
+    "backgroundType": "color",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif"
+  },
+  {
+    "name": "Rare",
+    "cost": 4,
+    "value": "11",
+    "background": "#000080",
+    "backgroundType": "color",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif"
+  },
+  {
+    "name": "Uncommon",
+    "cost": 3,
+    "value": "12",
+    "background": "#228b22",
+    "backgroundType": "color",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif"
+  },
+  {
+    "name": "Common",
+    "cost": 2,
+    "value": "13",
+    "background": "#808080",
+    "backgroundType": "color",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif"
+  },
+  {
+    "name": "Basic",
+    "cost": 1,
+    "value": "14",
+    "background": "#a9a9a9",
+    "backgroundType": "color",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "A": {
+    "name": "Artifact",
+    "R0": "Ring",
+    "A0": "Amulet",
+    "J0": "Jewel"
+  },
+  "C": {
+    "name": "Charm",
+    "C0": "Celestial",
+    "A0": "Angelic"
+  },
+  "R": {
+    "name": "Resonance",
+    "A0": "Ancient",
+    "P0": "Power"
+  },
+  "L": {
+    "name": "Relic",
+    "A0": "Ancient",
+    "M0": "Modern"
+  },
+  "W": {
+    "name": "Weapon",
+    "S0": "Sword",
+    "B0": "Bow",
+    "D0": "Dagger"
+  }
+}

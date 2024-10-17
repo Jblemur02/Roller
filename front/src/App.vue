@@ -3,6 +3,8 @@ import TopBar from './components/TopNavbar.vue'
 </script>
 
 <template>
-  <TopBar />
-  <RouterView />
+  <main>
+    <TopBar />
+    <RouterView />
+  </main>
 </template>
