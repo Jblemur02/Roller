@@ -3,28 +3,36 @@
     {
       "name": "Basic Pack",
       "description": "This is the basic pack.",
-      "image": "https://storage.cloud.google.com/treasure_roller/packs/pack_images/basic_pack.png",
+      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_pack.png",
       "price": 1
     },
     {
       "name": "Advanced Pack",
       "description": "This is the advanced pack.",
-      "image": "https://storage.cloud.google.com/treasure_roller/packs/pack_images/advanced_pack.png",
+      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/advanced_pack.png",
       "price": 3
     },
     {
       "name": "Celestial Pack",
       "description": "This is the Celestial pack.",
-      "image": "https://storage.cloud.google.com/treasure_roller/packs/pack_images/celestial_pack.png",
+      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/celestial_pack.png",
       "price": 10
     }
   ],
   "boosters": [
     {
-      "name": "Basic Booster",
+      "name": "Basic Booster Pack",
       "description": "This is the basic booster.",
-      "image": "https://storage.cloud.google.com/treasure_roller/boosters/booster_images/basic_booster.png",
-      "price": 20
+      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_booster.png",
+      "price": 100
+    }
+  ],
+  "bundles": [
+    {
+      "name": "Basic Bundle",
+      "description": "This is the basic bundle.",
+      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_bundle.png",
+      "price": 50
     }
   ],
   "featured": [
@@ -34,7 +42,11 @@
     },
     {
       "number": 2,
-      "name": "Basic Booster"
+      "name": "Basic Booster Pack"
+    },
+    {
+      "number": 3,
+      "name": "Basic Bundle"
     }
   ]
 }

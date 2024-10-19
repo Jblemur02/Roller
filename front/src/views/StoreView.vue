@@ -1,6 +1,5 @@
 <template>
   <main>
-    <!-- Navigation Bar -->
     <nav id="navbar">
       <a
         :class="{ active: selectedTab === 'featured' }"
@@ -22,9 +21,11 @@
         @click="selectTab('bundles')"
         >Bundles</a
       >
+      <span v-if="timeShards !== null">
+        <span>Time Shards: {{ timeShards }}</span>
+      </span>
     </nav>
 
-    <!-- Tab Content -->
     <div v-if="selectedTab === 'featured'" id="featured">
       <h2>Featured Content</h2>
       <div class="pack-container">
@@ -36,10 +37,23 @@
           <div class="pack" :style="{ backgroundImage: `url(${item.image})` }">
             <div class="overlay"></div>
             <h2 class="pack-name">{{ item.name }}</h2>
-            <p class="pack-price">{{ item.price }} Chronos</p>
-            <a class="open-pack" @click="openPack(item.name)"
-              >Open {{ item.type === 'pack' ? 'Pack' : 'Booster' }}</a
-            >
+            <p class="pack-price">
+              {{ item.price }}
+              <img
+                id="chronos_logo"
+                src="../components/images/chronos_logo.png"
+              />
+            </p>
+            <a class="open-pack" @click="openPack(item.name)">
+              Open
+              {{
+                item.type === 'pack'
+                  ? 'Pack'
+                  : item.type === 'booster'
+                    ? 'Booster'
+                    : 'Bundle'
+              }}
+            </a>
           </div>
         </div>
       </div>
@@ -52,7 +66,13 @@
           <div class="pack" :style="{ backgroundImage: `url(${pack.image})` }">
             <div class="overlay"></div>
             <h2 class="pack-name">{{ pack.name }}</h2>
-            <p class="pack-price">{{ pack.price }} Chronos</p>
+            <p class="pack-price">
+              {{ pack.price }}
+              <img
+                id="chronos_logo"
+                src="../components/images/chronos_logo.png"
+              />
+            </p>
             <a class="open-pack" @click="openPack(pack.name)">Open Pack</a>
           </div>
         </div>
@@ -73,7 +93,13 @@
           >
             <div class="overlay"></div>
             <h2 class="pack-name">{{ booster.name }}</h2>
-            <p class="pack-price">{{ booster.price }} Chronos</p>
+            <p class="pack-price">
+              {{ booster.price }}
+              <img
+                id="chronos_logo"
+                src="../components/images/chronos_logo.png"
+              />
+            </p>
             <a class="open-pack" @click="openPack(booster.name)">Open Pack</a>
           </div>
         </div>
@@ -82,24 +108,41 @@
 
     <div v-if="selectedTab === 'bundles'" id="bundles">
       <h2>Bundles</h2>
-      <p>Information about bundles goes here.</p>
+      <div class="pack-container">
+        <div v-for="(bundle, index) in bundles" :key="index" class="pack-item">
+          <div
+            class="pack"
+            :style="{ backgroundImage: `url(${bundle.image})` }"
+          >
+            <div class="overlay"></div>
+            <h2 class="pack-name">{{ bundle.name }}</h2>
+            <p class="pack-price">
+              {{ bundle.price }}
+              <img
+                id="chronos_logo"
+                src="../components/images/chronos_logo.png"
+              />
+            </p>
+            <a class="open-pack" @click="openPack(bundle.name)">Open Pack</a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Modal for displaying generated cards -->
     <div v-if="isModalOpen" class="modal">
       <div class="modal-content">
         <span class="close" @click="closeModal">&times;</span>
         <h2>Opened Pack</h2>
-        <div class="card-container">
-          <div
+        <div class="card-container" ref="cardContainer">
+          <RollCard
             v-for="(card, index) in displayedCards"
             :key="index"
-            class="card"
-          >
-            <h3>{{ card.name }}</h3>
-            <p>Type: {{ card.type }}</p>
-            <p>Value: {{ card.value }}</p>
-          </div>
+            :name="card.name"
+            :type="card.type"
+            :image="card.image"
+            :tier="card.tier"
+            :value="card.value"
+          />
         </div>
         <button class="open-pack-again" @click="openPackAgain">
           Open Pack Again
@@ -110,31 +153,60 @@
 </template>
 
 <script>
+import CardGenerator from '../scripts/generateCardPulls.js'
+import RollCard from '../components/DisplayCard.vue'
+
 export default {
+  components: {
+    RollCard,
+  },
   data() {
     return {
       selectedTab: 'featured',
       packs: [],
       boosters: [],
       featured: [],
+      bundles: [],
       isModalOpen: false,
       displayedCards: [],
+      cardGenerator: new CardGenerator(),
+      currentPackName: '',
+      timeShards: 0, // To store the user's time_shards
     }
   },
   async created() {
     await this.fetchPacks()
+    await this.fetchUserTimeShards() // Fetch user's time_shards
   },
   methods: {
+    async fetchUserTimeShards() {
+      try {
+        const response = await fetch('/api/user/tokens', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming you're sending a token in localStorage
+          },
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch user time_shards')
+        }
+
+        const data = await response.json()
+        this.timeShards = data.time_shards
+      } catch (error) {
+        console.error('Error fetching user time_shards:', error)
+      }
+    },
     async fetchPacks() {
       try {
         const response = await fetch('/src/assets/packs/packs.json')
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
-        }
+        if (!response.ok) throw new Error('Failed to fetch packs')
         const data = await response.json()
         this.packs = data.packs
         this.boosters = data.boosters
         this.featured = data.featured
+        this.bundles = data.bundles
       } catch (error) {
         console.error('Error fetching packs:', error)
       }
@@ -143,49 +215,18 @@ export default {
       this.selectedTab = tabName
     },
     openPack(packName) {
-      console.log(`Opening pack: ${packName}`)
-      this.generateCards(packName) // Generate cards based on the pack
-      this.isModalOpen = true // Open modal
+      this.currentPackName = packName
+      this.generateCards(packName)
+      this.isModalOpen = true
+    },
+    openPackAgain() {
+      this.generateCards(this.currentPackName)
+    },
+    generateCards(packName) {
+      this.displayedCards = this.cardGenerator.generate(packName)
     },
     closeModal() {
       this.isModalOpen = false
-      this.displayedCards = [] // Clear cards
-    },
-    openPackAgain() {
-      this.closeModal() // Close the modal first
-      // You can call the same pack opening logic here again if needed
-      this.openPack('your_pack_name') // Replace 'your_pack_name' with actual name if needed
-    },
-    generateCards(packName) {
-      // Placeholder for card generation logic; you can replace this with actual card generation
-      const cards = [
-        { name: 'Card 1', type: 'Type A', value: 100 },
-        { name: 'Card 2', type: 'Type B', value: 200 },
-        { name: 'Card 3', type: 'Type A', value: 150 },
-        { name: 'Card 4', type: 'Type C', value: 250 },
-        { name: 'Card 5', type: 'Type B', value: 300 },
-        { name: 'Card 6', type: 'Type A', value: 50 },
-      ]
-      this.displayedCards = cards // Set displayed cards
-    },
-  },
-  computed: {
-    featuredItems() {
-      return this.featured
-        .map(item => {
-          const pack = this.packs.find(pack => pack.name === item.name)
-          if (pack) {
-            return { ...pack, type: 'pack' }
-          }
-          const booster = this.boosters.find(
-            booster => booster.name === item.name,
-          )
-          if (booster) {
-            return { ...booster, type: 'booster' }
-          }
-          return null
-        })
-        .filter(item => item)
     },
   },
 }
@@ -195,16 +236,16 @@ export default {
 main {
   width: 100%;
   padding: 0;
-  margin: 0 auto; /* Center the content */
+  margin: 0 auto;
 }
 
 #navbar {
   display: flex;
   justify-content: center;
   background-color: #333;
-  padding: 10px 0; /* Adjust padding as needed */
-  margin: 0 auto; /* Remove margin */
-  width: 100%; /* Ensure it occupies full width */
+  padding: 10px 0;
+  margin: 0 auto;
+  width: 100%;
 }
 
 #navbar a {
@@ -343,13 +384,13 @@ main {
 
 .card-container {
   display: flex;
-  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-x: auto;
   padding: 20px 0;
 }
 
 .card {
-  min-width: 150px; /* Minimum width for card */
-  margin: 0 10px; /* Spacing between cards */
+  min-width: 150px;
+  margin: 0 10px;
   padding: 10px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;

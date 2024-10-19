@@ -14,7 +14,8 @@ html {
 }
 
 :root {
-  --primary: purple;
+  --primary: blue;
+  --primaryh: darkblue;
   --black: rgb(25, 24, 24);
   --white: rgb(240, 234, 234);
   --text: black;

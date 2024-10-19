@@ -5,14 +5,22 @@ class CardGenerator {
     this.randomNumbers = []
   }
 
+  // Helper function to remove or replace spaces in pack names
+  cleanPackName(packName) {
+    return packName.replace(/\s/g, '') // Remove spaces (or use '_' to replace spaces)
+  }
+
   async generateNumbers(packName) {
     try {
       this.randomNumbers = []
 
+      // Clean up the pack name to remove spaces
+      const cleanedPackName = this.cleanPackName(packName)
+
       // Load the JSON file for the specified pack
-      const response = await fetch(`/src/assets/packs/${packName}.json`)
+      const response = await fetch(`/src/assets/packs/${cleanedPackName}.json`)
       if (!response.ok) {
-        throw new Error('Network response was not ok')
+        throw new Error(`Network response was not ok: ${response.statusText}`)
       }
       const data = await response.json()
 
@@ -22,23 +30,23 @@ class CardGenerator {
         !data.pulls ||
         !data.pullRates
       ) {
-        throw new Error('Invalid cards data')
+        throw new Error('Invalid cards data structure')
       }
 
       const numberOfPulls = data.pulls
 
-      // Create a weighted marble array
       const marbleArray = this.createMarbleArray(data.cards, data.pullRates)
 
       for (let i = 0; i < numberOfPulls; i++) {
         const card = this.getRandomCard(marbleArray)
 
         if (!card) {
-          console.error('No valid card found for this pull.')
+          console.error(
+            'No valid card found for this pull. Marble array might be empty.',
+          )
           continue
         }
 
-        // Call the decodeUniqueID function from decode.js
         const decodedCard = decodeUniqueID(card.uniqueID)
 
         if (
@@ -66,7 +74,7 @@ class CardGenerator {
 
       return this.randomNumbers
     } catch (error) {
-      console.error('Error fetching data:', error)
+      console.error('Error fetching data or processing cards:', error)
     }
   }
 
@@ -86,6 +94,10 @@ class CardGenerator {
   }
 
   getRandomCard(marbleArray) {
+    if (marbleArray.length === 0) {
+      console.error('Marble array is empty.')
+      return null
+    }
     const randomIndex = Math.floor(Math.random() * marbleArray.length)
     return marbleArray[randomIndex]
   }
