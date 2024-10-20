@@ -29,11 +29,7 @@
     <div v-if="selectedTab === 'featured'" id="featured">
       <h2>Featured Content</h2>
       <div class="pack-container">
-        <div
-          v-for="(item, index) in featuredItems"
-          :key="index"
-          class="pack-item"
-        >
+        <div v-for="(item, index) in featured" :key="index" class="pack-item">
           <div class="pack" :style="{ backgroundImage: `url(${item.image})` }">
             <div class="overlay"></div>
             <h2 class="pack-name">{{ item.name }}</h2>
@@ -132,8 +128,8 @@
     <div v-if="isModalOpen" class="modal">
       <div class="modal-content">
         <span class="close" @click="closeModal">&times;</span>
-        <h2>Opened Pack</h2>
-        <div class="card-container" ref="cardContainer">
+        <h2>Opened Pack: {{ currentPackName }}</h2>
+        <div class="card-container">
           <RollCard
             v-for="(card, index) in displayedCards"
             :key="index"
@@ -167,66 +163,70 @@ export default {
       boosters: [],
       featured: [],
       bundles: [],
-      isModalOpen: false,
+      isModalOpen: false,s
       displayedCards: [],
       cardGenerator: new CardGenerator(),
       currentPackName: '',
-      timeShards: 0, // To store the user's time_shards
+      timeShards: 0,
     }
   },
   async created() {
-    await this.fetchPacks()
-    await this.fetchUserTimeShards() // Fetch user's time_shards
+    await this.fetchPacks();
+    await this.fetchUserTimeShards();
   },
   methods: {
     async fetchUserTimeShards() {
       try {
-        const response = await fetch('/api/user/tokens', {
+        const response = await fetch('/userData', {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming you're sending a token in localStorage
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        })
+        });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch user time_shards')
+          throw new Error('Failed to fetch user time_shards');
         }
 
-        const data = await response.json()
-        this.timeShards = data.time_shards
+        const data = await response.json();
+        this.timeShards = data.time_shards;
       } catch (error) {
-        console.error('Error fetching user time_shards:', error)
+        console.error('Error fetching user time_shards:', error);
       }
     },
     async fetchPacks() {
       try {
-        const response = await fetch('/src/assets/packs/packs.json')
-        if (!response.ok) throw new Error('Failed to fetch packs')
-        const data = await response.json()
-        this.packs = data.packs
-        this.boosters = data.boosters
-        this.featured = data.featured
-        this.bundles = data.bundles
+        const response = await fetch('/src/assets/packs/packs.json');
+        if (!response.ok) throw new Error('Failed to fetch packs');
+        const data = await response.json();
+        this.packs = data.packs;
+        this.boosters = data.boosters;
+        this.featured = data.featured;
+        this.bundles = data.bundles;
       } catch (error) {
-        console.error('Error fetching packs:', error)
+        console.error('Error fetching packs:', error);
       }
     },
     selectTab(tabName) {
-      this.selectedTab = tabName
+      this.selectedTab = tabName;
     },
-    openPack(packName) {
-      this.currentPackName = packName
-      this.generateCards(packName)
-      this.isModalOpen = true
+    async openPack(packName) {
+      this.currentPackName = packName;
+      this.isModalOpen = true;
+
+      try {
+        // Generate cards for the opened pack
+        const generatedCards = await this.cardGenerator.generateNumbers(packName);
+        this.displayedCards = generatedCards;
+      } catch (error) {
+        console.error(`Error generating cards for ${packName}:`, error);
+      }
     },
     openPackAgain() {
-      this.generateCards(this.currentPackName)
-    },
-    generateCards(packName) {
-      this.displayedCards = this.cardGenerator.generate(packName)
+      this.openPack(this.currentPackName); // Reopens the same pack
     },
     closeModal() {
-      this.isModalOpen = false
+      this.isModalOpen = false;
     },
   },
 }

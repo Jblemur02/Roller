@@ -1,56 +1,36 @@
-// userData.js
 const express = require("express");
-const pool = require("../db");
 const router = express.Router();
+const db = require("../db");
 
-// Middleware to authenticate the user
-const authenticate = (req, res, next) => {
-  const userId = req.session.userId;
+const authenticate = async (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
 
-  if (!userId) {
-    return res.status(401).json({ error: "Authentication required" });
+  if (!token) {
+    return res.status(401).json({ error: "Unauthorized" });
   }
-  req.userId = userId;
-  next();
+
+  try {
+    // Fetch user from the database based on the token
+    const [user] = await db.query("SELECT * FROM users WHERE token = ?", [
+      token,
+    ]);
+
+    if (!user) {
+      return res.status(401).json({ error: "Invalid token" });
+    }
+
+    req.user = user; // Attach user data to the request for use in other routes
+    next();
+  } catch (error) {
+    console.error("Error in authentication:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
 
-// GET method to retrieve user data
+// Route to get user time_shards
 router.get("/userdata", authenticate, (req, res) => {
-  const userId = req.userId;
-
-  pool.query(
-    "SELECT level, affinity, chronos, time_shards FROM users WHERE id = ?",
-    [userId],
-    (err, results) => {
-      if (err) {
-        return res.status(500).json({ error: "Database error" });
-      }
-      if (results.length === 0) {
-        return res.status(404).json({ error: "User not found" });
-      }
-      res.json(results[0]);
-    }
-  );
-});
-
-// POST method to update user data
-router.post("/userdata", authenticate, (req, res) => {
-  const { level, affinity, chronos, time_shards } = req.body;
-  const userId = req.userId;
-
-  pool.query(
-    "UPDATE users SET level = ?, affinity = ?, chronos = ?, time_shards = ? WHERE id = ?",
-    [level, affinity, chronos, time_shards, userId],
-    (err, results) => {
-      if (err) {
-        return res.status(500).json({ error: "Database error" });
-      }
-      if (results.affectedRows === 0) {
-        return res.status(404).json({ error: "User not found" });
-      }
-      res.json({ message: "User data updated successfully" });
-    }
-  );
+  const timeShards = req.user.time_shards; // User data already fetched in middleware
+  res.json({ time_shards: timeShards });
 });
 
 module.exports = router;

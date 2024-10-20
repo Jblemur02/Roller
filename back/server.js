@@ -18,7 +18,7 @@ app.use(express.json());
 
 // Root route to check if the server is running
 app.get("/", (req, res) => {
-  res.send("Server is running...");
+  res.send(`Server is running on port ${PORT}...`);
 });
 
 // User routes
