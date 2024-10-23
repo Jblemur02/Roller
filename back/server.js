@@ -1,9 +1,10 @@
 // server.js
 const express = require("express");
 const cors = require("cors");
-const app = express();
+const session = require("express-session");
 const usersRouter = require("./routes/users");
-const userDataRouter = require("./routes/userData");
+
+const app = express();
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -11,10 +12,16 @@ const corsOptions = {
   allowedHeaders: "Content-Type",
 };
 
-app.use("/users/data", userDataRouter);
-
 app.use(cors(corsOptions));
 app.use(express.json());
+
+app.use(
+  session({
+    secret: "simple-secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // Root route to check if the server is running
 app.get("/", (req, res) => {

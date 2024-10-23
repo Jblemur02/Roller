@@ -25,27 +25,20 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex' // Import useStore to access Vuex
 
-const isAuthenticated = ref(!!localStorage.getItem('token'))
-
+const store = useStore() // Access the Vuex store
 const router = useRouter()
 
-// Watch localStorage for token changes
-watch(
-  () => localStorage.getItem('token'),
-  newToken => {
-    isAuthenticated.value = !!newToken
-  },
-  { immediate: true },
-)
+// Use Vuex state to determine if the user is authenticated
+const isAuthenticated = computed(() => store.state.isAuthenticated)
 
 // Logout function
 function logout() {
-  localStorage.removeItem('token')
-  isAuthenticated.value = false
-  router.push('/login')
+  store.dispatch('logout') // Dispatch Vuex logout action
+  router.push('/login') // Redirect to login page
 }
 </script>
 

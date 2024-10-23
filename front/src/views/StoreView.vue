@@ -1,29 +1,33 @@
 <template>
   <main>
     <nav id="navbar">
-      <a
-        :class="{ active: selectedTab === 'featured' }"
-        @click="selectTab('featured')"
-        >Featured</a
-      >
-      <a
-        :class="{ active: selectedTab === 'packs' }"
-        @click="selectTab('packs')"
-        >Packs</a
-      >
-      <a
-        :class="{ active: selectedTab === 'booster' }"
-        @click="selectTab('booster')"
-        >Booster</a
-      >
-      <a
-        :class="{ active: selectedTab === 'bundles' }"
-        @click="selectTab('bundles')"
-        >Bundles</a
-      >
-      <span v-if="timeShards !== null">
-        <span>Time Shards: {{ timeShards }}</span>
-      </span>
+      <div id="nav-links">
+        <a
+          :class="{ active: selectedTab === 'featured' }"
+          @click="selectTab('featured')"
+          >Featured</a
+        >
+        <a
+          :class="{ active: selectedTab === 'packs' }"
+          @click="selectTab('packs')"
+          >Packs</a
+        >
+        <a
+          :class="{ active: selectedTab === 'booster' }"
+          @click="selectTab('booster')"
+          >Booster</a
+        >
+        <a
+          :class="{ active: selectedTab === 'bundles' }"
+          @click="selectTab('bundles')"
+          >Bundles</a
+        >
+      </div>
+      <div>
+        <span v-if="user.time_shards !== null">
+          <span>Time Shards: {{ user.time_shards }}</span>
+        </span>
+      </div>
     </nav>
 
     <div v-if="selectedTab === 'featured'" id="featured">
@@ -151,10 +155,20 @@
 <script>
 import CardGenerator from '../scripts/generateCardPulls.js'
 import RollCard from '../components/DisplayCard.vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
   components: {
     RollCard,
+  },
+  setup() {
+    const store = useStore()
+    const user = computed(() => store.state.userData)
+
+    return {
+      user,
+    }
   },
   data() {
     return {
@@ -163,70 +177,82 @@ export default {
       boosters: [],
       featured: [],
       bundles: [],
-      isModalOpen: false,s
+      isModalOpen: false,
       displayedCards: [],
       cardGenerator: new CardGenerator(),
       currentPackName: '',
-      timeShards: 0,
     }
   },
   async created() {
-    await this.fetchPacks();
-    await this.fetchUserTimeShards();
+    await this.fetchPacks()
   },
   methods: {
-    async fetchUserTimeShards() {
-      try {
-        const response = await fetch('/userData', {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch user time_shards');
-        }
-
-        const data = await response.json();
-        this.timeShards = data.time_shards;
-      } catch (error) {
-        console.error('Error fetching user time_shards:', error);
-      }
-    },
     async fetchPacks() {
       try {
-        const response = await fetch('/src/assets/packs/packs.json');
-        if (!response.ok) throw new Error('Failed to fetch packs');
-        const data = await response.json();
-        this.packs = data.packs;
-        this.boosters = data.boosters;
-        this.featured = data.featured;
-        this.bundles = data.bundles;
+        const response = await fetch('/src/assets/packs/packs.json')
+        if (!response.ok) throw new Error('Failed to fetch packs')
+        const data = await response.json()
+        this.packs = data.packs
+        this.boosters = data.boosters
+        this.featured = data.featured
+        this.bundles = data.bundles
+        console.log(this.user.time_shards)
       } catch (error) {
-        console.error('Error fetching packs:', error);
+        console.error('Error fetching packs:', error)
       }
     },
     selectTab(tabName) {
-      this.selectedTab = tabName;
+      this.selectedTab = tabName
+    },
+    async generateCards(selectedPack) {
+      try {
+        this.displayedCards = await this.cardGenerator.generateNumbers(
+          selectedPack.name,
+        )
+      } catch (error) {
+        console.error('Error generating cards:', error)
+        throw error
+      }
     },
     async openPack(packName) {
-      this.currentPackName = packName;
-      this.isModalOpen = true;
+      const selectedPack =
+        this.featured.find(pack => pack.name === packName) ||
+        this.packs.find(pack => pack.name === packName) ||
+        this.boosters.find(pack => pack.name === packName) ||
+        this.bundles.find(pack => pack.name === packName)
 
-      try {
-        // Generate cards for the opened pack
-        const generatedCards = await this.cardGenerator.generateNumbers(packName);
-        this.displayedCards = generatedCards;
-      } catch (error) {
-        console.error(`Error generating cards for ${packName}:`, error);
+      if (!selectedPack) {
+        alert('Pack not found')
+        return
+      }
+
+      const packPrice = selectedPack.price
+      this.currentPackName = packName
+
+      console.log('Current Time Shards:', this.user.time_shards)
+      console.log('Pack Price:', packPrice)
+
+      if (this.user.time_shards >= packPrice) {
+        console.log('Before Deduction:', this.user.time_shards)
+        this.$store.commit('updateTimeShards', -packPrice) // Pass in negative to deduct
+        await this.$store.dispatch('updateUserData') // Update in the database
+        console.log('After Deduction:', this.user.time_shards)
+        this.isModalOpen = true
+        try {
+          await this.generateCards(selectedPack)
+        } catch (error) {
+          console.error('Error generating cards:', error)
+          alert('There was an error opening the pack. Please try again.')
+        }
+      } else {
+        alert('Not enough time shards to open this pack')
       }
     },
     openPackAgain() {
-      this.openPack(this.currentPackName); // Reopens the same pack
+      this.openPack(this.currentPackName)
     },
     closeModal() {
-      this.isModalOpen = false;
+      this.isModalOpen = false
     },
   },
 }
@@ -242,10 +268,20 @@ main {
 #navbar {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background-color: #333;
-  padding: 10px 0;
+  padding: 0 0 10px;
   margin: 0 auto;
   width: 100%;
+}
+
+#nav-links {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  margin: 0;
+  padding: 14px 0;
 }
 
 #navbar a {
@@ -256,7 +292,7 @@ main {
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
-  flex-shrink: 0; /* Prevents flex items from shrinking */
+  flex-shrink: 0;
 }
 
 #navbar a.active,
@@ -266,26 +302,26 @@ main {
 
 .pack-container {
   display: flex;
-  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-x: auto;
   padding: 20px;
-  justify-content: center; /* Center packs horizontally */
+  justify-content: center;
 }
 
 .pack-item {
-  flex: 0 0 auto; /* Prevent flex items from shrinking */
-  margin: 0 10px; /* Add spacing between pack items */
+  flex: 0 0 auto;
+  margin: 0 10px;
 }
 
 .pack {
-  border: 2px solid #fff; /* Add border to the pack */
+  border: 2px solid #fff;
   border-radius: 10px;
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-  width: 300px; /* Width of the pack */
-  height: 400px; /* Height of the pack */
+  width: 300px;
+  height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* Align content to the bottom */
+  justify-content: flex-end;
   align-items: center;
   background-size: cover;
   background-position: center;
@@ -294,18 +330,13 @@ main {
   transition:
     transform 0.3s,
     box-shadow 0.3s;
-  overflow: hidden; /* Hide overflow */
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.7
-  ); /* Add background color for darker effect */
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .pack:hover {
-  transform: scale(1.05); /* Scale up on hover */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .overlay {
@@ -314,22 +345,22 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
-  z-index: 1; /* Layer above background image */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .pack-name {
-  font-size: 24px; /* Larger font for the pack name */
+  font-size: 24px;
   font-weight: bold;
   margin: 10px 0;
   position: relative;
-  z-index: 2; /* Layer above overlay */
+  z-index: 2;
 }
 
 .pack-price {
-  font-size: 18px; /* Larger font for the price */
+  font-size: 18px;
   position: relative;
-  z-index: 2; /* Layer above overlay */
+  z-index: 2;
 }
 
 .open-pack {
@@ -339,17 +370,17 @@ main {
   box-shadow: var(--shadow);
   padding: 12px 24px;
   border-radius: 5px;
-  font-size: 16px; /* Larger font size for the button */
+  font-size: 16px;
   transition:
     background-color 0.3s,
     transform 0.3s;
   position: relative;
-  z-index: 2; /* Layer above overlay */
+  z-index: 2;
 }
 
 .open-pack:hover {
   background-color: darkblue;
-  transform: scale(1.05); /* Scale up on hover */
+  transform: scale(1.05);
 }
 
 .modal {
@@ -358,11 +389,11 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it appears above other content */
+  z-index: 1000;
 }
 
 .modal-content {
@@ -371,7 +402,7 @@ main {
   border-radius: 10px;
   position: relative;
   max-width: 800px;
-  width: 90%; /* Responsive width */
+  width: 90%;
 }
 
 .close {

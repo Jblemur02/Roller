@@ -38,15 +38,21 @@
   "featured": [
     {
       "number": 1,
-      "name": "Basic Pack"
+      "price": 1,
+      "name": "Basic Pack",
+      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_pack.png"
     },
     {
       "number": 2,
-      "name": "Basic Booster Pack"
+      "price": 100,
+      "name": "Basic Booster Pack",
+      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_booster.png"
     },
     {
       "number": 3,
-      "name": "Basic Bundle"
+      "name": "Basic Bundle",
+      "price": 50,
+      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_bundle.png"
     }
   ]
 }

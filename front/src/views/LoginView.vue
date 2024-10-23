@@ -64,13 +64,14 @@
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
     return {
       selection: 'login',
       loginForm: {
-        username: '', // Changed to username
+        username: '',
         password: '',
       },
       registerForm: {
@@ -83,19 +84,28 @@ export default {
   },
   computed: {
     isAuthenticated() {
-      return !!localStorage.getItem('token')
+      return this.$store.state.isAuthenticated
     },
   },
   methods: {
+    ...mapActions(['login', 'register']),
+
     async loginUser() {
       try {
         const response = await axios.post(
           'http://localhost:3000/users/login',
           this.loginForm,
         )
-        const { username } = response.data
-        localStorage.setItem('username', username)
-        localStorage.setItem('token', 'dummy-token')
+
+        // Save user data in localStorage
+        localStorage.setItem('token', response.data.token) // Ensure your backend returns a token
+        localStorage.setItem('username', response.data.username)
+        localStorage.setItem('time_shards', response.data.time_shards)
+        localStorage.setItem('level', response.data.level)
+        localStorage.setItem('chronos', response.data.chronos)
+
+        // Commit user data to Vuex
+        this.login(response.data)
         this.$router.push('/account')
       } catch (error) {
         console.error(error.response.data)
@@ -112,6 +122,7 @@ export default {
           'http://localhost:3000/users/register',
           this.registerForm,
         )
+
         alert('Registration successful')
         this.selection = 'login'
       } catch (error) {

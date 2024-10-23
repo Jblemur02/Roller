@@ -37,13 +37,6 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: () => import('../views/AccountView.vue'),
-      beforeEnter: (to, from, next) => {
-        const token = localStorage.getItem('token')
-        if (!token) {
-          return next('/') // Redirect to login page if no token
-        }
-        next() // Proceed to account page
-      },
     },
   ],
 })
