@@ -185,6 +185,7 @@ export default {
   },
   async created() {
     await this.fetchPacks()
+    await this.$store.dispatch('fetchUserData')
   },
   methods: {
     async fetchPacks() {

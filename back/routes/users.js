@@ -97,6 +97,23 @@ router.post("/updateUser", (req, res) => {
   });
 });
 
+// Route to fetch a single user’s data by ID
+router.get("/:id", (req, res) => {
+  const userId = req.params.id;
+
+  pool.query(
+    "SELECT id, username, email, time_shards, level, chronos FROM users WHERE id = ?",
+    [userId],
+    (err, results) => {
+      if (err) return res.status(500).json({ error: "Database error" });
+      if (results.length === 0) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      res.json(results[0]);
+    }
+  );
+});
+
 // Route to get all users (simple public list, no authentication)
 router.get("/", (req, res) => {
   pool.query("SELECT id, username, email FROM users", (err, results) => {

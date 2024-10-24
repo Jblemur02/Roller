@@ -1,3 +1,4 @@
+// store/index.js
 import { createStore } from 'vuex'
 
 export default createStore({
@@ -17,9 +18,14 @@ export default createStore({
       localStorage.removeItem('userData')
     },
     updateTimeShards(state, amount) {
-      state.userData.time_shards += amount
+      if (state.userData) {
+        state.userData.time_shards += amount
+        // Update localStorage to reflect the change
+        localStorage.setItem('userData', JSON.stringify(state.userData))
+      }
     },
   },
+
   actions: {
     login({ commit }, user) {
       commit('setUser', user)
@@ -29,7 +35,7 @@ export default createStore({
       commit('clearUser')
     },
     async updateUserData({ state }) {
-      if (!state.userData.userId || state.userData.time_shards === undefined) {
+      if (!state.userData?.userId || state.userData.time_shards === undefined) {
         console.error('Missing required data for update')
         return
       }
@@ -55,6 +61,22 @@ export default createStore({
         console.log('User data updated successfully in the database')
       } catch (error) {
         console.error('Error updating user data:', error)
+      }
+    },
+    async fetchUserData({ commit }) {
+      try {
+        const userId = localStorage.getItem('id')
+        if (!userId) {
+          throw new Error('User ID not found in localStorage')
+        }
+        const response = await fetch(`http://localhost:3000/users/${userId}`)
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data from server')
+        }
+        const userData = await response.json()
+        commit('setUser', userData)
+      } catch (error) {
+        console.error('Error fetching user data:', error)
       }
     },
   },
