@@ -32,14 +32,14 @@ export default createStore({
       try {
         console.log('User Data Before Update:', state.userData) // Log the user data
 
-        const response = await fetch('/users/updateUser', {
+        const response = await fetch('http://localhost:3000/users/updateUser', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: state.userData.id, // Ensure you send the user ID
-            time_shards: state.userData.time_shards, // Send the updated time shards
+            id: state.userData.id,
+            time_shards: state.userData.time_shards,
           }),
         })
 

@@ -103,6 +103,8 @@ export default {
         localStorage.setItem('time_shards', response.data.time_shards)
         localStorage.setItem('level', response.data.level)
         localStorage.setItem('chronos', response.data.chronos)
+        localStorage.setItem('id', response.data.id)
+        console.log(response.data)
 
         // Commit user data to Vuex
         this.login(response.data)
