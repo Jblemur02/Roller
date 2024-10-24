@@ -29,6 +29,10 @@ export default createStore({
       commit('clearUser')
     },
     async updateUserData({ state }) {
+      if (!state.userData.userId || state.userData.time_shards === undefined) {
+        console.error('Missing required data for update')
+        return
+      }
       try {
         console.log('User Data Before Update:', state.userData) // Log the user data
 
@@ -38,7 +42,7 @@ export default createStore({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: state.userData.id,
+            id: state.userData.userId, // Correct key name for ID
             time_shards: state.userData.time_shards,
           }),
         })
