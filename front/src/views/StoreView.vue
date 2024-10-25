@@ -215,6 +215,7 @@ export default {
         throw error
       }
     },
+
     async openPack(packName) {
       const selectedPack =
         this.featured.find(pack => pack.name === packName) ||
@@ -230,17 +231,29 @@ export default {
       const packPrice = selectedPack.price
       this.currentPackName = packName
 
-      console.log('Current Time Shards:', this.user.time_shards)
-      console.log('Pack Price:', packPrice)
-
       if (this.user.time_shards >= packPrice) {
-        console.log('Before Deduction:', this.user.time_shards)
-        this.$store.commit('updateTimeShards', -packPrice) // Pass in negative to deduct
+        this.$store.commit('updateTimeShards', -packPrice)
         await this.$store.dispatch('updateUserData') // Update in the database
-        console.log('After Deduction:', this.user.time_shards)
         this.isModalOpen = true
+
         try {
           await this.generateCards(selectedPack)
+          // After generating cards, update the user's cards in the database
+          for (const card of this.displayedCards) {
+            console.log('User ID:', this.user.userId) // Check user ID
+            console.log('Card Unique ID:', card.uid) // Check card UID
+
+            await fetch('http://localhost:3000/users/updateUserCards', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                userId: this.user.userId, // Ensure user ID is passed correctly
+                uniqueID: card.uid, // Pass the unique ID of the card
+              }),
+            })
+          }
         } catch (error) {
           console.error('Error generating cards:', error)
           alert('There was an error opening the pack. Please try again.')
@@ -248,6 +261,14 @@ export default {
       } else {
         alert('Not enough time shards to open this pack')
       }
+    },
+
+    async updateCardStorage(displayedCards) {
+      // Create an array of unique IDs from the displayed cards
+      const cardUpdates = displayedCards.map(card => ({ uid: card.uniqueID }))
+
+      // Call a Vuex action to update the user's card storage in the database
+      await this.$store.dispatch('updateUserCards', cardUpdates)
     },
     openPackAgain() {
       this.openPack(this.currentPackName)

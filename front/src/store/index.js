@@ -24,6 +24,9 @@ export default createStore({
         localStorage.setItem('userData', JSON.stringify(state.userData))
       }
     },
+    setUserCollection(state, payload) {
+      state.userCollection = payload
+    },
   },
 
   actions: {
@@ -77,6 +80,39 @@ export default createStore({
         commit('setUser', userData)
       } catch (error) {
         console.error('Error fetching user data:', error)
+      }
+    },
+    async updateUserCards({ state }, cardUpdates) {
+      if (!state.userData?.userId) {
+        console.error('User ID is missing')
+        return
+      }
+
+      const userId = state.userData.userId
+
+      // Prepare the request to update card storage
+      try {
+        const response = await fetch(
+          `http://localhost:3000/users/${userId}/updateCards`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ cardUpdates }),
+          },
+        )
+
+        if (!response.ok) {
+          const errorDetails = await response.json()
+          throw new Error(
+            `Failed to update user cards: ${errorDetails.message}`,
+          )
+        }
+
+        console.log('User card storage updated successfully')
+      } catch (error) {
+        console.error('Error updating user cards:', error)
       }
     },
   },

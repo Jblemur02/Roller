@@ -69,6 +69,7 @@ class CardGenerator {
           value: decodedCard.cardMultiplier * decodedCard.tier.cost,
           type: decodedCard.type || 'Unknown',
           image: decodedCard.cardImage || 'default-image.png',
+          uid: card.uniqueID,
         })
       }
 

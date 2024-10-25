@@ -41,12 +41,13 @@
     <div class="content" v-if="selectedTab === 'profile'">
       <h2>Profile</h2>
       <p>{{ user.username }}'s profile content</p>
-      <p>your Id is{{ user.id }}</p>
+      <p>Your ID is {{ user.id }}</p>
     </div>
 
     <div class="content" v-if="selectedTab === 'collection'">
       <h2>Collection</h2>
-      <p>{{ user.username }}'s collection content</p>
+      <CardCollection />
+      <!-- CardCollection component integrated here -->
     </div>
 
     <div class="content" v-if="selectedTab === 'settings'">
@@ -64,8 +65,12 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import CardCollection from '../components/CardCollection.vue' // Adjust the path as necessary
 
 export default {
+  components: {
+    CardCollection, // Register the CardCollection component
+  },
   setup() {
     const store = useStore()
     const user = computed(() => store.state.userData || { username: 'Guest' })
