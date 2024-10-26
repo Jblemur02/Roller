@@ -10,10 +10,9 @@
     <div id="middle">
       <router-link to="/">Home</router-link>
       <router-link to="/catalog">Catalog</router-link>
-      <span v-if="isAuthenticated">
-        <router-link to="/store">Store</router-link>
-        <router-link to="/account">Account</router-link>
-      </span>
+      <router-link v-if="isAuthenticated" to="/play">Play</router-link>
+      <router-link v-if="isAuthenticated" to="/store">Store</router-link>
+      <router-link v-if="isAuthenticated" to="/account">Account</router-link>
     </div>
     <div id="right">
       <router-link v-if="!isAuthenticated" to="/login"
@@ -29,7 +28,7 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex' // Import useStore to access Vuex
 
-const store = useStore() // Access the Vuex store
+const store = useStore()
 const router = useRouter()
 
 // Use Vuex state to determine if the user is authenticated
@@ -45,24 +44,38 @@ function logout() {
 <style scoped>
 main {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 90%;
-  background-color: var(--black);
+  padding: 15px 30px;
+  background-color: var(--dark-gray);
   box-shadow: var(--shadow);
-  margin: 0 auto;
+  border-radius: 8px;
+  width: 90%;
+  margin: 20px auto;
 }
 
-a {
+#chronos_logo {
+  height: 50px;
+  width: auto;
+}
+
+a,
+router-link {
   margin: 0 15px;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   text-decoration: none;
   color: var(--inverse);
-  transition: color 0.3s ease;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
-a:hover {
-  color: var(--primary);
+a:hover,
+router-link:hover {
+  background-color: var(--primary);
+  color: white;
 }
 
 #left {
@@ -70,10 +83,15 @@ a:hover {
 }
 
 #middle {
-  margin: 0 auto;
+  display: flex;
+  gap: 15px;
 }
 
 #right {
   margin-left: auto;
+}
+
+#right a {
+  font-weight: bold;
 }
 </style>
