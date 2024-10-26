@@ -1,12 +1,7 @@
 {
-  "cards": [
-    {
-      "uid": "00000-000-00-000",
-      "quanttity": 4
-    },
-    {
-      "uid": "00000-000-00-001",
-      "quantity": 6
-    }
-  ]
+  "message": "Logged in successfully",
+  "userId": 2,
+  "username": "jethro",
+  "email": "blemurjethro87@gmail.com",
+  "time_shards": 4
 }

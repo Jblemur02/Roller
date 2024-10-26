@@ -13,10 +13,6 @@ export function decodeUniqueID(uniqueID) {
   const mainTypeID = typeID.charAt(0)
   const subTypeCode = typeID.slice(1)
 
-  console.log(
-    `Decoding TypeID: ${typeID}, MainTypeID: ${mainTypeID}, SubTypeCode: ${subTypeCode}`,
-  )
-
   let mainType = 'Unknown'
   let subType = 'Unknown'
 

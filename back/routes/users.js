@@ -177,6 +177,28 @@ router.post("/updateUserCards", async (req, res) => {
   }
 });
 
+// Route to fetch a single user’s data by ID
+router.get("/:id/cards", async (req, res) => {
+  try {
+    const userId = parseInt(req.params.id); // Ensure userId is an integer
+    console.log("Fetching cards for userId:", userId);
+
+    const collection = await connectDB(); // Connect to MongoDB and get the collection
+    const userCards = await collection.findOne({ id: userId });
+
+    if (!userCards || !userCards.cards) {
+      console.log("No cards found for this user.");
+      return res.status(404).json({ message: "No cards found for this user" });
+    }
+
+    console.log("User Cards:", userCards.cards);
+    res.json(userCards.cards);
+  } catch (error) {
+    console.error("Error fetching cards:", error); // Log the error
+    res.status(500).send("Error fetching cards");
+  }
+});
+
 // Route to update user cards
 router.post("/:id/updateCards", async (req, res) => {
   const userId = req.params.id;
