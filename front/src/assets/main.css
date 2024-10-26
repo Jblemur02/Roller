@@ -18,11 +18,37 @@ html {
   --primaryh: darkblue;
   --black: rgb(25, 24, 24);
   --white: rgb(240, 234, 234);
+  --light-gray: rgb(143, 139, 139);
   --text: black;
   --inverse: white;
   --shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
     rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
     rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-gray); /* Background of the scrollbar track */
+  border-radius: 8px; /* Rounded corners for the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary); /* Color of the scrollbar thumb */
+  border-radius: 8px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primaryh); /* Color when hovering over the thumb */
+}
+
+/* For Firefox */
+.scrollable {
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: var(--primary) var(--light-gray); /* Thumb and track colors */
 }
 
 a {

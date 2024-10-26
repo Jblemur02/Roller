@@ -1,39 +1,80 @@
 <template>
   <main>
-    <h2>Your Card Collection</h2>
-    <div>
-      <button @click="sortCards('quantity')">Sort by Quantity</button>
-      <button @click="sortCards('tier')">Sort by Tier</button>
-    </div>
-
-    <div id="card-collection">
-      <div
-        v-for="(card, index) in decodedCards"
-        :key="index"
-        class="card-item"
-        :style="{
-          color: card.color,
-          boxShadow: card.aura,
-          background:
-            card.backgroundType === 'image'
-              ? `url(${card.background}) no-repeat center center / cover`
-              : card.background,
-        }"
+    <aside>
+      <a
+        :class="{ active: selectedTab === 'profile' }"
+        @click="selectTab('profile')"
+        >Profile</a
       >
-        <img :src="card.image" alt="" class="card-image" />
-        <div class="text">
-          <p class="card-name" :style="{ fontFamily: card.font }">
-            {{ card.name }}
-          </p>
-          <p class="card-tier" :style="{ fontFamily: card.font }">
-            {{ card.tierName }}
-          </p>
-          <p class="card-quantity">X{{ card.quantity }}</p>
-          <div class="value">
-            <p class="card-value">Card value: {{ card.value.toFixed(2) }}</p>
-            <p v-if="card.quantity > 1" class="bulk-value">
-              Bulk value: {{ (card.value * card.quantity).toFixed(2) }}
-            </p>
+      <a
+        :class="{ active: selectedTab === 'collection' }"
+        @click="selectTab('collection')"
+        >Collection</a
+      >
+      <a :class="{ active: selectedTab === 'gear' }" @click="selectTab('gear')"
+        >Gear</a
+      >
+      <a :class="{ active: selectedTab === 'deck' }" @click="selectTab('deck')"
+        >Deck</a
+      >
+    </aside>
+    <div id="content">
+      <div v-if="selectedTab === 'profile'" id="profile">
+        <p>This is the profile view</p>
+      </div>
+
+      <div v-if="selectedTab === 'gear'" id="gear">
+        <div class="character"></div>
+      </div>
+
+      <div v-if="selectedTab === 'deck'" id="deck"></div>
+
+      <div v-if="selectedTab === 'collection'" id="collection">
+        <h2>Your Card Collection</h2>
+        <div id="card-sorting">
+          <a href="#" @click.prevent="sortCards('quantity')"
+            >Sort by Quantity</a
+          >
+          <a href="#" @click.prevent="sortCards('tier')">Sort by Tier</a>
+          <a href="#" @click.prevent="sortCards('totalValue')"
+            >Sort by Total Value</a
+          >
+          <a href="#" @click.prevent="sortCards('value')">Sort by Value</a>
+          <a href="#" @click.prevent="sortCards('name')">Sort by Name</a>
+          <a href="#" @click.prevent="sortCards('type')">Sort by Type</a>
+        </div>
+        <div id="card-collection">
+          <div
+            v-for="(card, index) in decodedCards"
+            :key="index"
+            class="card-item"
+            :style="{
+              color: card.color,
+              boxShadow: card.aura,
+              background:
+                card.backgroundType === 'image'
+                  ? `url(${card.background}) no-repeat center center / cover`
+                  : card.background,
+            }"
+          >
+            <img :src="card.image" alt="" class="card-image" />
+            <div class="text">
+              <p class="card-name" :style="{ fontFamily: card.font }">
+                {{ card.name }}
+              </p>
+              <p class="card-tier" :style="{ fontFamily: card.font }">
+                {{ card.tierName }}
+              </p>
+              <p class="card-quantity">X{{ card.quantity }}</p>
+              <div class="value">
+                <p class="card-value">
+                  Card value: {{ card.value.toFixed(2) }}
+                </p>
+                <p v-if="card.quantity > 1" class="bulk-value">
+                  Bulk value: {{ (card.value * card.quantity).toFixed(2) }}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -51,6 +92,7 @@ export default {
     return {
       decodedCards: [],
       userCards: [],
+      selectedTab: 'collection',
     }
   },
   setup() {
@@ -65,6 +107,9 @@ export default {
     async sortCards(sortBy) {
       const cardGenerator = new CardGenerator(this.userCards) // Use this.userCards
       this.decodedCards = await cardGenerator.processUserCollection(sortBy)
+    },
+    selectTab(tabName) {
+      this.selectedTab = tabName
     },
   },
   computed: {
@@ -82,7 +127,7 @@ export default {
       this.userCards = await response.json() // Store fetched cards in userCards
 
       const cardGenerator = new CardGenerator(this.userCards)
-      this.decodedCards = await cardGenerator.processUserCollection('tier')
+      this.decodedCards = await cardGenerator.processUserCollection('name')
     } catch (error) {
       console.error('Error fetching cards:', error)
     }
@@ -96,8 +141,52 @@ main {
   text-align: center;
   height: 100%;
   display: flex;
-  flex-direction: column;
   padding: 1%;
+}
+
+#content {
+  flex-grow: 1;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  background-color: var(--card-bg, #f5f5f5);
+  padding: 20px;
+  border-left: 2px solid var(--primary);
+  height: 50vh;
+}
+
+aside a {
+  margin: 10px 0;
+  font-size: 1.2em;
+  color: var(--text-color, #333);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  padding: 10px; /* Add padding for better click area */
+  border-radius: 5px; /* Rounded corners */
+}
+
+aside a:hover {
+  background-color: var(--primary);
+  color: var(--inverse); /* Change text color on hover */
+}
+
+aside a.active {
+  background-color: var(--primary); /* Highlight active tab */
+  color: var(--inverse);
+}
+
+#card-sorting {
+  margin: 20px 0; /* Space between sorting links and card collection */
+}
+
+#card-sorting a {
+  margin-right: 15px; /* Space between sorting options */
+  font-size: 1em;
+  color: var(--inverse);
+  text-decoration: underline;
 }
 
 #card-collection {

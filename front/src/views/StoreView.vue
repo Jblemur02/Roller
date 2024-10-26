@@ -50,7 +50,7 @@
                 item.type === 'pack'
                   ? 'Pack'
                   : item.type === 'booster'
-                    ? 'Booster'
+                    ? 'Booster Pack'
                     : 'Bundle'
               }}
             </a>
@@ -287,6 +287,12 @@ main {
   margin: 0 auto;
 }
 
+h2 {
+  text-align: center;
+  color: var(--inverse);
+  margin: 1% auto 0;
+}
+
 #navbar {
   display: flex;
   justify-content: center;
@@ -295,7 +301,8 @@ main {
   background-color: #333;
   padding: 0 0 10px;
   margin: 0 auto;
-  width: 100%;
+  width: 80%;
+  border-radius: 10px;
 }
 
 #nav-links {

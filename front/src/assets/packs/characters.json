@@ -1,0 +1,39 @@
+{
+  "main": [
+    {
+      "head": "helmet",
+      "body": "body",
+      "legs": "legs",
+      "feet": "feet",
+      "left": "sheild",
+      "right": "sword",
+      "class": "hero"
+    }
+  ],
+  "minions": [
+    {
+      "uId": "00012",
+      "_id": 1,
+      "level": 1,
+      "head": "minionHead",
+      "body": "minionBody",
+      "legs": "minionLegs",
+      "feet": "minionFeet",
+      "left": "minionShield",
+      "right": "minionSword",
+      "type": "minion"
+    },
+    {
+      "uId": "00013",
+      "_id": 2,
+      "level": 1,
+      "head": "minionHead2",
+      "body": "minionBody2",
+      "legs": "minionLegs2",
+      "feet": "minionFeet2",
+      "left": "minionShield2",
+      "right": "minionSword2",
+      "type": "minion"
+    }
+  ]
+}

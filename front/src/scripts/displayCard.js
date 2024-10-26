@@ -31,7 +31,8 @@ class CardGenerator {
           type: type || 'Unknown',
           image: cardImage || 'default-image.png',
           uid: card.uid,
-          quantity: card.quantity, // Include quantity for each card
+          quantity: card.quantity,
+          totalValue: card.quantity * (cardMultiplier * tier.cost),
         })
       }
 
@@ -50,7 +51,16 @@ class CardGenerator {
       this.decodedCards.sort((a, b) => b.quantity - a.quantity) // Sort by quantity descending
     } else if (sortBy === 'tier') {
       this.decodedCards.sort((a, b) => a.tierValue - b.tierValue) // Sort by tier ascending (assuming tierValue is numerical)
+    } else if (sortBy === 'totalValue') {
+      this.decodedCards.sort((a, b) => b.totalValue - a.totalValue) // Sort by total value descending
+    } else if (sortBy === 'name') {
+      this.decodedCards.sort((a, b) => a.name.localeCompare(b.name)) // Sort by name ascending
+    } else if (sortBy === 'type') {
+      this.decodedCards.sort((a, b) => a.type.localeCompare(b.type)) // Sort by type ascending
+    } else if (sortBy === 'value') {
+      this.decodedCards.sort((a, b) => b.value - a.value) // Sort by card value descending
     }
+
     // You can add more sorting options here in the future
   }
 }

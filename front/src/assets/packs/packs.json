@@ -40,17 +40,20 @@
       "number": 1,
       "price": 1,
       "name": "Basic Pack",
+      "type": "pack",
       "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_pack.png"
     },
     {
       "number": 2,
       "price": 100,
       "name": "Basic Booster Pack",
+      "type": "booster",
       "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_booster.png"
     },
     {
       "number": 3,
       "name": "Basic Bundle",
+      "type": "bundle",
       "price": 50,
       "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_bundle.png"
     }

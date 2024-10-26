@@ -24,9 +24,9 @@ const router = createRouter({
       component: StoreView,
     },
     {
-      path: '/catalog',
-      name: 'catalog',
-      component: () => import('../views/CatalogView.vue'),
+      path: '/auction',
+      name: 'auction',
+      component: () => import('../views/AuctionView.vue'),
     },
     {
       path: '/login',
