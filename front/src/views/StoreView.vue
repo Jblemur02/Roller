@@ -264,10 +264,8 @@ export default {
     },
 
     async updateCardStorage(displayedCards) {
-      // Create an array of unique IDs from the displayed cards
       const cardUpdates = displayedCards.map(card => ({ uid: card.uniqueID }))
 
-      // Call a Vuex action to update the user's card storage in the database
       await this.$store.dispatch('updateUserCards', cardUpdates)
     },
     openPackAgain() {

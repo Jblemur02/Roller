@@ -3,10 +3,29 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    isAuthenticated: !!localStorage.getItem('token'), // Check if token exists
-    userData: JSON.parse(localStorage.getItem('userData')) || null, // Retrieve user data
+    isAuthenticated: !!localStorage.getItem('token'),
+    userData: JSON.parse(localStorage.getItem('userData')) || null,
   },
   mutations: {
+    updateUserCards(state, cardUpdates) {
+      if (state.userData) {
+        state.userData.cards = state.userData.cards
+          .map(card => {
+            const updatedCard = cardUpdates.find(
+              update => update.uid === card.uid,
+            )
+            if (updatedCard) {
+              card.quantity -= updatedCard.quantity
+              if (card.quantity <= 0) {
+                return null
+              }
+            }
+            return card
+          })
+          .filter(Boolean)
+        localStorage.setItem('userData', JSON.stringify(state.userData))
+      }
+    },
     setUser(state, user) {
       state.userData = user
       state.isAuthenticated = true
@@ -20,7 +39,17 @@ export default createStore({
     updateTimeShards(state, amount) {
       if (state.userData) {
         state.userData.time_shards += amount
-        // Update localStorage to reflect the change
+        localStorage.setItem('userData', JSON.stringify(state.userData))
+      }
+    },
+    updateChronos(state, amount) {
+      if (typeof amount !== 'number' || isNaN(amount)) {
+        console.error('Invalid chronos amount:', amount)
+        return
+      }
+
+      if (state.userData) {
+        state.userData.chronos += amount
         localStorage.setItem('userData', JSON.stringify(state.userData))
       }
     },
@@ -37,13 +66,36 @@ export default createStore({
       localStorage.removeItem('token')
       commit('clearUser')
     },
+    async saveChronos({ state }) {
+      try {
+        const response = await fetch(
+          'http://localhost:3000/users/updateChronos',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id: state.userData.userId,
+              chronos: state.userData.chronos,
+            }),
+          },
+        )
+
+        if (!response.ok) {
+          throw new Error('Failed to update chronos in the database')
+        }
+      } catch (error) {
+        console.error('Error saving chronos:', error)
+      }
+    },
     async updateUserData({ state }) {
       if (!state.userData?.userId || state.userData.time_shards === undefined) {
         console.error('Missing required data for update')
         return
       }
       try {
-        console.log('User Data Before Update:', state.userData) // Log the user data
+        console.log('User Data Before Update:', state.userData)
 
         const response = await fetch('http://localhost:3000/users/updateUser', {
           method: 'POST',
@@ -51,8 +103,9 @@ export default createStore({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: state.userData.userId, // Correct key name for ID
+            id: state.userData.userId,
             time_shards: state.userData.time_shards,
+            chronos: state.userData.chronos,
           }),
         })
 
@@ -90,7 +143,6 @@ export default createStore({
 
       const userId = state.userData.userId
 
-      // Prepare the request to update card storage
       try {
         const response = await fetch(
           `http://localhost:3000/users/${userId}/updateCards`,

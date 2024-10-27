@@ -26,29 +26,29 @@ html {
     rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
 
-/* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--light-gray); /* Background of the scrollbar track */
-  border-radius: 8px; /* Rounded corners for the track */
+  background: transparent;
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary); /* Color of the scrollbar thumb */
-  border-radius: 8px; /* Rounded corners for the thumb */
+  background-color: var(--primary);
+  border-radius: 8px;
+  transition: background-color 1s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primaryh); /* Color when hovering over the thumb */
+  background: var(--primaryh);
 }
 
 /* For Firefox */
 .scrollable {
-  scrollbar-width: thin; /* Thin scrollbar */
-  scrollbar-color: var(--primary) var(--light-gray); /* Thumb and track colors */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--light-gray);
 }
 
 a {

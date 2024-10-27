@@ -75,24 +75,43 @@
                 </p>
               </div>
             </div>
+            <div class="card-actions">
+              <button @click="openSellModal(card)">Sell</button>
+              <button @click="auctionCard(index)">Auction</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <sell-card-modal
+      v-if="isModalVisible"
+      :card="selectedCard"
+      @sell="handleSell"
+      :close-modal="closeSellModal"
+    />
   </main>
 </template>
 
 <script>
+import SellCardModal from '../components/SellCardModal.vue'
 import CardGenerator from '../scripts/displayCard'
 import { mapState, useStore } from 'vuex'
 import { computed } from 'vue'
 
 export default {
+  components: {
+    SellCardModal,
+  },
   data() {
     return {
       decodedCards: [],
       userCards: [],
+      sortDirection: {},
+      currentSort: '',
       selectedTab: 'collection',
+      isModalVisible: false,
+      selectedCard: null,
+      cardGenerator: null, // Store the CardGenerator instance
     }
   },
   setup() {
@@ -104,12 +123,87 @@ export default {
     }
   },
   methods: {
-    async sortCards(sortBy) {
-      const cardGenerator = new CardGenerator(this.userCards) // Use this.userCards
-      this.decodedCards = await cardGenerator.processUserCollection(sortBy)
+    openSellModal(card) {
+      this.selectedCard = card
+      this.isModalVisible = true
+    },
+    closeSellModal() {
+      this.isModalVisible = false
+      this.selectedCard = null
+    },
+    sortCards(sortBy) {
+      if (this.currentSort === sortBy) {
+        this.sortDirection[sortBy] = !this.sortDirection[sortBy]
+      } else {
+        this.sortDirection[sortBy] = false
+      }
+
+      this.currentSort = sortBy
+      // Call the CardGenerator's sort method and pass the sorted array to decodedCards
+      this.cardGenerator.sortDecodedCards(sortBy, this.sortDirection[sortBy])
+      this.decodedCards = this.cardGenerator.decodedCards // Update with sorted cards
     },
     selectTab(tabName) {
       this.selectedTab = tabName
+    },
+    sellCard(index, sellQuantity) {
+      console.log('Chronos before:', this.user.chronos)
+      const card = this.decodedCards[index]
+
+      if (sellQuantity === 'all') {
+        const totalValue = card.value * card.quantity
+        this.userCards.splice(index, 1)
+        this.decodedCards.splice(index, 1)
+
+        this.$store.commit('updateChronos', totalValue)
+        this.$store
+          .dispatch('updateUserCards', [{ uid: card.uid, quantity: 0 }])
+          .then(() => {
+            this.$store.dispatch('saveChronos')
+          })
+          .catch(error => {
+            console.error('Error updating cards:', error)
+          })
+      } else {
+        const quantityToSell = Math.min(sellQuantity, card.quantity)
+        const totalValue = card.value * quantityToSell
+
+        if (card.quantity === quantityToSell) {
+          this.userCards.splice(index, 1)
+          this.decodedCards.splice(index, 1)
+        } else {
+          card.quantity -= quantityToSell
+          this.$store.commit('updateUserCards', [
+            { uid: card.uid, quantity: card.quantity },
+          ])
+        }
+
+        this.$store.commit('updateChronos', totalValue)
+
+        this.$store
+          .dispatch('updateUserCards', [
+            { uid: card.uid, quantity: card.quantity },
+          ])
+          .then(() => {
+            this.$store.dispatch('saveChronos')
+          })
+          .catch(error => {
+            console.error('Error updating cards:', error)
+          })
+      }
+    },
+    async handleSell(quantity) {
+      const index = this.decodedCards.findIndex(
+        c => c.uid === this.selectedCard.uid,
+      )
+
+      if (quantity === 'all') {
+        this.sellCard(index, 'all')
+      } else {
+        this.sellCard(index, quantity)
+      }
+
+      this.closeSellModal()
     },
   },
   computed: {
@@ -124,10 +218,11 @@ export default {
         throw new Error('Failed to fetch user cards')
       }
 
-      this.userCards = await response.json() // Store fetched cards in userCards
+      this.userCards = await response.json()
 
-      const cardGenerator = new CardGenerator(this.userCards)
-      this.decodedCards = await cardGenerator.processUserCollection('name')
+      // Initialize CardGenerator and decode the user's collection
+      this.cardGenerator = new CardGenerator(this.userCards)
+      this.decodedCards = await this.cardGenerator.processUserCollection('name')
     } catch (error) {
       console.error('Error fetching cards:', error)
     }
@@ -164,26 +259,26 @@ aside a {
   color: var(--text-color, #333);
   text-decoration: none;
   transition: color 0.3s ease;
-  padding: 10px; /* Add padding for better click area */
-  border-radius: 5px; /* Rounded corners */
+  padding: 10px;
+  border-radius: 5px;
 }
 
 aside a:hover {
   background-color: var(--primary);
-  color: var(--inverse); /* Change text color on hover */
+  color: var(--inverse);
 }
 
 aside a.active {
-  background-color: var(--primary); /* Highlight active tab */
+  background-color: var(--primary);
   color: var(--inverse);
 }
 
 #card-sorting {
-  margin: 20px 0; /* Space between sorting links and card collection */
+  margin: 20px 0;
 }
 
 #card-sorting a {
-  margin-right: 15px; /* Space between sorting options */
+  margin-right: 15px;
   font-size: 1em;
   color: var(--inverse);
   text-decoration: underline;
@@ -274,5 +369,31 @@ h2 {
 .bulk-value {
   font-size: 0.9em; /* Adjust font size */
   color: #ff5722; /* Use a contrasting color for bulk value */
+}
+
+.card-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+
+.card-actions button {
+  border-radius: 5px;
+  padding: 5% 1%;
+  width: 100%;
+  font-size: 1.5em;
+  border: none;
+  background-color: var(--primary);
+  color: var(--inverse);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: var(--shadow);
+}
+
+.card-actions button:hover {
+  background-color: var(--primaryh);
 }
 </style>

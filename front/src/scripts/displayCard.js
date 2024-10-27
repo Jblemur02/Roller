@@ -46,22 +46,36 @@ class CardGenerator {
     }
   }
 
-  sortDecodedCards(sortBy) {
+  sortDecodedCards(sortBy, descending) {
     if (sortBy === 'quantity') {
-      this.decodedCards.sort((a, b) => b.quantity - a.quantity) // Sort by quantity descending
+      this.decodedCards.sort((a, b) =>
+        descending ? a.quantity - b.quantity : b.quantity - a.quantity,
+      )
     } else if (sortBy === 'tier') {
-      this.decodedCards.sort((a, b) => a.tierValue - b.tierValue) // Sort by tier ascending (assuming tierValue is numerical)
+      this.decodedCards.sort((a, b) =>
+        descending ? b.tierValue - a.tierValue : a.tierValue - b.tierValue,
+      )
     } else if (sortBy === 'totalValue') {
-      this.decodedCards.sort((a, b) => b.totalValue - a.totalValue) // Sort by total value descending
+      this.decodedCards.sort((a, b) =>
+        descending ? a.totalValue - b.totalValue : b.totalValue - a.totalValue,
+      )
     } else if (sortBy === 'name') {
-      this.decodedCards.sort((a, b) => a.name.localeCompare(b.name)) // Sort by name ascending
+      this.decodedCards.sort((a, b) =>
+        descending
+          ? b.name.localeCompare(a.name)
+          : a.name.localeCompare(b.name),
+      )
     } else if (sortBy === 'type') {
-      this.decodedCards.sort((a, b) => a.type.localeCompare(b.type)) // Sort by type ascending
+      this.decodedCards.sort((a, b) =>
+        descending
+          ? b.type.localeCompare(a.type)
+          : a.type.localeCompare(b.type),
+      )
     } else if (sortBy === 'value') {
-      this.decodedCards.sort((a, b) => b.value - a.value) // Sort by card value descending
+      this.decodedCards.sort((a, b) =>
+        descending ? a.value - b.value : b.value - a.value,
+      )
     }
-
-    // You can add more sorting options here in the future
   }
 }
 

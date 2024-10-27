@@ -177,6 +177,37 @@ router.post("/updateUserCards", async (req, res) => {
   }
 });
 
+// Route to update user's cards
+router.post("/:id/updateCards", async (req, res) => {
+  const userId = parseInt(req.params.id);
+  const { cardUpdates } = req.body;
+
+  try {
+    const collection = await connectDB();
+
+    for (const card of cardUpdates) {
+      if (card.quantity === 0) {
+        // Remove card from collection if quantity is zero
+        await collection.updateOne(
+          { id: userId },
+          { $pull: { cards: { uid: card.uid } } }
+        );
+      } else {
+        // Update card quantity if it's greater than zero
+        await collection.updateOne(
+          { id: userId, "cards.uid": card.uid },
+          { $set: { "cards.$.quantity": card.quantity } }
+        );
+      }
+    }
+
+    res.status(200).json({ message: "User cards updated successfully" });
+  } catch (error) {
+    console.error("Error updating user cards:", error);
+    res.status(500).json({ message: "Failed to update user cards" });
+  }
+});
+
 // Route to fetch a single user’s data by ID
 router.get("/:id/cards", async (req, res) => {
   try {
@@ -204,23 +235,58 @@ router.post("/:id/updateCards", async (req, res) => {
   const userId = req.params.id;
   const { cardUpdates } = req.body;
 
-  try {
-    const collection = await connectDB();
-
-    // Loop through cardUpdates and update quantities
-    for (const card of cardUpdates) {
-      await collection.updateOne(
-        { id: userId, "cards.uid": card.uid },
-        { $inc: { "cards.$.quantity": 1 } },
-        { upsert: true }
-      );
+  for (const card of cardUpdates) {
+    if (isNaN(card.quantity)) {
+      console.error("Invalid card quantity:", card);
+      return res.status(400).json({ message: "Invalid card quantity" });
     }
 
-    res.status(200).json({ message: "User cards updated successfully" });
-  } catch (error) {
-    console.error("Error updating user cards:", error);
-    res.status(500).json({ message: "Failed to update user cards" });
+    try {
+      const collection = await connectDB();
+
+      for (const card of cardUpdates) {
+        if (card.quantity === 0) {
+          // Remove card if quantity is zero
+          await collection.updateOne(
+            { id: userId },
+            { $pull: { cards: { uid: card.uid } } }
+          );
+        } else {
+          // Update card quantity if greater than zero
+          await collection.updateOne(
+            { id: userId, "cards.uid": card.uid },
+            { $set: { "cards.$.quantity": card.quantity } }
+          );
+        }
+      }
+
+      res.status(200).json({ message: "User cards updated successfully" });
+    } catch (error) {
+      console.error("Error updating user cards:", error);
+      res.status(500).json({ message: "Failed to update user cards" });
+    }
   }
+});
+
+router.post("/updateChronos", (req, res) => {
+  const { id, chronos } = req.body;
+
+  // Check if chronos is a valid number
+  if (isNaN(chronos) || chronos === null) {
+    return res.status(400).json({ message: "Invalid chronos value" });
+  }
+
+  pool.query(
+    "UPDATE users SET chronos = ? WHERE id = ?",
+    [chronos, id],
+    (error, results) => {
+      if (error) {
+        console.error("Error updating chronos:", error);
+        return res.status(500).json({ message: "Failed to update chronos" });
+      }
+      res.status(200).json({ message: "Chronos updated successfully" });
+    }
+  );
 });
 
 // Route to get all users (simple public list, no authentication)
