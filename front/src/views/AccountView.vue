@@ -23,9 +23,7 @@
         <p>This is the profile view</p>
       </div>
 
-      <div v-if="selectedTab === 'gear'" id="gear">
-        <div class="character"></div>
-      </div>
+      <GearDisplay v-if="selectedTab === 'gear'" />
 
       <div v-if="selectedTab === 'deck'" id="deck"></div>
 
@@ -95,12 +93,14 @@
 <script>
 import SellCardModal from '../components/SellCardModal.vue'
 import CardGenerator from '../scripts/displayCard'
+import GearDisplay from '../components/GearDisplay.vue'
 import { mapState, useStore } from 'vuex'
 import { computed } from 'vue'
 
 export default {
   components: {
     SellCardModal,
+    GearDisplay,
   },
   data() {
     return {
@@ -111,7 +111,7 @@ export default {
       selectedTab: 'collection',
       isModalVisible: false,
       selectedCard: null,
-      cardGenerator: null, // Store the CardGenerator instance
+      cardGenerator: new CardGenerator(),
     }
   },
   setup() {
@@ -141,7 +141,7 @@ export default {
       this.currentSort = sortBy
       // Call the CardGenerator's sort method and pass the sorted array to decodedCards
       this.cardGenerator.sortDecodedCards(sortBy, this.sortDirection[sortBy])
-      this.decodedCards = this.cardGenerator.decodedCards // Update with sorted cards
+      this.decodedCards = this.cardGenerator.decodedCards
     },
     selectTab(tabName) {
       this.selectedTab = tabName
@@ -236,7 +236,7 @@ main {
   text-align: center;
   height: 100%;
   display: flex;
-  padding: 1%;
+  padding: 1% 0;
 }
 
 #content {

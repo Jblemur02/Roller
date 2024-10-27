@@ -25,5 +25,59 @@
     "S0": "Sword",
     "B0": "Bow",
     "D0": "Dagger"
+  },
+  "new types": {
+    "H": {
+      "name": "Head",
+      "HL": "Helmet",
+      "CP": "Cap",
+      "CL": "Crown",
+      "HT": "Hood",
+      "MK": "Mask"
+    },
+    "B": {
+      "name": "Body",
+      "AR": "Armor",
+      "CL": "Cloak",
+      "CT": "Coat"
+    },
+    "K": {
+      "name": "Back",
+      "BK": "Backpack",
+      "CA": "Cape"
+    },
+    "F": {
+      "name": "Feet",
+      "BT": "Boots",
+      "HB": "Heavy Boots",
+      "FS": "Fur Boots",
+      "GS": "Greaves"
+    },
+    "A": {
+      "name": "Arms",
+      "SH": "Shield",
+      "SW": "Sword",
+      "WD": "Wand",
+      "BK": "Book",
+      "DG": "Dagger",
+      "BW": "Bow",
+      "ST": "Staff"
+    },
+    "W": {
+      "name": "Waist",
+      "BL": "Belt"
+    },
+    "J": {
+      "name": "Jewelry",
+      "JE": "Jewel",
+      "BJ": "Bracelet",
+      "BK": "Brooch",
+      "NK": "Necklace",
+      "AM": "Amulet",
+      "RG": "Ring"
+    },
+    "M": {
+      "name": "Minion"
+    }
   }
 }

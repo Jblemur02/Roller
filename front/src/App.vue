@@ -20,7 +20,7 @@ export default {
 
 <style scoped>
 #nav {
-  height: 8vh;
+  height: 5vh;
 }
 
 #app {

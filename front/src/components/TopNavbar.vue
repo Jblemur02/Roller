@@ -31,13 +31,12 @@ import { useStore } from 'vuex' // Import useStore to access Vuex
 const store = useStore()
 const router = useRouter()
 
-// Use Vuex state to determine if the user is authenticated
 const isAuthenticated = computed(() => store.state.isAuthenticated)
 
 // Logout function
 function logout() {
-  store.dispatch('logout') // Dispatch Vuex logout action
-  router.push('/login') // Redirect to login page
+  store.dispatch('logout')
+  router.push('/login')
 }
 </script>
 
@@ -46,26 +45,26 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
+  padding: 8px 15px;
   background-color: var(--dark-gray);
   box-shadow: var(--shadow);
   border-radius: 8px;
   width: 90%;
   margin: 20px auto;
+  height: 100%;
 }
 
 #chronos_logo {
-  height: 50px;
+  height: 20px;
   width: auto;
 }
 
 a,
 router-link {
-  margin: 0 15px;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   text-decoration: none;
   color: var(--inverse);
-  padding: 10px 15px;
+  padding: 5px 15px;
   border-radius: 5px;
   transition:
     background-color 0.3s ease,
