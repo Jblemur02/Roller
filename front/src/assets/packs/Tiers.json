@@ -23,7 +23,7 @@
     "name": "Crimson Dusk",
     "cost": 100,
     "value": "02",
-    "background": "https://storage.googleapis.com/treasure_roller/tier_backgrounds/crimson_dusk.png",
+    "background": "https://storage.googleapis.com/treasure_roller/tier_backgrounds/crimson-dusk.png",
     "backgroundType": "image",
     "aura": "0px 0px 112px 18px rgba(255, 8, 8, 0.9)",
     "color": "#ff0000",

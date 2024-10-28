@@ -1,83 +1,81 @@
 {
+  "H": {
+    "name": "Head",
+    "HL": "Helmet",
+    "CP": "Cap",
+    "CL": "Crown",
+    "HT": "Hood",
+    "MK": "Mask"
+  },
+  "B": {
+    "name": "Body",
+    "AR": "Armor",
+    "CL": "Cloak",
+    "CT": "Coat"
+  },
+  "K": {
+    "name": "Back",
+    "BK": "Backpack",
+    "CA": "Cape"
+  },
+  "F": {
+    "name": "Feet",
+    "BT": "Boots",
+    "HB": "Heavy Boots",
+    "FS": "Fur Boots",
+    "GS": "Greaves"
+  },
   "A": {
-    "name": "Artifact",
-    "R0": "Ring",
-    "A0": "Amulet",
-    "J0": "Jewel"
-  },
-  "C": {
-    "name": "Charm",
-    "C0": "Celestial",
-    "A0": "Angelic"
-  },
-  "R": {
-    "name": "Resonance",
-    "A0": "Ancient",
-    "P0": "Power"
-  },
-  "L": {
-    "name": "Relic",
-    "A0": "Ancient",
-    "M0": "Modern"
+    "name": "Arms",
+    "SH": "Shield",
+    "SW": "Sword",
+    "WD": "Wand",
+    "BK": "Book",
+    "DG": "Dagger",
+    "BW": "Bow",
+    "ST": "Staff"
   },
   "W": {
-    "name": "Weapon",
-    "S0": "Sword",
-    "B0": "Bow",
-    "D0": "Dagger"
+    "name": "Waist",
+    "BL": "Belt"
   },
-  "new types": {
-    "H": {
-      "name": "Head",
-      "HL": "Helmet",
-      "CP": "Cap",
-      "CL": "Crown",
-      "HT": "Hood",
-      "MK": "Mask"
-    },
-    "B": {
-      "name": "Body",
-      "AR": "Armor",
-      "CL": "Cloak",
-      "CT": "Coat"
-    },
-    "K": {
-      "name": "Back",
-      "BK": "Backpack",
-      "CA": "Cape"
-    },
-    "F": {
-      "name": "Feet",
-      "BT": "Boots",
-      "HB": "Heavy Boots",
-      "FS": "Fur Boots",
-      "GS": "Greaves"
-    },
-    "A": {
-      "name": "Arms",
-      "SH": "Shield",
-      "SW": "Sword",
-      "WD": "Wand",
-      "BK": "Book",
-      "DG": "Dagger",
-      "BW": "Bow",
-      "ST": "Staff"
-    },
-    "W": {
-      "name": "Waist",
-      "BL": "Belt"
-    },
-    "J": {
-      "name": "Jewelry",
-      "JE": "Jewel",
-      "BJ": "Bracelet",
-      "BK": "Brooch",
-      "NK": "Necklace",
-      "AM": "Amulet",
-      "RG": "Ring"
-    },
-    "M": {
-      "name": "Minion"
-    }
+  "J": {
+    "name": "Jewelry",
+    "JE": "Jewel",
+    "BJ": "Bracelet",
+    "BK": "Brooch",
+    "NK": "Necklace",
+    "AM": "Amulet",
+    "RG": "Ring",
+    "CH": "Charm"
+  },
+  "M": {
+    "name": "Minion",
+    "MA": "Monster",
+    "MB": "Mage",
+    "WM": "Warrior",
+    "RM": "Rogue"
+  },
+  "O": {
+    "name": "Augment",
+    "PW": "Power",
+    "CW": "Curse",
+    "AV": "Aversion",
+    "BT": "Battle",
+    "BL": "Blessed"
+  },
+  "T": {
+    "name": "Formation",
+    "AM": "Aggression",
+    "RE": "Resilience",
+    "BL": "Balance"
+  },
+  "G": {
+    "name": "Talent",
+    "FL": "Flame",
+    "FR": "Frost",
+    "WT": "Water",
+    "PO": "Poison",
+    "DE": "Death"
   }
 }
