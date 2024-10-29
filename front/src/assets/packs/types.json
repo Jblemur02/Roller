@@ -22,16 +22,17 @@
     "name": "Feet",
     "BT": "Boots",
     "HB": "Heavy Boots",
-    "FS": "Fur Boots",
+    "LB": "Light Boots",
     "GS": "Greaves"
   },
   "A": {
     "name": "Arms",
     "SH": "Shield",
     "SW": "Sword",
+    "SP": "Spear",
     "WD": "Wand",
     "BK": "Book",
-    "DG": "Dagger",
+    "KN": "Knife",
     "BW": "Bow",
     "ST": "Staff"
   },
@@ -43,11 +44,11 @@
     "name": "Jewelry",
     "JE": "Jewel",
     "BJ": "Bracelet",
-    "BK": "Brooch",
     "NK": "Necklace",
     "AM": "Amulet",
     "RG": "Ring",
-    "CH": "Charm"
+    "CH": "Charm",
+    "RL": "Relic"
   },
   "M": {
     "name": "Minion",
@@ -76,6 +77,7 @@
     "FR": "Frost",
     "WT": "Water",
     "PO": "Poison",
-    "DE": "Death"
+    "DE": "Death",
+    "AR": "Air"
   }
 }

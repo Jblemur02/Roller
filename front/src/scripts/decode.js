@@ -1,39 +1,19 @@
-import types from '../assets/packs/types.json'
 import tiersData from '../assets/packs/tiers.json'
 import variants from '../assets/packs/variants.json'
 import cards from '../assets/packs/cards.json'
 
 export function decodeUniqueID(uniqueID) {
-  const [baseNumber, variant, tierValue, typeID, setID] = uniqueID.split('-')
+  const [baseNumber, variant, tierValue, , setID] = uniqueID.split('-')
 
   // Find the tier based on the tier value
   const tier = tiersData.find(t => t.value === tierValue)
 
-  // Extract main type and subtype
-  const mainTypeID = typeID.charAt(0)
-  const subTypeCode = typeID.slice(1)
+  // Retrieve card details directly by matching `baseNumber`
+  const cardDetails = cards.find(card => card.number === baseNumber)
 
-  let mainType = 'Unknown'
-  let subType = 'Unknown'
-
-  // Look up the main type and subtype
-  if (types[mainTypeID]) {
-    mainType = types[mainTypeID].name || 'Unknown'
-
-    // Find the subtype directly based on the combined `subTypeCode`
-    if (types[mainTypeID][subTypeCode]) {
-      subType = types[mainTypeID][subTypeCode]
-    }
-  } else {
-    console.warn('Main Type not found for ID:', mainTypeID)
-  }
-
-  if (subType === 'Unknown') {
-    console.warn('Subtype not found for code:', subTypeCode)
-  }
-
-  // Retrieve card details
-  const cardDetails = cards.find(card => card.number == baseNumber)
+  // If cardDetails exist, assign type and subtype; otherwise, default to 'Unknown'
+  const mainType = cardDetails ? cardDetails.type : 'Unknown'
+  const subType = cardDetails ? cardDetails.subtype : 'Unknown'
 
   // Construct the decoded card object
   return {

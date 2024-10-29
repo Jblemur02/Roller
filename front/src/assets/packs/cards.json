@@ -2,6 +2,7 @@
   {
     "number": "00000",
     "type": "Augment",
+    "subtype": "Power",
     "name": "Divinity",
     "description": "Massively increase the Resilience of the user",
     "multiplier": 1000,
@@ -15,6 +16,7 @@
     "number": "00001",
     "type": "Augment",
     "name": "Malevolence",
+    "subtype": "Power",
     "description": "Massively increase the Aggression of the user",
     "multiplier": 1000,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/malevolance.jpg",
@@ -26,6 +28,7 @@
   {
     "number": "00002",
     "type": "Augment",
+    "subtype": "Battle",
     "name": "Strengthen",
     "description": "Massively increase the defense of the user",
     "multiplier": 20,
@@ -37,9 +40,10 @@
   {
     "number": "00003",
     "type": "Augment",
+    "subtype": "Battle",
     "name": "Battle Sight",
     "description": "Massively increase the user's Perforation",
-    "multiplier": 10,
+    "multiplier": 20,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/battle_sight.jpg",
     "stats": {
       "Perforation": 100
@@ -48,6 +52,7 @@
   {
     "number": "00004",
     "type": "Augment",
+    "subtype": "Battle",
     "name": "Toughness",
     "description": "Massively increase the user's Health",
     "multiplier": 10,
@@ -59,6 +64,7 @@
   {
     "number": "00005",
     "type": "Augment",
+    "subtype": "Battle",
     "name": "Indomitable",
     "description": "Massively increase the user's Attack",
     "multiplier": 10,
@@ -70,6 +76,7 @@
   {
     "number": "00006",
     "type": "Augment",
+    "subtype": "Battle",
     "name": "Bravery",
     "description": "Massively increase the user's Defense",
     "multiplier": 10,
@@ -81,9 +88,10 @@
   {
     "number": "00007",
     "type": "Formation",
+    "subtype": "Balance",
     "name": "Balance",
     "description": "Slighty increase the Resilience and Aggression of the Team",
-    "multiplier": 5,
+    "multiplier": 10,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/balance-min.jpg",
     "stats": {
       "Resilience": 5,
@@ -93,10 +101,11 @@
   {
     "number": "00008",
     "type": "Formation",
+    "subtype": "Balance",
     "name": "Discipline",
     "description": "Increase the Cooperation of the Team",
-    "multiplier": 5,
-    "image": " ",
+    "multiplier": 10,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/Discipline.jpeg",
     "stats": {
       "Cooperation": 15
     }
@@ -104,9 +113,10 @@
   {
     "number": "00009",
     "type": "Formation",
+    "subtype": "Aggression",
     "name": "Disarray",
     "description": "Slightly decrease the Cooperation of the Team and massively decrease the Cooperation of the opposition",
-    "multiplier": 5,
+    "multiplier": 20,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/disarray-min.jpg",
     "stats": {
       "Cooperation": -5,
@@ -116,9 +126,10 @@
   {
     "number": "00010",
     "type": "Formation",
+    "subtype": "Aggression",
     "name": "Charge Forth",
     "description": "Increase the Aggression of the team while decreasing the Resilience of the opposition",
-    "multiplier": 5,
+    "multiplier": 15,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/charge_forth-min.jpg",
     "stats": {
       "Aggression": 20,
@@ -128,10 +139,11 @@
   {
     "number": "00011",
     "type": "Formation",
+    "subtype": "Balance",
     "name": "Abandon Hope",
     "description": "Check Stats",
-    "multiplier": 25,
-    "image": "",
+    "multiplier": 50,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/abandon_hope.jpg",
     "stats": {
       "Resilience": -90,
       "Aggression": 80,
@@ -143,10 +155,11 @@
   {
     "number": "00012",
     "type": "Formation",
+    "subtype": "Resilience",
     "name": "Defiance",
     "description": "Increase the Resilience of the team",
-    "multiplier": 5,
-    "image": " ",
+    "multiplier": 10,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/defiance.jpeg",
     "stats": {
       "Resilience": 10
     }
@@ -154,10 +167,11 @@
   {
     "number": "00013",
     "type": "Formation",
+    "subtype": "Resilience",
     "name": "Determination",
     "description": "Increase the Agression of the user",
-    "multiplier": 5,
-    "image": " ",
+    "multiplier": 10,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/determination.jpg",
     "stats": {
       "Agression": 10
     }
@@ -165,6 +179,7 @@
   {
     "number": "00014",
     "type": "Head",
+    "subtype": "Helmet",
     "name": "Iron Helmet",
     "description": "Probably stinks in here",
     "multiplier": 1,
@@ -177,9 +192,10 @@
   {
     "number": "00015",
     "type": "Head",
+    "subtype": "Hood",
     "name": "Shadowviel",
     "description": "Perfect for a bad day",
-    "multiplier": 1,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/shadowveil.jpeg",
     "stats": {
       "Perforation": 5,
@@ -189,6 +205,7 @@
   {
     "number": "00016",
     "type": "Head",
+    "subtype": "Helmet",
     "name": "Clunky Headgear",
     "description": "Hope you aren't an assassin",
     "multiplier": 1,
@@ -201,9 +218,10 @@
   {
     "number": "00017",
     "type": "Head",
+    "subtype": "Mask",
     "name": "Mysterious Mask",
     "description": "Don't tell anyone",
-    "multiplier": 1,
+    "multiplier": 10,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/mysterious_mask.png",
     "stats": {
       "Perforation": 10,
@@ -213,9 +231,10 @@
   {
     "number": "00018",
     "type": "Head",
+    "subtype": "Crown",
     "name": "Crown Of Deliverance",
     "description": "Make way, the king is here!",
-    "multiplier": 1,
+    "multiplier": 20,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/crown_of_deliverance.jpg",
     "stats": {
       "Armor": -5,
@@ -225,10 +244,11 @@
   {
     "number": "00019",
     "type": "Body",
+    "subtype": "Armor",
     "name": "Bronze Armor",
     "description": "Blind your enimies!",
-    "multiplier": 1,
-    "image": "https://storage.googleapis.com/treasure_roller/packs/images/bronze_armor-min.jpeg",
+    "multiplier": 2,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/bronze_armor-min.jpg",
     "stats": {
       "Armor": 5,
       "Health": 1500,
@@ -238,9 +258,10 @@
   {
     "number": "00020",
     "type": "Body",
+    "subtype": "Armor",
     "name": "Iron Armor",
     "description": "Protect yourself",
-    "multiplier": 1,
+    "multiplier": 2,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/iron_armor.jpg",
     "stats": {
       "Armor": 10,
@@ -250,9 +271,10 @@
   {
     "number": "00021",
     "type": "Body",
+    "subtype": "Armor",
     "name": "Steel Armor",
     "description": "Stronger than iron",
-    "multiplier": 1,
+    "multiplier": 2,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/steel_armor.jpg",
     "stats": {
       "Armor": 15,
@@ -262,9 +284,10 @@
   {
     "number": "00022",
     "type": "Feet",
+    "subtype": "Light Boots",
     "name": "Boots of the Thief",
     "description": "They'll never hear you coming!",
-    "multiplier": 1,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/boots_of_the_thief.jpeg",
     "stats": {
       "Perforation": 5,
@@ -274,6 +297,7 @@
   {
     "number": "00023",
     "type": "Feet",
+    "subtype": "Greaves",
     "name": "Steel Boots",
     "description": "Take these off and the smell will win the battle for you.",
     "multiplier": 1,
@@ -286,10 +310,11 @@
   {
     "number": "00024",
     "type": "Arms",
+    "subtype": "Sword",
     "name": "Steel Sword",
     "description": "It's a sword.",
 
-    "multiplier": 20,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/steel_sword.png",
     "stats": {
       "Attack": 150,
@@ -299,10 +324,11 @@
   {
     "number": "00025",
     "type": "Jewelry",
+    "subtype": "Amulet",
     "name": "Ancient Amulet",
     "description": "Increases your Perforation by 10",
-    "multiplier": 20,
-    "image": "https://storage.googleapis.com/treasure_roller/packs/images/ancient_amulet.png",
+    "multiplier": 5,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/ancient_amulet.jpeg",
     "stats": {
       "Perforation": 10,
       "Defense": 10
@@ -311,6 +337,7 @@
   {
     "number": "00026",
     "type": "Talent",
+    "subtype": "Flame",
     "name": "Flame",
     "description": "Burn all your enemies",
     "multiplier": 20,
@@ -323,134 +350,152 @@
   {
     "number": "00027",
     "type": "Jewelry",
+    "subtype": "Jewel",
     "name": "Mystic Crystal",
-    "multiplier": 20,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/mystic_crystal.png"
   },
   {
     "number": "00028",
     "type": "Jewelry",
+    "subtype": "Charm",
     "name": "Lunar Charm",
-    "multiplier": 20,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/lunar_charm.png"
   },
   {
     "number": "00029",
-    "type": "Weapon",
+    "type": "Arms",
+    "subtype": "Knife",
     "name": "Bronze Dagger",
-    "multiplier": 20,
+    "multiplier": 10,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/bronze_dagger.jpg"
   },
   {
     "number": "00030",
     "type": "Talent",
     "name": "Blind",
-    "multiplier": 1,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/blind.png"
   },
   {
     "number": "00031",
     "type": "Jewelry",
+    "subtype": "Jewel",
     "name": "Omni Gem",
-    "multiplier": 1,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/omni_gem.jpeg"
   },
   {
-    "number": "00033",
+    "number": "00032",
     "type": "Jewelry",
+    "subtype": "Charm",
     "name": "Heavenly Charm",
-    "multiplier": 1,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/heavenly_charm.jpeg"
   },
   {
-    "number": "00034",
-    "type": "Weapon",
+    "number": "00033",
+    "type": "Arms",
+    "subtype": "Sword",
     "name": "Vortex Blade",
-    "multiplier": 1,
+    "multiplier": 15,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/vortex_blade.png"
   },
   {
-    "number": "00035",
+    "number": "00034",
     "type": "Jewelry",
+    "subtype": "Jewel",
     "name": "Light's Jewel",
-    "multiplier": 1,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/lights_jewel.png"
   },
   {
-    "number": "00036",
+    "number": "00035",
     "type": "Talent",
+    "subtype": "Death",
     "name": "Howl",
-    "multiplier": 1,
+    "multiplier": 10,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/howl.png"
   },
   {
-    "number": "00037",
+    "number": "00036",
     "type": "Jewelry",
+    "subtype": "Jewel",
     "name": "Crystal of Eternity",
     "multiplier": 1,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/crystal_of_eternity.png"
   },
   {
-    "number": "00030",
+    "number": "00037",
     "type": "Jewelry",
+    "subtype": "Amulet",
     "name": "Talisman of the Cosmos",
     "multiplier": 1,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/talisman_of_the_cosmos.png"
   },
   {
-    "number": "00031",
+    "number": "00038",
     "type": "Charm",
+    "subtype": "Charm",
     "name": "Celestial Charm",
-    "multiplier": 6,
+    "multiplier": 1,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/celestial_charm.jpeg"
   },
   {
-    "number": "00032",
-    "type": "Artifact",
+    "number": "00039",
+    "type": "Jewelry",
+    "subtype": "Jewel",
     "name": "Echoing Stone",
     "multiplier": 20,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/echoing_stone.png"
   },
   {
-    "number": "00033",
-    "type": "Weapon",
+    "number": "00040",
+    "type": "Arms",
+    "subtype": "Sword",
     "name": "Enchanted Sword",
     "multiplier": 10,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/enchanted_sword.png"
   },
   {
-    "number": "00034",
-    "type": "Artifact",
+    "number": "00041",
+    "type": "Jewelry",
+    "subtype": "Jewel",
     "name": "Essence Stone",
-    "multiplier": 1,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/essence_stone.jpeg"
   },
   {
-    "number": "00035",
-    "type": "Weapon",
+    "number": "00042",
+    "type": "Arms",
+    "subtype": "Spear",
     "name": "Golden Spear",
-    "multiplier": 6,
+    "multiplier": 10,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/golden_spear.png"
   },
   {
-    "number": "00018",
-    "type": "Resonance",
+    "number": "00043",
+    "type": "Talent",
+    "subtype": "Air",
     "name": "Mystic Wind",
-    "multiplier": 10,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/mystic_wind.png"
   },
   {
-    "number": "00012",
-    "type": "Relic",
+    "number": "00044",
+    "type": "Jewelry",
+    "subtype": "Relic",
     "name": "Phoenix Feather",
     "multiplier": 10,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/phoenix_feather.png"
   },
   {
-    "number": "00014",
-    "type": "Artifact",
+    "number": "00045",
+    "type": "Jewelry",
+    "subtype": "Jewel",
     "name": "Radiant Crystal",
-    "multiplier": 10,
+    "multiplier": 5,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/radiant_crystal.png"
   }
 ]

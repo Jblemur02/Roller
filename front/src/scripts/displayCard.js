@@ -6,7 +6,6 @@ class CardGenerator {
   }
 
   async processUserCollection(sortBy = 'quantity') {
-    // Accept sortBy parameter
     try {
       this.decodedCards = [] // Reset the array for each call
 
@@ -14,7 +13,7 @@ class CardGenerator {
       for (const card of this.userCollection.cards) {
         const decodedCard = decodeUniqueID(card.uid)
 
-        // Validate tier data
+        // Extract relevant details from decodedCard
         const { tier, cardName, cardMultiplier, type, cardImage } = decodedCard
 
         // Push the decoded card details into the array
@@ -46,7 +45,7 @@ class CardGenerator {
     }
   }
 
-  sortDecodedCards(sortBy, descending) {
+  sortDecodedCards(sortBy, descending = false) {
     if (sortBy === 'quantity') {
       this.decodedCards.sort((a, b) =>
         descending ? a.quantity - b.quantity : b.quantity - a.quantity,
