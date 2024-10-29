@@ -133,16 +133,23 @@
       <div class="modal-content">
         <span class="close" @click="closeModal">&times;</span>
         <h2>Opened Pack: {{ currentPackName }}</h2>
-        <div class="card-container">
-          <RollCard
-            v-for="(card, index) in displayedCards"
-            :key="index"
-            :name="card.name"
-            :type="card.type"
-            :image="card.image"
-            :tier="card.tier"
-            :value="card.value"
-          />
+        <div
+          class="card-scroll-container"
+          @wheel="handleScroll"
+          ref="cardScrollContainer"
+        >
+          <div class="card-container">
+            <RollCard
+              class="card"
+              v-for="(card, index) in displayedCards"
+              :key="index"
+              :name="card.name"
+              :type="card.type"
+              :image="card.image"
+              :tier="card.tier"
+              :value="card.value"
+            />
+          </div>
         </div>
         <button class="open-pack-again" @click="openPackAgain">
           Open Pack Again
@@ -270,6 +277,11 @@ export default {
     },
     openPackAgain() {
       this.openPack(this.currentPackName)
+    },
+    handleScroll(event) {
+      event.preventDefault() // Prevent default scrolling behavior
+      const scrollAmount = event.deltaY // Use deltaY to scroll horizontally
+      this.$refs.cardScrollContainer.scrollLeft += scrollAmount // Scroll horizontally
     },
     closeModal() {
       this.isModalOpen = false
@@ -441,18 +453,15 @@ h2 {
 }
 
 .card-container {
-  display: flex;
-  overflow-x: auto;
+  display: inline-flex;
   padding: 20px 0;
+  overflow-x: auto;
+  box-shadow: var(--shadow);
 }
 
-.card {
-  min-width: 150px;
-  margin: 0 10px;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.card-scroll-container {
+  overflow-x: auto;
+  width: 100%;
 }
 
 .open-pack-again {
