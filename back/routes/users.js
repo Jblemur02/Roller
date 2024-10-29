@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("../sqldb");
+const { readPool, writePool } = require("../sqldb.js");
 const {
   connectDB,
   saveUser,
@@ -7,11 +7,12 @@ const {
 } = require("../mongodb");
 const router = express.Router();
 
-// Registration route
+// Registration route (write operation)
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
-  pool.query(
+  readPool.query(
+    // Check if email already exists using readPool
     "SELECT * FROM users WHERE email = ?",
     [email],
     async (err, results) => {
@@ -20,7 +21,8 @@ router.post("/register", async (req, res) => {
         return res.status(400).json({ error: "Email already exists" });
       }
 
-      pool.query(
+      writePool.query(
+        // Insert new user using writePool
         "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
         [username, email, password],
         async (err, results) => {
@@ -37,7 +39,7 @@ router.post("/register", async (req, res) => {
   );
 });
 
-// Login route
+// Login route (read operation)
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -47,7 +49,7 @@ router.post("/login", async (req, res) => {
       .json({ error: "Username and password are required" });
   }
 
-  pool.query(
+  readPool.query(
     "SELECT * FROM users WHERE username = ? AND password = ?",
     [username, password],
     async (err, results) => {
@@ -75,7 +77,7 @@ router.post("/login", async (req, res) => {
   );
 });
 
-// Logout route
+// Logout route (write operation)
 router.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) return res.status(500).json({ error: "Error logging out" });
@@ -83,7 +85,7 @@ router.post("/logout", (req, res) => {
   });
 });
 
-// Update user route
+// Update user route (write operation)
 router.post("/updateUser", (req, res) => {
   const userData = req.body;
 
@@ -94,25 +96,29 @@ router.post("/updateUser", (req, res) => {
   }
 
   const query = "UPDATE users SET time_shards = ? WHERE id = ?";
-  pool.query(query, [userData.time_shards, userData.id], (error, results) => {
-    if (error) {
-      console.error("Error updating user data:", error);
-      return res.status(500).json({ message: "Internal server error" });
-    }
+  writePool.query(
+    query,
+    [userData.time_shards, userData.id],
+    (error, results) => {
+      if (error) {
+        console.error("Error updating user data:", error);
+        return res.status(500).json({ message: "Internal server error" });
+      }
 
-    if (results.affectedRows === 0) {
-      return res.status(404).json({ message: "User not found" });
-    }
+      if (results.affectedRows === 0) {
+        return res.status(404).json({ message: "User not found" });
+      }
 
-    res.status(200).json({ message: "User data updated successfully" });
-  });
+      res.status(200).json({ message: "User data updated successfully" });
+    }
+  );
 });
 
-// Route to fetch a single user’s data by ID
+// Fetch single user data by ID (read operation)
 router.get("/:id", (req, res) => {
   const userId = req.params.id;
 
-  pool.query(
+  readPool.query(
     "SELECT id, username, email, time_shards, level, chronos FROM users WHERE id = ?",
     [userId],
     (err, results) => {
@@ -121,6 +127,35 @@ router.get("/:id", (req, res) => {
         return res.status(404).json({ error: "User not found" });
       }
       res.json(results[0]);
+    }
+  );
+});
+
+// Fetch all users (read operation)
+router.get("/", (req, res) => {
+  readPool.query("SELECT id, username, email FROM users", (err, results) => {
+    if (err) return res.status(500).json({ error: "Database error" });
+    res.json(results);
+  });
+});
+
+// Update user's chronos (write operation)
+router.post("/updateChronos", (req, res) => {
+  const { id, chronos } = req.body;
+
+  if (isNaN(chronos) || chronos === null) {
+    return res.status(400).json({ message: "Invalid chronos value" });
+  }
+
+  writePool.query(
+    "UPDATE users SET chronos = ? WHERE id = ?",
+    [chronos, id],
+    (error, results) => {
+      if (error) {
+        console.error("Error updating chronos:", error);
+        return res.status(500).json({ message: "Failed to update chronos" });
+      }
+      res.status(200).json({ message: "Chronos updated successfully" });
     }
   );
 });
@@ -266,35 +301,6 @@ router.post("/:id/updateCards", async (req, res) => {
       res.status(500).json({ message: "Failed to update user cards" });
     }
   }
-});
-
-router.post("/updateChronos", (req, res) => {
-  const { id, chronos } = req.body;
-
-  // Check if chronos is a valid number
-  if (isNaN(chronos) || chronos === null) {
-    return res.status(400).json({ message: "Invalid chronos value" });
-  }
-
-  pool.query(
-    "UPDATE users SET chronos = ? WHERE id = ?",
-    [chronos, id],
-    (error, results) => {
-      if (error) {
-        console.error("Error updating chronos:", error);
-        return res.status(500).json({ message: "Failed to update chronos" });
-      }
-      res.status(200).json({ message: "Chronos updated successfully" });
-    }
-  );
-});
-
-// Route to get all users (simple public list, no authentication)
-router.get("/", (req, res) => {
-  pool.query("SELECT id, username, email FROM users", (err, results) => {
-    if (err) return res.status(500).json({ error: "Database error" });
-    res.json(results);
-  });
 });
 
 module.exports = router;

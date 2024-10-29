@@ -40,7 +40,7 @@
     "name": "Battle Sight",
     "description": "Massively increase the user's Perforation",
     "multiplier": 10,
-    "image": " ",
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/battle_sight.jpg",
     "stats": {
       "Perforation": 100
     }
@@ -84,7 +84,7 @@
     "name": "Balance",
     "description": "Slighty increase the Resilience and Aggression of the Team",
     "multiplier": 5,
-    "image": " ",
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/balance-min.jpg",
     "stats": {
       "Resilience": 5,
       "Aggression": 5
@@ -131,7 +131,7 @@
     "name": "Abandon Hope",
     "description": "Check Stats",
     "multiplier": 25,
-    "image": " ",
+    "image": "",
     "stats": {
       "Resilience": -90,
       "Aggression": 80,
@@ -168,7 +168,7 @@
     "name": "Iron Helmet",
     "description": "Probably stinks in here",
     "multiplier": 1,
-    "image": " ",
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/iron_helmet.jpg",
     "stats": {
       "Armor": 1,
       "Health": 500
@@ -192,7 +192,7 @@
     "name": "Clunky Headgear",
     "description": "Hope you aren't an assassin",
     "multiplier": 1,
-    "image": " ",
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/clunky_headgear.jpg",
     "stats": {
       "Armor": 10,
       "Health": 500
@@ -204,7 +204,7 @@
     "name": "Mysterious Mask",
     "description": "Don't tell anyone",
     "multiplier": 1,
-    "image": " ",
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/mysterious_mask.png",
     "stats": {
       "Perforation": 10,
       "Defense": 10
@@ -241,7 +241,7 @@
     "name": "Iron Armor",
     "description": "Protect yourself",
     "multiplier": 1,
-    "image": " ",
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/iron_armor.jpg",
     "stats": {
       "Armor": 10,
       "Health": 2000
@@ -253,7 +253,7 @@
     "name": "Steel Armor",
     "description": "Stronger than iron",
     "multiplier": 1,
-    "image": " ",
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/steel_armor.jpg",
     "stats": {
       "Armor": 15,
       "Health": 2500
@@ -265,7 +265,7 @@
     "name": "Boots of the Thief",
     "description": "They'll never hear you coming!",
     "multiplier": 1,
-    "image": " ",
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/boots_of_the_thief.jpeg",
     "stats": {
       "Perforation": 5,
       "Armor": -2
@@ -277,7 +277,7 @@
     "name": "Steel Boots",
     "description": "Take these off and the smell will win the battle for you.",
     "multiplier": 1,
-    "image": " ",
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/steel_boots.jpg",
     "stats": {
       "Armor": 5,
       "Health": 500
@@ -329,7 +329,7 @@
   },
   {
     "number": "00028",
-    "type": "Jewelery",
+    "type": "Jewelry",
     "name": "Lunar Charm",
     "multiplier": 20,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/lunar_charm.png"
@@ -343,21 +343,21 @@
   },
   {
     "number": "00030",
-    "type": "Resonance",
+    "type": "Talent",
     "name": "Blind",
     "multiplier": 1,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/blind.png"
   },
   {
     "number": "00031",
-    "type": "Artifact",
+    "type": "Jewelry",
     "name": "Omni Gem",
     "multiplier": 1,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/omni_gem.jpeg"
   },
   {
     "number": "00033",
-    "type": "Charm",
+    "type": "Jewelry",
     "name": "Heavenly Charm",
     "multiplier": 1,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/heavenly_charm.jpeg"
@@ -371,30 +371,86 @@
   },
   {
     "number": "00035",
-    "type": "Relic",
+    "type": "Jewelry",
     "name": "Light's Jewel",
     "multiplier": 1,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/lights_jewel.png"
   },
   {
     "number": "00036",
-    "type": "Resonance",
+    "type": "Talent",
     "name": "Howl",
     "multiplier": 1,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/howl.png"
   },
   {
     "number": "00037",
-    "type": "Artifact",
+    "type": "Jewelry",
     "name": "Crystal of Eternity",
     "multiplier": 1,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/crystal_of_eternity.png"
   },
   {
     "number": "00030",
-    "type": "Artifact",
+    "type": "Jewelry",
     "name": "Talisman of the Cosmos",
     "multiplier": 1,
     "image": "https://storage.googleapis.com/treasure_roller/packs/images/talisman_of_the_cosmos.png"
+  },
+  {
+    "number": "00031",
+    "type": "Charm",
+    "name": "Celestial Charm",
+    "multiplier": 6,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/celestial_charm.jpeg"
+  },
+  {
+    "number": "00032",
+    "type": "Artifact",
+    "name": "Echoing Stone",
+    "multiplier": 20,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/echoing_stone.png"
+  },
+  {
+    "number": "00033",
+    "type": "Weapon",
+    "name": "Enchanted Sword",
+    "multiplier": 10,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/enchanted_sword.png"
+  },
+  {
+    "number": "00034",
+    "type": "Artifact",
+    "name": "Essence Stone",
+    "multiplier": 1,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/essence_stone.jpeg"
+  },
+  {
+    "number": "00035",
+    "type": "Weapon",
+    "name": "Golden Spear",
+    "multiplier": 6,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/golden_spear.png"
+  },
+  {
+    "number": "00018",
+    "type": "Resonance",
+    "name": "Mystic Wind",
+    "multiplier": 10,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/mystic_wind.png"
+  },
+  {
+    "number": "00012",
+    "type": "Relic",
+    "name": "Phoenix Feather",
+    "multiplier": 10,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/phoenix_feather.png"
+  },
+  {
+    "number": "00014",
+    "type": "Artifact",
+    "name": "Radiant Crystal",
+    "multiplier": 10,
+    "image": "https://storage.googleapis.com/treasure_roller/packs/images/radiant_crystal.png"
   }
 ]
