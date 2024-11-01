@@ -67,3 +67,8 @@ a:hover {
   margin-left: 5px;
   vertical-align: middle;
 }
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}

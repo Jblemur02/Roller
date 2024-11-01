@@ -3,19 +3,19 @@
     {
       "name": "Basic Pack",
       "description": "This is the basic pack.",
-      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_pack.png",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_pack.png",
       "price": 1
     },
     {
       "name": "Advanced Pack",
       "description": "This is the advanced pack.",
-      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/advanced_pack.png",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/advanced_pack.png",
       "price": 3
     },
     {
       "name": "Celestial Pack",
       "description": "This is the Celestial pack.",
-      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/celestial_pack.png",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/celestial_pack.png",
       "price": 10
     }
   ],
@@ -23,7 +23,7 @@
     {
       "name": "Basic Booster Pack",
       "description": "This is the basic booster.",
-      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_booster.png",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_booster.png",
       "price": 100
     }
   ],
@@ -31,7 +31,7 @@
     {
       "name": "Basic Bundle",
       "description": "This is the basic bundle.",
-      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_bundle.png",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_bundle.png",
       "price": 50
     }
   ],
@@ -41,21 +41,21 @@
       "price": 1,
       "name": "Basic Pack",
       "type": "pack",
-      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_pack.png"
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_pack.png"
     },
     {
       "number": 2,
       "price": 100,
       "name": "Basic Booster Pack",
       "type": "booster",
-      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_booster.png"
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_booster.png"
     },
     {
       "number": 3,
       "name": "Basic Bundle",
       "type": "bundle",
       "price": 50,
-      "image": "https://storage.googleapis.com/treasure_roller/packs/pack_images/basic_bundle.png"
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_bundle.png"
     }
   ]
 }

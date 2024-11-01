@@ -285,9 +285,10 @@ aside a.active {
 }
 
 #card-collection {
+  width: 80%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  gap: 10px;
   padding: 20px;
 }
 

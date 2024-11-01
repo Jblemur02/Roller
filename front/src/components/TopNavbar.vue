@@ -50,7 +50,7 @@ main {
   box-shadow: var(--shadow);
   border-radius: 8px;
   width: 90%;
-  margin: 20px auto;
+  margin: 10px auto;
   height: 100%;
 }
 
@@ -73,7 +73,7 @@ router-link {
 
 a:hover,
 router-link:hover {
-  background-color: var(--primary);
+  background-color: var(--primaryh);
   color: white;
 }
 
@@ -92,5 +92,11 @@ router-link:hover {
 
 #right a {
   font-weight: bold;
+}
+
+#middle a.router-link-active,
+#middle a.router-link-exact-active {
+  background-color: var(--primary);
+  cursor: pointer;
 }
 </style>

@@ -1,12 +1,19 @@
 <template>
-  <main>This is the Play View</main>
+  <Choose> </Choose>
 </template>
+
+<script>
+import Choose from '../components/ChooseClass.vue'
+
+export default {
+  components: {
+    Choose,
+  },
+}
+</script>
 
 <style scoped>
 main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   color: var(--inverse);
 }
