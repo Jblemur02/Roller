@@ -1,0 +1,23 @@
+{
+  "base": {
+    "aggression": {
+      "damage": 50,
+      "perforation": 0,
+      "lethal": 0,
+      "lethal_chance": 0
+    },
+    "resilience": {
+      "health": 200,
+      "armour": 0,
+      "lethal_protection": 0
+    },
+    "mana": 0,
+    "finesse": 0,
+    "energy": 0,
+    "stamina": 0,
+    "evasion": 0,
+    "inner_peace": 100,
+    "exhaustion_rate": 1,
+    "ap_rate": 1
+  }
+}

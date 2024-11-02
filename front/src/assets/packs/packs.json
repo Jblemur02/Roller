@@ -31,7 +31,7 @@
     {
       "name": "Basic Bundle",
       "description": "This is the basic bundle.",
-      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_bundle.png",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_bundle.jpg",
       "price": 50
     }
   ],
@@ -55,7 +55,7 @@
       "name": "Basic Bundle",
       "type": "bundle",
       "price": 50,
-      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_bundle.png"
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_bundle.jpg"
     }
   ]
 }

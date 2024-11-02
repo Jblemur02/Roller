@@ -5,28 +5,34 @@ const uri =
   "mongodb+srv://admin:Swaggm%40n55@roller.1uptn.mongodb.net/roller?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
 
-let dbInstance;
+let userDataCollection;
+let siteDataCollection;
 
-// Connect to MongoDB and return the userData collection
+// Connect to MongoDB and return the userData and siteData collections
 async function connectDB() {
-  if (!dbInstance) {
+  if (!userDataCollection || !siteDataCollection) {
     try {
       await client.connect();
-      dbInstance = client.db("roller").collection("userData");
+      userDataCollection = client.db("roller").collection("userData");
+      siteDataCollection = client.db("roller").collection("siteData"); // Create reference to siteData collection
       console.log("Connected to MongoDB");
+
+      // Add debug logs
+      console.log("userDataCollection:", userDataCollection);
+      console.log("siteDataCollection:", siteDataCollection);
     } catch (error) {
       console.error("MongoDB connection error:", error);
       throw error;
     }
   }
-  return dbInstance;
+  return { userDataCollection, siteDataCollection }; // Return both collections
 }
 
-// Add or update user in the database
+// Add or update user in the userData collection
 async function saveUser(user) {
-  const collection = await connectDB();
+  const { userDataCollection } = await connectDB();
   try {
-    const result = await collection.updateOne(
+    const result = await userDataCollection.updateOne(
       { id: user.id },
       { $set: user },
       { upsert: true }
@@ -38,10 +44,10 @@ async function saveUser(user) {
   }
 }
 
+// Create user document if it doesn't exist
 async function createUserDocumentIfNotExists(userId) {
-  const collection = await connectDB();
-
-  const existingUser = await collection.findOne({ id: userId });
+  const { userDataCollection } = await connectDB();
+  const existingUser = await userDataCollection.findOne({ id: userId });
   if (!existingUser) {
     const userDocument = {
       id: userId,
@@ -49,7 +55,7 @@ async function createUserDocumentIfNotExists(userId) {
     };
 
     try {
-      const result = await collection.insertOne(userDocument);
+      const result = await userDataCollection.insertOne(userDocument);
       console.log(
         `User document created in MongoDB with ID: ${result.insertedId}`
       );
@@ -61,4 +67,20 @@ async function createUserDocumentIfNotExists(userId) {
   }
 }
 
-module.exports = { connectDB, saveUser, createUserDocumentIfNotExists };
+async function fetchClassData() {
+  const { siteDataCollection } = await connectDB();
+  try {
+    const classData = await siteDataCollection.findOne(); // Fetch the class data document
+    return classData; // Return the entire document or filter as needed
+  } catch (error) {
+    console.error("Error fetching class data:", error);
+    throw error;
+  }
+}
+
+module.exports = {
+  connectDB,
+  saveUser,
+  createUserDocumentIfNotExists,
+  fetchClassData,
+};

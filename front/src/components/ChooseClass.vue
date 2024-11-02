@@ -87,6 +87,7 @@ export default {
     viewClasses(classType) {
       this.currentClass = classType
       console.log(`Viewing ${classType} classes`)
+      this.$router.push({ path: `/class-cards/${classType}` })
     },
   },
 }
@@ -159,9 +160,9 @@ main div {
 }
 
 #chaos:hover img {
-  -webkit-box-shadow: 0px 0px 69px 0px rgba(255, 0, 247, 0.9);
-  -moz-box-shadow: 0px 0px 69px 0px rgba(255, 0, 247, 0.9);
-  box-shadow: 0px 0px 69px 0px rgba(255, 0, 247, 0.9);
+  -webkit-box-shadow: 0px 0px 69px 0px rgba(148, 0, 211, 0.9);
+  -moz-box-shadow: 0px 0px 69px 0px rgba(148, 0, 211, 0.9);
+  box-shadow: 0px 0px 69px 0px rgba(148, 0, 211, 0.9);
 }
 
 #sides:hover .class-view:not(:hover) {

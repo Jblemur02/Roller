@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import StoreView from '../views/StoreView.vue'
 import axios from 'axios'
+import ClassCards from '../components/ClassCards.vue'
 
 axios.defaults.baseURL = 'http://localhost:3000'
 
@@ -12,11 +13,6 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-    },
-    {
-      path: '/roll',
-      name: 'roll',
-      component: () => import('../views/RollView.vue'),
     },
     {
       path: '/store',
@@ -42,6 +38,11 @@ const router = createRouter({
       path: '/play',
       name: 'play',
       component: () => import('../views/PlayView.vue'),
+    },
+    {
+      path: '/class-cards/:classType',
+      component: ClassCards,
+      props: true,
     },
   ],
 })

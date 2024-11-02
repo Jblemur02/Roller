@@ -105,7 +105,7 @@ export default {
 
     async executeSell() {
       if (this.confirmQuantity === this.card.quantity) {
-        // Set quantity to zero and remove card immediately
+        console.log(this.confirmQuantity)
         this.$emit('sell', this.confirmQuantity, { remove: true })
       } else {
         this.$emit('sell', this.confirmQuantity)

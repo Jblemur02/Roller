@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
 const usersRouter = require("./routes/users");
+const siteRouter = require("./routes/site");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 
 // User routes
 app.use("/users", usersRouter);
+app.use("/site", siteRouter);
 
 const PORT = 3000;
 app.listen(PORT, () => {

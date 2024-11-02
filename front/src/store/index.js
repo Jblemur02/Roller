@@ -136,8 +136,10 @@ export default createStore({
       }
     },
     async updateUserCards({ state }, cardUpdates) {
-      if (!state.userData?.userId) {
-        console.error('User ID is missing')
+      if (!state.userData?.userId || !state.userData?.cards) {
+        console.log('info: ', state.userData)
+        console.log(state.userData.cards)
+        console.error('User ID or cards data is missing')
         return
       }
 
@@ -161,6 +163,14 @@ export default createStore({
             `Failed to update user cards: ${errorDetails.message}`,
           )
         }
+
+        // Update local state only after successful update in backend
+        state.userData.cards = state.userData.cards.filter(
+          card =>
+            !cardUpdates.some(
+              update => update.uid === card.uid && update.quantity === 0,
+            ),
+        )
 
         console.log('User card storage updated successfully')
       } catch (error) {

@@ -139,7 +139,6 @@ export default {
       }
 
       this.currentSort = sortBy
-      // Call the CardGenerator's sort method and pass the sorted array to decodedCards
       this.cardGenerator.sortDecodedCards(sortBy, this.sortDirection[sortBy])
       this.decodedCards = this.cardGenerator.decodedCards
     },
@@ -147,11 +146,12 @@ export default {
       this.selectedTab = tabName
     },
     sellCard(index, sellQuantity) {
-      console.log('Chronos before:', this.user.chronos)
       const card = this.decodedCards[index]
+      console.log(card, 'lol')
 
-      if (sellQuantity === 'all') {
+      if (sellQuantity === card.quantity) {
         const totalValue = card.value * card.quantity
+
         this.userCards.splice(index, 1)
         this.decodedCards.splice(index, 1)
 
@@ -165,6 +165,7 @@ export default {
             console.error('Error updating cards:', error)
           })
       } else {
+        console.log('Selling', sellQuantity)
         const quantityToSell = Math.min(sellQuantity, card.quantity)
         const totalValue = card.value * quantityToSell
 

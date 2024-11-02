@@ -62,9 +62,18 @@ router.post("/login", async (req, res) => {
       const user = results[0];
       req.session.userId = user.id;
 
+      // Ensure user document exists
       await createUserDocumentIfNotExists(user.id);
 
-      res.json({
+      const { userDataCollection } = await connectDB();
+      const userDocument = await userDataCollection.findOne({ id: user.id });
+
+      if (!userDocument) {
+        return res.status(500).json({ error: "Internal server error" }); // Handle missing user document
+      }
+
+      // Include cards and other relevant user data in the response
+      const userData = {
         message: "Logged in successfully",
         userId: user.id,
         username: user.username,
@@ -72,7 +81,10 @@ router.post("/login", async (req, res) => {
         time_shards: user.time_shards,
         level: user.level,
         chronos: user.chronos,
-      });
+        cards: userDocument.cards, // Include the cards array
+      };
+
+      res.json(userData);
     }
   );
 });
@@ -168,15 +180,14 @@ router.post("/updateUserCards", async (req, res) => {
     return res.status(400).json({ message: "Missing required data" });
   }
 
-  const collection = await connectDB();
-
   try {
-    // Find the user document
-    const userDocument = await collection.findOne({ id: userId });
+    const { userDataCollection } = await connectDB();
 
-    if (!userDocument) {
-      return res.status(404).json({ message: "User not found" });
+    if (!userDataCollection) {
+      return res.status(500).json({ message: "Failed to connect to database" });
     }
+
+    const userDocument = await userDataCollection.findOne({ id: userId });
 
     // Check if the card already exists
     const cardIndex = userDocument.cards.findIndex(
@@ -185,7 +196,7 @@ router.post("/updateUserCards", async (req, res) => {
 
     if (cardIndex > -1) {
       // Card exists, update the quantity
-      const updateResult = await collection.updateOne(
+      const updateResult = await userDataCollection.updateOne(
         { id: userId, "cards.uid": uniqueID },
         { $inc: { "cards.$.quantity": 1 } } // Increment quantity by 1
       );
@@ -195,7 +206,7 @@ router.post("/updateUserCards", async (req, res) => {
       }
     } else {
       // Card does not exist, add a new card
-      const updateResult = await collection.updateOne(
+      const updateResult = await userDataCollection.updateOne(
         { id: userId },
         { $push: { cards: { uid: uniqueID, quantity: 1 } } }
       );
@@ -212,24 +223,23 @@ router.post("/updateUserCards", async (req, res) => {
   }
 });
 
-// Route to update user's cards
 router.post("/:id/updateCards", async (req, res) => {
   const userId = parseInt(req.params.id);
   const { cardUpdates } = req.body;
 
   try {
-    const collection = await connectDB();
+    const { userDataCollection } = await connectDB(); // Ensure userDataCollection is initialized
 
     for (const card of cardUpdates) {
       if (card.quantity === 0) {
-        // Remove card from collection if quantity is zero
-        await collection.updateOne(
+        // Remove card if quantity is zero
+        await userDataCollection.updateOne(
           { id: userId },
           { $pull: { cards: { uid: card.uid } } }
         );
       } else {
-        // Update card quantity if it's greater than zero
-        await collection.updateOne(
+        // Update card quantity if greater than zero
+        await userDataCollection.updateOne(
           { id: userId, "cards.uid": card.uid },
           { $set: { "cards.$.quantity": card.quantity } }
         );
@@ -243,14 +253,14 @@ router.post("/:id/updateCards", async (req, res) => {
   }
 });
 
-// Route to fetch a single user’s data by ID
 router.get("/:id/cards", async (req, res) => {
   try {
     const userId = parseInt(req.params.id); // Ensure userId is an integer
     console.log("Fetching cards for userId:", userId);
 
-    const collection = await connectDB(); // Connect to MongoDB and get the collection
-    const userCards = await collection.findOne({ id: userId });
+    const { userDataCollection } = await connectDB(); // Connect to MongoDB and get the userDataCollection
+
+    const userCards = await userDataCollection.findOne({ id: userId });
 
     if (!userCards || !userCards.cards) {
       console.log("No cards found for this user.");
@@ -277,18 +287,18 @@ router.post("/:id/updateCards", async (req, res) => {
     }
 
     try {
-      const collection = await connectDB();
+      const userDataCollection = await connectDB();
 
       for (const card of cardUpdates) {
         if (card.quantity === 0) {
           // Remove card if quantity is zero
-          await collection.updateOne(
+          await userDataCollection.updateOne(
             { id: userId },
             { $pull: { cards: { uid: card.uid } } }
           );
         } else {
           // Update card quantity if greater than zero
-          await collection.updateOne(
+          await userDataCollection.updateOne(
             { id: userId, "cards.uid": card.uid },
             { $set: { "cards.$.quantity": card.quantity } }
           );

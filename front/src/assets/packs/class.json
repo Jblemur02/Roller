@@ -1,0 +1,69 @@
+{
+  "classes": {
+    "order": [
+      {
+        "name": "general",
+        "description": "A born leader. Specializes in buffing their team and inspiring cooperation among their troops",
+        "stats": {
+          "minions": 5
+        }
+      },
+      {
+        "name": "Paladin",
+        "description": "A guardian of the faith. This class specializes in protecting their allies and maintaining harmony in their battlefield",
+        "stats": {
+          "minions": 3
+        }
+      },
+      {
+        "name": "Samurai",
+        "description": "A warrior of Honor. This class specializes in blade and swordplay. This class gets stronger the more they fight",
+        "minions": 4
+      }
+    ],
+    "balanace": [
+      {
+        "name": "Mystic Bladeslinger",
+        "description": "A swordsman adept in the magical arts. Deals massive ammounts of damage quickly. Low defensive capabilities",
+        "stats": {
+          "minions": 3
+        }
+      },
+      {
+        "name": "Bandit",
+        "description": "A class specifically designed for the element of surprise. Deals insanely high damage, but very low defense",
+        "stats": {
+          "minions": 3
+        }
+      },
+      {
+        "name": "Wizard",
+        "description": "A skilled magician. This class specializes in spells and potions. ",
+        "stats": {
+          "minions": 5
+        }
+      }
+    ],
+    "chaos": [
+      {
+        "name": "Soothsayer",
+        "description": "A master of confusion and deception. This class specializes in moral disruption and manipulating others. ",
+        "stats": {
+          "minions": 4
+        }
+      },
+      {
+        "name": "Dead Knight",
+        "description": "A lone wolf in battle. Low damage and high defensive capabilities, however, this class excels in draining the life force of their enemies",
+        "stats": {
+          "minions": 2
+        }
+      },
+      {
+        "name": "Shadow Warrior",
+        "description": "A warrior of shadows. This class specializes in shadow attacks and defensive abilities. This class gets stronger the more they fight",
+        "minions": 3
+      }
+    ]
+  }
+}
