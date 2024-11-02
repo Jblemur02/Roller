@@ -14,12 +14,8 @@ async function connectDB() {
     try {
       await client.connect();
       userDataCollection = client.db("roller").collection("userData");
-      siteDataCollection = client.db("roller").collection("siteData"); // Create reference to siteData collection
+      siteDataCollection = client.db("roller").collection("siteData");
       console.log("Connected to MongoDB");
-
-      // Add debug logs
-      console.log("userDataCollection:", userDataCollection);
-      console.log("siteDataCollection:", siteDataCollection);
     } catch (error) {
       console.error("MongoDB connection error:", error);
       throw error;
@@ -67,7 +63,7 @@ async function createUserDocumentIfNotExists(userId) {
   }
 }
 
-async function fetchClassData() {
+async function fetchSiteData() {
   const { siteDataCollection } = await connectDB();
   try {
     const classData = await siteDataCollection.findOne(); // Fetch the class data document
@@ -82,5 +78,5 @@ module.exports = {
   connectDB,
   saveUser,
   createUserDocumentIfNotExists,
-  fetchClassData,
+  fetchSiteData,
 };

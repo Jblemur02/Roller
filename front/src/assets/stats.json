@@ -18,6 +18,9 @@
     "evasion": 0,
     "inner_peace": 100,
     "exhaustion_rate": 1,
-    "ap_rate": 1
+    "ap_rate": 1,
+    "grip": 1,
+    "range": 1,
+    "speed": 1
   }
 }

@@ -44,6 +44,12 @@ const router = createRouter({
       component: ClassCards,
       props: true,
     },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('../views/GameTest.vue'),
+      props: true,
+    },
   ],
 })
 

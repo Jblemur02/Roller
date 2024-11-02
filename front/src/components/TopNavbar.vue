@@ -9,6 +9,7 @@
     </div>
     <div id="middle">
       <router-link to="/">Home</router-link>
+      <router-link to="/test">Hell</router-link>
       <router-link v-if="isAuthenticated" to="/auction">Auction</router-link>
       <router-link v-if="isAuthenticated" to="/play">Play</router-link>
       <router-link v-if="isAuthenticated" to="/store">Store</router-link>

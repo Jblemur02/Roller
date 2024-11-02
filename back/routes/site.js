@@ -4,14 +4,13 @@ const {
   connectDB,
   saveUser,
   createUserDocumentIfNotExists,
-  fetchClassData,
-  fetchStats,
+  fetchSiteData,
 } = require("../mongodb");
 const router = express.Router();
 
 router.get("/classes/:classType", async (req, res) => {
   try {
-    const classData = await fetchClassData();
+    const classData = await fetchSiteData();
 
     if (!classData) {
       return res.status(404).json({ message: "No class data found" });
@@ -33,13 +32,18 @@ router.get("/classes/:classType", async (req, res) => {
 
 router.get("/stats", async (req, res) => {
   try {
-    const stats = await fetchStats();
+    const baseStats = await fetchSiteData();
+    console.log("Fetched base stats:", baseStats);
 
-    if (!stats) {
-      return res.status(404).json({ message: "No stats found" });
+    const stats = baseStats.stats.base;
+
+    res.json(stats);
+
+    if (!baseStats) {
+      return res.status(404).json({ message: "No base stats found" });
     }
   } catch (error) {
-    console.error("Error fetching stats:", error);
+    console.error("Error fetching base stats:", error);
     res.status(500).send("Server Error");
   }
 });

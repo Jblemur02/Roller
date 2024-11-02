@@ -55,7 +55,12 @@
                   : card.background,
             }"
           >
-            <img :src="card.image" alt="" class="card-image" />
+            <img
+              :src="card.image"
+              alt=""
+              class="card-image"
+              :style="{ border: '5px solid $(card.color)' }"
+            />
             <div class="text">
               <p class="card-name" :style="{ fontFamily: card.font }">
                 {{ card.name }}
@@ -286,7 +291,7 @@ aside a.active {
 }
 
 #card-collection {
-  width: 80%;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
@@ -316,10 +321,10 @@ aside a.active {
 }
 
 .card-image {
-  width: 70%;
+  width: 100%;
   height: auto;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  aspect-ratio: 2 / 1;
+  border-radius: 8px;
   object-fit: cover;
   margin-bottom: 10px;
   box-shadow: var(--shadow);
@@ -332,16 +337,16 @@ aside a.active {
 }
 
 .text {
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  background-color: transparent;
-  background-image: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0.3),
-    rgba(0, 0, 0, 0.2)
-  );
-  width: 100%;
+  margin: 0 auto;
+  background-color: black;
+  padding: 20px;
+  width: 80%;
   border-radius: 8px;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow);
 }
 
 .card-quantity,
@@ -357,20 +362,20 @@ h2 {
 .value {
   text-align: center;
   display: flex;
-  flex-direction: column; /* Change to column for better stacking */
+  flex-direction: column;
   justify-content: center;
-  margin-top: 10px; /* Add margin for spacing */
+  margin-top: 10px;
 }
 
 .card-value {
-  font-size: 1em; /* Adjust font size */
-  font-weight: bold; /* Make it bold */
-  color: #4caf50; /* Use a nice green color for card value */
+  font-size: 1em;
+  font-weight: bold;
+  color: #4caf50;
 }
 
 .bulk-value {
-  font-size: 0.9em; /* Adjust font size */
-  color: #ff5722; /* Use a contrasting color for bulk value */
+  font-size: 0.9em;
+  color: #ff5722;
 }
 
 .card-actions {

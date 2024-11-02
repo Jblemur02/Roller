@@ -36,6 +36,7 @@
             <h3>{{ classItem.name }}</h3>
             <p>{{ classItem.description }}</p>
             <p>Minions: {{ classItem.stats.minions }}</p>
+            <p>{{ stats.aggression }}</p>
           </div>
         </div>
       </div>
@@ -51,6 +52,7 @@ export default {
   data() {
     return {
       classData: null,
+      stats: null,
     }
   },
   computed: {
@@ -63,6 +65,7 @@ export default {
   },
   mounted() {
     this.fetchClassData()
+    this.fetchStats()
   },
   methods: {
     async fetchClassData() {
@@ -70,9 +73,17 @@ export default {
         console.log('Fetching class data for:', this.classType)
         const response = await axios.get(`/site/classes/${this.classType}`)
         this.classData = response.data
-        console.log('Class data fetched:', this.classData)
       } catch (error) {
         console.error('Error fetching class data:', error)
+      }
+    },
+    async fetchStats() {
+      try {
+        console.log('Fetching stats for:', this.classType)
+        const response = await axios.get(`/site/stats`)
+        this.stats = response.data
+      } catch (error) {
+        console.error('Error fetching stats:', error)
       }
     },
   },
