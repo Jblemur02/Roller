@@ -1,5 +1,5 @@
 const express = require("express");
-const { readPool, writePool } = require("../sqldb.js");
+const pool = require("../sqldb.js");
 const {
   connectDB,
   saveUser,
@@ -11,8 +11,8 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
-  readPool.query(
-    // Check if email already exists using readPool
+  pool.query(
+    // Check if email already exists using pool
     "SELECT * FROM users WHERE email = ?",
     [email],
     async (err, results) => {
@@ -21,8 +21,8 @@ router.post("/register", async (req, res) => {
         return res.status(400).json({ error: "Email already exists" });
       }
 
-      writePool.query(
-        // Insert new user using writePool
+      pool.query(
+        // Insert new user using pool
         "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
         [username, email, password],
         async (err, results) => {
@@ -49,7 +49,7 @@ router.post("/login", async (req, res) => {
       .json({ error: "Username and password are required" });
   }
 
-  readPool.query(
+  pool.query(
     "SELECT * FROM users WHERE username = ? AND password = ?",
     [username, password],
     async (err, results) => {
@@ -108,29 +108,25 @@ router.post("/updateUser", (req, res) => {
   }
 
   const query = "UPDATE users SET time_shards = ? WHERE id = ?";
-  writePool.query(
-    query,
-    [userData.time_shards, userData.id],
-    (error, results) => {
-      if (error) {
-        console.error("Error updating user data:", error);
-        return res.status(500).json({ message: "Internal server error" });
-      }
-
-      if (results.affectedRows === 0) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-      res.status(200).json({ message: "User data updated successfully" });
+  pool.query(query, [userData.time_shards, userData.id], (error, results) => {
+    if (error) {
+      console.error("Error updating user data:", error);
+      return res.status(500).json({ message: "Internal server error" });
     }
-  );
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "User data updated successfully" });
+  });
 });
 
 // Fetch single user data by ID (read operation)
 router.get("/:id", (req, res) => {
   const userId = req.params.id;
 
-  readPool.query(
+  pool.query(
     "SELECT id, username, email, time_shards, level, chronos FROM users WHERE id = ?",
     [userId],
     (err, results) => {
@@ -145,7 +141,7 @@ router.get("/:id", (req, res) => {
 
 // Fetch all users (read operation)
 router.get("/", (req, res) => {
-  readPool.query("SELECT id, username, email FROM users", (err, results) => {
+  pool.query("SELECT id, username, email FROM users", (err, results) => {
     if (err) return res.status(500).json({ error: "Database error" });
     res.json(results);
   });
@@ -159,7 +155,7 @@ router.post("/updateChronos", (req, res) => {
     return res.status(400).json({ message: "Invalid chronos value" });
   }
 
-  writePool.query(
+  pool.query(
     "UPDATE users SET chronos = ? WHERE id = ?",
     [chronos, id],
     (error, results) => {

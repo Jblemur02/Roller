@@ -1,4 +1,5 @@
 <template>
+  <!-- <div class="line"></div> -->
   <main>
     <div id="left">
       <img
@@ -55,6 +56,16 @@ main {
   height: 100%;
 }
 
+.line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 100%;
+  background-color: var(--primary);
+}
+
 #chronos_logo {
   height: 20px;
   width: auto;
@@ -78,17 +89,22 @@ router-link:hover {
   color: white;
 }
 
-#left {
-  margin-right: auto;
+#left,
+#right {
+  width: 25%;
+}
+
+#right {
+  text-align: right;
 }
 
 #middle {
   display: flex;
   gap: 15px;
-}
-
-#right {
-  margin-left: auto;
+  flex-grow: 1;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
 }
 
 #right a {

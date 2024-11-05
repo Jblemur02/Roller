@@ -1,5 +1,5 @@
 const express = require("express");
-const { readPool, writePool } = require("../sqldb.js");
+const { pool } = require("../sqldb.js");
 const {
   connectDB,
   saveUser,
