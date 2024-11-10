@@ -1,0 +1,183 @@
+{
+  "yourChar": {
+    "id": 1,
+    "name": "Jethro123",
+    "turn": 1,
+    "image": "https://ik.imagekit.io/roller/packs/images/iron_helmet.jpg?updatedAt=1730234852000",
+    "maxHealth": 200,
+    "currentHealth": 100,
+    "ap_rate": 2,
+    "currentAP": 5,
+    "speed": 2,
+    "control_level": 3,
+    "actions": [
+      {
+        "name": "Basic Attack",
+        "image": "https://ik.imagekit.io/roller/actions/basic_attack",
+        "cost": [
+          {
+            "AP": 2
+          }
+        ]
+      },
+      {
+        "name": "Shield Wall",
+        "image": "https://ik.imagekit.io/roller/actions/shield_wall",
+        "cost": [
+          {
+            "AP": 3
+          },
+          {
+            "Energy": 20
+          }
+        ]
+      },
+      {
+        "name": "Meteor",
+        "image": "https://ik.imagekit.io/roller/actions/meteor",
+        "cost": [
+          {
+            "AP": 3
+          },
+          {
+            "Mana": 20
+          }
+        ]
+      },
+      {
+        "name": "Blessed Aura",
+        "image": "https://ik.imagekit.io/roller/actions/blessed_aura",
+        "cost": [
+          {
+            "AP": 3
+          },
+          {
+            "Mana": 20
+          }
+        ]
+      }
+    ],
+    "position": { "row": 8, "col": 3 },
+    "minions": [
+      {
+        "id": 1,
+        "name": "Metrax",
+        "image": "https://ik.imagekit.io/roller/minions/metrax",
+        "maxHealth": 500,
+        "currentHealth": 500,
+        "position": { "row": 6, "col": 3 },
+        "currentEnergy": 100,
+        "maxEnergy": 200,
+        "currentMana": 100,
+        "maxMana": 200,
+        "currentExhaustion": 0,
+        "speed": 2,
+        "range": 1
+      },
+      {
+        "id": 2,
+        "name": "Archer",
+        "image": "https://ik.imagekit.io/roller/minions/archer",
+        "maxHealth": 500,
+        "currentHealth": 500,
+        "position": { "row": 6, "col": 4 },
+        "currentEnergy": 100,
+        "maxEnergy": 200,
+        "currentMana": 100,
+        "maxMana": 200,
+        "currentExhaustion": 0,
+        "speed": 3,
+        "range": 4
+      },
+      {
+        "id": 3,
+        "name": "Birgrad",
+        "image": "https://ik.imagekit.io/roller/minions/birgrad",
+        "maxHealth": 1000,
+        "currentHealth": 900,
+        "position": { "row": 5, "col": 3 },
+        "currentEnergy": 100,
+        "maxEnergy": 200,
+        "currentMana": 0,
+        "maxMana": 0,
+        "currentExhaustion": 0,
+        "speed": 1,
+        "range": 1
+      },
+      {
+        "id": 4,
+        "name": "Archer",
+        "image": "https://ik.imagekit.io/roller/minions/archer",
+        "maxHealth": 500,
+        "currentHealth": 500,
+        "position": { "row": 6, "col": 2 },
+        "currentEnergy": 100,
+        "maxEnergy": 200,
+        "currentMana": 100,
+        "maxMana": 200,
+        "currentExhaustion": 0,
+        "speed": 3,
+        "range": 4
+      },
+      {
+        "id": 5,
+        "name": "Ignis",
+        "image": "https://ik.imagekit.io/roller/minions/ignis",
+        "maxHealth": 750,
+        "currentHealth": 500,
+        "position": { "row": 7, "col": 3 },
+        "currentEnergy": 0,
+        "maxEnergy": 0,
+        "currentMana": 150,
+        "maxMana": 200,
+        "currentExhaustion": 0,
+        "speed": 2,
+        "range": 2
+      }
+    ]
+  },
+  "oppChar": {
+    "id": 2,
+    "name": "Lord Eddard",
+    "image": "https://ik.imagekit.io/roller/packs/images/iron_helmet.jpg?updatedAt=1730234852000",
+    "maxHealth": 200,
+    "currentHealth": 150,
+    "turn": 2,
+    "currentAP": 5,
+    "ap_rate": 5,
+    "speed": 2,
+    "position": { "row": 1, "col": 3 },
+    "minions": [
+      {
+        "id": 1,
+        "name": "Vorath",
+        "image": "https://ik.imagekit.io/roller/minions/vorath",
+        "maxHealth": 1000,
+        "currentHealth": 750,
+        "position": { "row": 2, "col": 4 },
+        "speed": 1,
+        "range": 1
+      },
+      {
+        "id": 2,
+        "name": "Agir",
+        "image": "https://ik.imagekit.io/roller/minions/agir",
+        "maxHealth": 400,
+        "currentHealth": 300,
+        "position": { "row": 2, "col": 3 },
+        "speed": 4,
+        "range": 3
+      },
+      {
+        "id": 3,
+        "name": "Morthos",
+        "image": "https://ik.imagekit.io/roller/minions/morthos",
+        "maxHealth": 500,
+        "currentHealth": 490,
+        "position": { "row": 2, "col": 2 },
+        "speed": 3,
+        "range": 2
+      }
+    ]
+  }
+}

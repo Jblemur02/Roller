@@ -24,6 +24,6 @@ export default {
 }
 
 #app {
-  min-height: 92vh;
+  max-height: 95vh;
 }
 </style>

@@ -138,5 +138,61 @@
     "backgroundType": "color",
     "color": "#ffffff",
     "font": "'Roboto', sans-serif"
+  },
+  {
+    "name": "Mystical",
+    "cost": 200,
+    "value": "20",
+    "background": "https://ik.imagekit.io/roller/minions/backgrounds/mystical",
+    "backgroundType": "image",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif"
+  },
+  {
+    "name": "Legendary",
+    "cost": 50,
+    "value": "21",
+    "background": "https://ik.imagekit.io/roller/minions/backgrounds/legendary",
+    "backgroundType": "image",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif",
+    "aura": "0px 0px 20px 1px rgba(255, 247, 5, 0.9)"
+  },
+  {
+    "name": "Ultra",
+    "cost": 10,
+    "value": "22",
+    "background": "#d703fc",
+    "backgroundType": "color",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif"
+  },
+  {
+    "name": "Epic",
+    "cost": 5,
+    "value": "23",
+    "background": "#a9a9a9",
+    "backgroundType": "color",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif"
+  },
+  {
+    "name": "Uncommon",
+    "cost": 3,
+    "value": "24",
+    "background": "#000000",
+    "backgroundType": "color",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif",
+    "aura": "0px 0px 20px 1px rgba(5, 247, 5, 0.9)"
+  },
+  {
+    "name": "Basic",
+    "cost": 1,
+    "value": "25",
+    "background": "#a9a9a9",
+    "backgroundType": "color",
+    "color": "#ffffff",
+    "font": "'Roboto', sans-serif"
   }
 ]

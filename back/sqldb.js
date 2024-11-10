@@ -3,11 +3,11 @@ const mysql = require("mysql2");
 
 // Write pool for write operations
 const pool = mysql.createPool({
-  host: "roller.ct40s26o0ok5.us-east-2.rds.amazonaws.com",
-  user: "admin",
-  password: "blemur55",
+  host: "mysql-roller-treasureroller.e.aivencloud.com",
+  user: "avnadmin",
+  password: "AVNS_hQPu2sxujQMBxGNe6B6",
   database: "roller",
-  port: 3306,
+  port: 24356,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,

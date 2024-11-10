@@ -497,5 +497,50 @@
     "name": "Radiant Crystal",
     "multiplier": 5,
     "image": "https://ik.imagekit.io/roller/packs/images/radiant_crystal.png"
+  },
+  {
+    "number": "00046",
+    "type": "Minion",
+    "subtype": "Ranged",
+    "name": "Archer",
+    "multiplier": 1,
+    "image": "https://ik.imagekit.io/roller/minions/archer",
+    "stats": {
+      "Health": 500,
+      "Energy": 100,
+      "Mana": 0,
+      "Speed": 3,
+      "Range": 5
+    }
+  },
+  {
+    "number": "00047",
+    "type": "Minion",
+    "subtype": "Melee",
+    "name": "Metrax",
+    "multiplier": 1,
+    "image": "https://ik.imagekit.io/roller/minions/metrax",
+    "stats": {
+      "Health": 1000,
+      "Energy": 200,
+      "Mana": 0,
+      "Speed": 2,
+      "Range": 1
+    }
+  },
+  {
+    "number": "00048",
+    "type": "Minion",
+    "subtype": "Tank",
+    "name": "Birgrad",
+    "multiplier": 1,
+    "image": "https://ik.imagekit.io/roller/minions/birgrad",
+    "stats": {
+      "Health": 2000,
+      "Energy": 200,
+      "Mana": 0,
+      "Speed": 1,
+      "Range": 1
+    }
   }
 ]

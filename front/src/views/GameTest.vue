@@ -2,27 +2,68 @@
   <main>
     <div id="stats">
       <div id="player" class="character-display">
+        <div id="your-char" class="character">
+          <img :src="yourChar.image" alt="" />
+          {{ yourChar.name }}
+        </div>
         <div id="action-display">
           <div id="action" v-if="selectedEntity">
-            <div v-if="selectedEntity.id === yourChar.id">
-              <button @click="move()">Move</button>
-              <div
-                id="spells"
-                v-for="actions in selectedEntity.minions"
-                :key="actions.id"
-              ></div>
+            <div
+              v-if="selectedEntity.uid[0] === 'A'"
+              class="actions"
+              id="your-actions"
+            >
+              <button id="move" @click="move()">Move</button>
+              <div id="spells">
+                <div
+                  class="spell"
+                  v-for="(action, index) in selectedEntity.actions"
+                  :key="index"
+                >
+                  <div class="action-image">
+                    <img :src="action.image" alt="" />
+                  </div>
+                  .
+                  <div id="action-description">
+                    <span class="action-name">
+                      {{ action.name }}
+                    </span>
+                    <span
+                      v-for="(cost, costIndex) in action.cost"
+                      :key="costIndex"
+                    >
+                      <span
+                        v-for="(value, type) in cost"
+                        :key="type"
+                        class="action-cost"
+                        :style="{
+                          color:
+                            type === 'Mana'
+                              ? 'blue'
+                              : type === 'Energy'
+                                ? 'green'
+                                : type === 'AP'
+                                  ? 'gold'
+                                  : '',
+                        }"
+                      >
+                        {{ value }} {{ type }}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div v-if="selectedEntity.id === oppChar.id"></div>
+
+            <div v-if="selectedEntity.uid[0] === 'B'">
+              <p>Opponent: {{ selectedEntity.name }}</p>
+            </div>
 
             <div v-if="showMovement && selectedEntity">
               <p>Moving: {{ selectedEntity.name }}</p>
               <p>Speed: {{ selectedEntity.speed }}</p>
             </div>
           </div>
-        </div>
-        <div id="your-char" class="character">
-          <img :src="yourChar.image" alt="" />
-          {{ yourChar.name }}
         </div>
       </div>
 
@@ -53,12 +94,24 @@
     </div>
 
     <div id="board-container">
-      <div id="board" class="board">
-        <div v-for="colIndex in 5" :key="`col-${colIndex}`" class="column">
+      <div
+        id="board"
+        :style="{
+          gridTemplateColumns: `repeat(${columns}, ${100 / columns}%)`,
+          gridTemplateRows: `repeat(${rows}, ${100 / rows}%)`,
+        }"
+      >
+        <div
+          v-for="colIndex in columns"
+          :key="`col-${colIndex}`"
+          class="column"
+        >
           <div
-            v-for="rowIndex in 8"
+            v-for="rowIndex in rows"
             :key="`row-${rowIndex}`"
             class="square"
+            :data-row="rowIndex"
+            :data-col="colIndex"
             @click="handleSquareClick(rowIndex, colIndex)"
           >
             <template v-for="entity in entities" :key="entity.id">
@@ -69,7 +122,7 @@
                 "
                 class="entity"
               >
-                <p>{{ entity.name }}</p>
+                <img :src="entity.image" :alt="entity.name" />
               </div>
             </template>
           </div>
@@ -84,6 +137,9 @@
           v-for="minion in yourChar.minions"
           :key="minion.id"
         >
+          <div class="minion-avatar">
+            <img :src="minion.image" alt="" />
+          </div>
           <div class="status-bars">
             <div class="health status-bar">
               <div class="bar" style="--background: darkRed">
@@ -147,12 +203,18 @@
       </div>
 
       <div id="actions">
-        <p>
-          Action points
-          <span>
-            {{ yourChar.currentAP }}
-          </span>
-        </p>
+        <div id="action-points">
+          <div class="bar" style="--background: gray">
+            <div
+              :style="{
+                height: `${yourChar.currentAP}`,
+              }"
+              class="inner-bar"
+              style="--background: black"
+            ></div>
+          </div>
+          <div class="numbers">{{ yourChar.currentAP }}</div>
+        </div>
         <div id="timer">
           <h1>{{ timer }}</h1>
         </div>
@@ -162,141 +224,20 @@
 </template>
 
 <script>
+import character from '../assets/characters.json'
+
 export default {
   data() {
     return {
+      rows: 8,
+      columns: 5,
       timer: null,
       board: [],
       turn: null,
       selectedEntity: null,
       showMovement: false,
-      yourChar: {
-        id: 1,
-        name: 'Your Character',
-        turn: 1,
-        image:
-          'https://ik.imagekit.io/roller/packs/images/iron_helmet.jpg?updatedAt=1730234852000',
-        maxHealth: 200,
-        currentHealth: 100,
-        ap_rate: 5,
-        currentAP: 5,
-        speed: 2,
-        position: { row: 8, col: 3 },
-        minions: [
-          {
-            id: 1,
-            name: 'Minion A',
-            image: 'https://picsum.photos/seed/picsum/200/300',
-            maxHealth: 500,
-            currentHealth: 500,
-            position: { row: 6, col: 5 },
-            currentEnergy: 100,
-            maxEnergy: 200,
-            currentMana: 100,
-            maxMana: 200,
-            currentExhaustion: 0,
-            speed: 1,
-          },
-          {
-            id: 2,
-            name: 'Minion B',
-            image: 'https://picsum.photos/seed/picsum/200/300',
-            maxHealth: 500,
-            currentHealth: 500,
-            position: { row: 6, col: 4 },
-            currentEnergy: 100,
-            maxEnergy: 200,
-            currentMana: 100,
-            maxMana: 200,
-            currentExhaustion: 0,
-            speed: 1,
-          },
-          {
-            id: 3,
-            name: 'Minion C',
-            image: 'https://picsum.photos/seed/picsum/200/300',
-            maxHealth: 500,
-            currentHealth: 500,
-            position: { row: 6, col: 3 },
-            currentEnergy: 100,
-            maxEnergy: 200,
-            currentMana: 100,
-            maxMana: 200,
-            currentExhaustion: 0,
-            speed: 1,
-          },
-          {
-            id: 4,
-            name: 'Minion D',
-            image: 'https://picsum.photos/seed/picsum/200/300',
-            maxHealth: 500,
-            currentHealth: 500,
-            position: { row: 6, col: 2 },
-            currentEnergy: 100,
-            maxEnergy: 200,
-            currentMana: 100,
-            maxMana: 200,
-            currentExhaustion: 20,
-            speed1: 1,
-          },
-          {
-            id: 5,
-            name: 'Minion E',
-            image: 'https://picsum.photos/seed/picsum/200/300',
-            maxHealth: 500,
-            currentHealth: 500,
-            position: { row: 6, col: 1 },
-            currentEnergy: 100,
-            maxEnergy: 200,
-            currentMana: 100,
-            maxMana: 200,
-            currentExhaustion: 0,
-            speed: 1,
-          },
-        ],
-      },
-      oppChar: {
-        id: 2,
-        name: 'Opponent Character',
-        image:
-          'https://ik.imagekit.io/roller/packs/images/iron_helmet.jpg?updatedAt=1730234852000',
-        maxHealth: 200,
-        currentHealth: 150,
-        turn: 2,
-        currentAP: 5,
-        ap_rate: 5,
-        speed: 2,
-        position: { row: 1, col: 3 },
-        minions: [
-          {
-            id: 1,
-            name: 'Enemy 1',
-            image: 'https://picsum.photos/seed/picsum/200/300',
-            maxHealth: 100,
-            currentHealth: 90,
-            position: { row: 2, col: 4 },
-            speed: 1,
-          },
-          {
-            id: 2,
-            name: 'Enemy 2',
-            image: 'https://picsum.photos/seed/picsum/200/300',
-            maxHealth: 100,
-            currentHealth: 90,
-            position: { row: 2, col: 3 },
-            speed: 1,
-          },
-          {
-            id: 3,
-            name: 'Enemy 3',
-            image: 'https://picsum.photos/seed/picsum/200/300',
-            maxHealth: 100,
-            currentHealth: 90,
-            position: { row: 2, col: 2 },
-            speed: 1,
-          },
-        ],
-      },
+      yourChar: character.yourChar,
+      oppChar: character.oppChar,
     }
   },
   computed: {
@@ -310,6 +251,7 @@ export default {
     },
   },
   mounted() {
+    this.assignUIDs(this.yourChar, this.oppChar)
     this.initializeBoard()
     this.$nextTick(() => {
       this.placeEntities()
@@ -320,25 +262,163 @@ export default {
     this.stopTimer()
   },
   methods: {
+    highlightValidMoves(entity) {
+      const allSquares = document.querySelectorAll('.square')
+      allSquares.forEach(square => square.classList.remove('valid-move'))
+
+      console.log('Entity speed:', entity.speed)
+
+      let queue = [
+        { row: entity.position.row, col: entity.position.col, steps: 0 },
+      ]
+      let visited = new Set()
+      while (queue.length > 0) {
+        let { row, col, steps } = queue.shift()
+        console.log('Current square:', row, col, steps)
+        let key = `${row}-${col}`
+
+        // Check if the square is occupied or already visited (but allow the starting square)
+        const isOccupied = this.board[row - 1][col - 1].occupant !== null
+        const isCurrentPosition =
+          row === entity.position.row && col === entity.position.col
+        if (
+          (visited.has(key) || steps > entity.speed || isOccupied) &&
+          !isCurrentPosition // Allow the starting square to be processed
+        ) {
+          console.log(
+            'Skipping:',
+            row,
+            col,
+            steps,
+            'Visited:',
+            visited.has(key),
+            'Occupied:',
+            isOccupied,
+          )
+          continue
+        }
+        visited.add(key)
+
+        const square = document.querySelector(
+          `.square[data-row="${row}"][data-col="${col}"]`,
+        )
+        console.log('Selected square:', square)
+        if (square) {
+          square.classList.add('valid-move')
+          console.log("Added 'valid-move' class to:", square)
+        }
+
+        if (row > 1) queue.push({ row: row - 1, col, steps: steps + 1 })
+        if (row < this.rows) queue.push({ row: row + 1, col, steps: steps + 1 })
+        if (col > 1) queue.push({ row, col: col - 1, steps: steps + 1 })
+        if (col < this.columns)
+          queue.push({ row, col: col + 1, steps: steps + 1 })
+
+        console.log('Queue:', queue)
+      }
+      console.log('Final Queue:', queue)
+    },
+
+    move() {
+      if (this.selectedEntity) {
+        this.showMovement = !this.showMovement
+
+        if (this.showMovement) {
+          this.highlightValidMoves(this.selectedEntity)
+        } else {
+          const allSquares = document.querySelectorAll('.square')
+          allSquares.forEach(square => square.classList.remove('valid-move'))
+
+          if (this.selectedDestination) {
+            // 1. Update entity's position
+            this.selectedEntity.position.row = this.selectedDestination.row
+            this.selectedEntity.position.col = this.selectedDestination.col
+
+            // 2. Update the board array
+            this.placeEntities()
+
+            this.selectedDestination = null
+            const allSquares = document.querySelectorAll('.square')
+            allSquares.forEach(square => square.classList.remove('valid-move'))
+          }
+        }
+      }
+    },
+
+    handleSquareClick(rowIndex, colIndex) {
+      const occupant = this.board[rowIndex - 1][colIndex - 1].occupant
+
+      if (occupant) {
+        this.selectedEntity = occupant
+        console.log('Clicked on square:', rowIndex, colIndex)
+        console.log(
+          'Occupant:',
+          occupant.name,
+          'Occupant Unique ID:',
+          occupant.uid,
+        )
+        let type = null
+        if (occupant.uid[0] === 'A') {
+          this.highlightValidMoves(occupant)
+          type = 'Your '
+          if (occupant.uid[1] > 1) {
+            type += occupant.uid[1] - 1 + ' minion'
+          } else {
+            type += 'character'
+          }
+        } else if (occupant.uid[0] === 'B') {
+          type = "Opponent's "
+          if (occupant.uid[1] > 1) {
+            type += occupant.uid[1] - 1 + ' minion'
+          } else {
+            type += 'character'
+          }
+        } else {
+          console.log('Unknown entity:', occupant.id)
+          return
+        }
+
+        console.log('Type:', type)
+      } else {
+        console.log('Clicked on empty square:', rowIndex, colIndex)
+      }
+
+      if (this.showMovement && this.selectedEntity) {
+        const clickedSquare = document.querySelector(
+          `.square[data-row="${rowIndex}"][data-col="${colIndex}"]`,
+        )
+
+        if (clickedSquare && clickedSquare.classList.contains('valid-move')) {
+          // Store the selected destination
+          this.selectedDestination = { row: rowIndex, col: colIndex }
+        }
+      }
+    },
+
+    assignUIDs(yourChar, oppChar) {
+      let userCounter = 1
+      let enemyCounter = 1
+
+      yourChar.uid = `A${userCounter++}`
+      oppChar.uid = `B${enemyCounter++}`
+
+      yourChar.minions.forEach(minion => {
+        minion.uid = `A${userCounter++}`
+      })
+
+      oppChar.minions.forEach(minion => {
+        minion.uid = `B${enemyCounter++}`
+      })
+    },
+    tellMe(entity) {
+      console.log(entity)
+    },
     initializeBoard() {
       this.board = Array.from({ length: 8 }, () =>
         Array.from({ length: 5 }, () => ({ occupant: null })),
       )
     },
-    handleSquareClick(rowIndex, colIndex) {
-      console.log(`Clicked square at row ${rowIndex}, column ${colIndex}`)
-      const entity = this.board[rowIndex - 1][colIndex - 1].occupant
 
-      if (entity) {
-        console.log(`Selected entity: ${entity.name}`)
-        this.selectedEntity = entity
-        this.showMovement = true
-      } else {
-        console.log('No entity selected')
-        this.selectedEntity = null
-        this.showMovement = false
-      }
-    },
     showPath(entity) {
       console.log(entity.speed)
     },
@@ -381,7 +461,7 @@ export default {
         if (this.timer > 0) {
           this.timer--
         } else {
-          this.timer = 5
+          this.timer = 30
           this.yourChar.currentAP += this.yourChar.ap_rate
           this.simulateHealthChanges()
         }
@@ -392,6 +472,10 @@ export default {
     },
 
     placeEntities() {
+      // 1. Clear the board
+      this.board.forEach(row => row.forEach(square => (square.occupant = null)))
+
+      // 2. Place the entities
       const entities = [
         this.yourChar,
         this.oppChar,
@@ -407,7 +491,6 @@ export default {
           entity.position.col > 0 &&
           entity.position.col <= 5
         ) {
-          // Check if the row in the board array is defined
           if (this.board[entity.position.row - 1]) {
             this.board[entity.position.row - 1][
               entity.position.col - 1
@@ -433,16 +516,26 @@ main {
   display: grid;
   grid-template-areas: 'stats board moves';
   grid-template-columns: 1fr 1fr 1fr;
-  max-height: 100%;
+  grid-template-rows: 500px auto;
+  gap: 20px;
+}
+
+.valid-move {
+  -webkit-box-shadow: 0px 0px 13px 1px rgba(0, 255, 9, 0.9) inset !important;
+  -moz-box-shadow: 0px 0px 13px 1px rgba(0, 255, 9, 0.9) inset !important;
+  box-shadow: 0px 0px 13px 1px rgba(0, 255, 9, 0.9) inset !important;
+}
+
+.valid-move:hover {
+  background-color: limegreen !important;
 }
 
 #stats {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-direction: column-reverse;
-  height: 100%;
-  margin-bottom: 20px;
+  height: 93vh;
   width: 100%;
   grid-area: stats;
   padding: 10px;
@@ -450,6 +543,8 @@ main {
 
 .character-display {
   width: 100%;
+  height: 100%;
+  gap: 10px;
   margin: 0 auto;
   box-shadow: var(--shadow);
   border-radius: 19px;
@@ -459,11 +554,9 @@ main {
   align-items: center;
   padding: 20px;
   background-color: var(--inverse);
-  gap: 10px;
 }
 
 #player {
-  height: 60%;
   flex-direction: column;
 }
 
@@ -471,10 +564,94 @@ main {
   width: 100%;
   height: 100%;
   box-shadow: var(--shadow);
+  padding: 5px;
+}
+
+#action {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.actions {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#spells {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.spell {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: space-between;
+  text-align: center;
+  padding: 10px;
+}
+
+.spell:hover {
+  cursor: pointer;
+}
+
+.spell:hover .action-image img {
+  -webkit-box-shadow: 0px 0px 40px 5px rgba(46, 56, 255, 0.9);
+  -moz-box-shadow: 0px 0px 40px 5px rgba(46, 56, 255, 0.9);
+  box-shadow: 0px 0px 40px 5px rgba(46, 56, 255, 0.9);
+}
+
+#action-description {
+  width: 100%;
+  height: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.action-image {
+  width: 100%;
+  height: 70%;
+  box-shadow: var(--shadow);
+  border-radius: 10%;
+}
+
+.action-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  transition: 0.3s ease box-shadow;
+}
+
+#move {
+  background-color: var(--primary);
+  width: 50%;
+  margin: 0 auto;
+  border: none;
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#move:hover {
+  background-color: var(--primaryh);
 }
 
 #opp {
@@ -525,6 +702,16 @@ main {
   border-radius: 50%;
 }
 
+.minion-avatar {
+  height: 100%;
+}
+
+.minion-avatar img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+}
+
 .minion-health-bar {
   height: 10%;
   width: 100%;
@@ -552,27 +739,31 @@ main {
   align-items: center;
   flex-direction: column;
   gap: 20px;
-  height: 100%;
+  height: 93vh;
   grid-area: board;
+  width: 100%;
 }
 
 #board {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(8, 1fr);
   gap: 0;
   width: 100%;
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)),
-    url('https://ik.imagekit.io/roller/battle/fields/normal');
+    url('https://ik.imagekit.io/roller/battle/fields/normal?updatedAt=1731027340562');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  box-shadow: 0px 0px 35px 5px rgb(255, 0, 0) inset;
+  -webkit-box-shadow: 0px 0px 35px 5px rgb(255, 0, 0) inset;
+  -moz-box-shadow: 0px 0px 35px 5px rgb(255, 0, 0) inset;
+  padding: 5%;
 }
 
 .square {
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
   background-color: transparent;
   display: flex;
   align-items: center;
@@ -580,56 +771,61 @@ main {
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.5s ease;
+  box-shadow: 0px 0px 20px 1px rgb(255, 111, 0) inset;
+  -webkit-box-shadow: 0px 0px 20px 1px rgb(255, 111, 0) inset;
+  -moz-box-shadow: 0px 0px 20px 1px rgb(255, 111, 0) inset;
 }
 
 .square:hover {
-  outline: 1px solid rgb(195, 2, 2);
   background-color: red;
   box-shadow: 0px 0px 35px 5px rgba(71, 106, 117, 1) inset;
   -webkit-box-shadow: 0px 0px 35px 5px rgba(71, 106, 117, 1) inset;
   -moz-box-shadow: 0px 0px 35px 5px rgba(71, 106, 117, 1) inset;
 }
 
-.square div {
-  background-color: transparent;
-  width: 100%;
-  height: 100%;
+.entity {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  border-radius: 10px;
 }
 
-.square div img {
-  width: 50%;
-  aspect-ratio: 1/1;
+.entity img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
 }
 
 #moves {
   grid-area: moves;
   display: flex;
   gap: 10px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
-  width: 100%;
-  height: 100%;
-}
-
-#moves {
   width: 98%;
+  height: 93vh;
   margin: 0 auto;
   box-shadow: var(--shadow);
   border-radius: 19px;
-  display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   padding: 20px;
-  height: 100%;
   background-color: var(--inverse);
-  gap: 10px;
+}
+
+.minion-avatar {
+  height: 100%;
+  width: 100%;
+}
+
+.minion-avatar img {
+  height: 100%;
+  aspect-ratio: 5;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
 }
 
 #actions {
@@ -661,14 +857,6 @@ main {
   flex-direction: column;
   padding: 10px;
   height: 80%;
-  border: 1px solid red;
-}
-
-#moves img {
-  height: 50%;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  box-shadow: var(--shadow);
 }
 
 .minion-status,
@@ -684,18 +872,19 @@ main {
 
 .status-bars {
   display: flex;
-  width: 80%;
+  width: 100%;
   height: 100%;
   align-items: center;
+  justify-content: flex-end;
   gap: 10px;
 }
 
 .status-bar {
   height: 100%;
-  width: 10%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  transition: width 1s ease;
+  transition: all 0.3s ease;
   justify-content: center;
   align-items: center;
 }

@@ -48,6 +48,7 @@ class CardGenerator {
         }
 
         const decodedCard = decodeUniqueID(card.uniqueID)
+        console.log('Generated card:', decodedCard)
 
         if (
           !decodedCard.tier ||
