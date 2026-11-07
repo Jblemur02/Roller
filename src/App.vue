@@ -8,7 +8,8 @@ import AccountView from './views/AccountView.vue'
 import OnboardingView from './views/OnboardingView.vue'
 import ShardIcon from './components/ShardIcon.vue'
 import ChronosIcon from './components/ChronosIcon.vue'
-import { player, session, addShards } from './lib/player.js'
+import TestingPanel from './components/TestingPanel.vue'
+import { player, session } from './lib/player.js'
 import { route, go } from './lib/router.js'
 
 const NAV = [
@@ -19,6 +20,10 @@ const NAV = [
   { id: 'collection', label: 'Account', match: ['account', 'profile', 'collection', 'gear', 'deck'] },
 ]
 const VIEWS = { home: HomeView, shop: ShopView, auction: AuctionView, play: PlayView, collection: AccountView }
+
+// Short form for big balances in the top bar (exact amount on hover).
+const compact = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 })
+const short = n => (n >= 1_000_000 ? compact.format(n) : n.toLocaleString())
 
 const activeNav = computed(() => NAV.find(n => n.match.includes(route.name)) || NAV[0])
 const view = computed(() => VIEWS[activeNav.value.id])
@@ -44,8 +49,8 @@ const view = computed(() => VIEWS[activeNav.value.id])
         </button>
       </nav>
       <div class="balances" aria-live="polite">
-        <span title="Time Shards: open packs"><ShardIcon /> {{ player.profile.shards.toLocaleString() }}</span>
-        <span title="Chronos: from selling cards, spent at auctions"><ChronosIcon /> {{ player.profile.chronos.toLocaleString() }}</span>
+        <span :title="`${player.profile.shards.toLocaleString()} Time Shards: open packs`"><ShardIcon /> {{ short(player.profile.shards) }}</span>
+        <span :title="`${player.profile.chronos.toLocaleString()} Chronos: from selling cards, spent at auctions`"><ChronosIcon /> {{ short(player.profile.chronos) }}</span>
         <button class="who" title="Your profile" @click="go('profile')">{{ player.profile.username }}</button>
       </div>
     </header>
@@ -57,12 +62,11 @@ const view = computed(() => VIEWS[activeNav.value.id])
     </main>
 
     <footer class="dev">
-      <span v-if="session.saving">Saving…</span>
-      <span v-else>{{ session.mode === 'cloud' ? 'Saved to your account' : 'Saved in this browser' }}</span>
-      <template v-if="session.isOwner">
-        · Testing tools:
-        <button @click="addShards(100)">+100 shards</button>
-      </template>
+      <TestingPanel v-if="session.isOwner" />
+      <p class="save-state">
+        <span v-if="session.saving">Saving…</span>
+        <span v-else>{{ session.mode === 'cloud' ? 'Saved to your account' : 'Saved in this browser' }}</span>
+      </p>
     </footer>
   </template>
 </template>
@@ -169,23 +173,14 @@ nav button.active {
   padding: 8px;
 }
 .dev {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 16px;
-  font-size: 0.8rem;
-  opacity: 0.55;
+  padding: 20px 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
-.dev button {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border-radius: 6px;
-  padding: 4px 10px;
+.save-state {
+  margin: 12px 0 0;
+  text-align: center;
   font-size: 0.8rem;
+  opacity: 0.55;
 }
 @media (max-width: 600px) {
   .topbar {

@@ -242,6 +242,18 @@ export function addShards(amount) {
   save()
 }
 
+// Testing tools: change a balance to any amount (never below 0).
+export const MAX_BALANCE = 1_000_000_000_000
+export function changeBalance(currency, amount, mode = 'add') {
+  if (!['shards', 'chronos'].includes(currency)) throw new Error('Unknown currency')
+  const n = Math.trunc(Number(amount))
+  if (!Number.isFinite(n)) throw new Error('Enter a whole number.')
+  const next = mode === 'set' ? n : player.profile[currency] + n
+  player.profile[currency] = Math.min(MAX_BALANCE, Math.max(0, next))
+  save()
+  return player.profile[currency]
+}
+
 // ---------- cards ----------
 
 export function ownedCount(uid) {
