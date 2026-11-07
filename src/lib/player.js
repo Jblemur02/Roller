@@ -83,7 +83,6 @@ function normalise(p) {
   // The Hand (stored as `deck`): drop anything that no longer belongs and trim to the rules.
   const deck = trimHand(merge(p.deck), p.className).hand
 
-  if (p.startFormation) p.startFormation = canonicalId(p.startFormation)
   const gearLevels = {}
   for (const [uid, lv] of Object.entries(p.gearLevels || {})) gearLevels[canonicalId(uid)] = Math.max(gearLevels[canonicalId(uid)] || 1, lv)
 
@@ -94,6 +93,7 @@ function normalise(p) {
     gear,
     gearLevels,
     deck,
+    startFormation: p.startFormation ? canonicalId(p.startFormation) : null,
   }
   dropUnwearable(out)
   fixStartFormation(out)
@@ -137,7 +137,8 @@ function cloudBackend(db, uid) {
             ref.get(),
             new Promise((_, reject) => setTimeout(() => reject(Object.assign(new Error('timed out'), { code: 'timeout' })), 15000)),
           ])
-          return snap.exists ? snap.data() : null
+          // Saves arrive frozen (read-only); copy so the game can update them.
+          return snap.exists ? structuredClone(snap.data()) : null
         } catch (e) {
           last = e
           console.warn(`Loading your save failed (attempt ${attempt + 1})`, e)
