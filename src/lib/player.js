@@ -23,6 +23,7 @@ export const session = reactive({
   saving: false,
   saveError: '',
   loadError: '',
+  loadDetail: '',
 })
 
 export const player = reactive({ profile: null })
@@ -126,12 +127,25 @@ function localBackend() {
 function cloudBackend(db, uid) {
   const ref = db.doc(`data/users/${uid}/profile`)
   return {
+    // The store can be briefly unavailable or slow to wake up: retry with a growing wait
+    // before giving up. Only errors that can't succeed on retry stop it early.
     async load() {
-      const snap = await Promise.race([
-        ref.get(),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 10000)),
-      ])
-      return snap.exists ? snap.data() : null
+      let last
+      for (let attempt = 0; attempt < 4; attempt++) {
+        try {
+          const snap = await Promise.race([
+            ref.get(),
+            new Promise((_, reject) => setTimeout(() => reject(Object.assign(new Error('timed out'), { code: 'timeout' })), 15000)),
+          ])
+          return snap.exists ? snap.data() : null
+        } catch (e) {
+          last = e
+          console.warn(`Loading your save failed (attempt ${attempt + 1})`, e)
+          if (['invalid_argument', 'revoked', 'not_granted', 'capability_disabled'].includes(e?.code)) break
+          if (attempt < 3) await new Promise(r => setTimeout(r, 1000 * 2 ** attempt))
+        }
+      }
+      throw last
     },
     async save(profile) {
       await ref.set(profile)
@@ -200,7 +214,12 @@ function flush() {
 
 // ---------- start-up ----------
 
+let lastPlatform = null
+
 export async function start(platform) {
+  lastPlatform = platform
+  session.status = 'connecting'
+  session.loadError = ''
   session.mode = platform.mode
   session.reason = platform.reason || null
   session.isOwner = platform.isOwner
@@ -216,9 +235,15 @@ export async function start(platform) {
     }
   } catch (e) {
     console.error('Load failed', e)
-    session.loadError = 'Your save could not be reached. Check your connection and reload the page.'
+    session.loadError = 'Your save couldn\'t be loaded right now. It\'s safe; nothing was changed.'
+    session.loadDetail = [e?.code, e?.message].filter(Boolean).join(': ') || String(e)
     session.status = 'error'
   }
+}
+
+// Try loading again after an error, without reloading the page.
+export function retryLoad() {
+  if (lastPlatform) return start(lastPlatform)
 }
 
 export async function createPlayer(username) {

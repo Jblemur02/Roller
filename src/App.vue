@@ -9,7 +9,7 @@ import OnboardingView from './views/OnboardingView.vue'
 import ShardIcon from './components/ShardIcon.vue'
 import ChronosIcon from './components/ChronosIcon.vue'
 import TestingPanel from './components/TestingPanel.vue'
-import { player, session } from './lib/player.js'
+import { player, retryLoad, session } from './lib/player.js'
 import { route, go } from './lib/router.js'
 
 const NAV = [
@@ -35,7 +35,11 @@ const view = computed(() => VIEWS[activeNav.value.id])
   </div>
 
   <div v-else-if="session.status === 'error'" class="center">
-    <p class="error">{{ session.loadError }}</p>
+    <div class="load-error">
+      <p class="error">{{ session.loadError }}</p>
+      <button class="primary" @click="retryLoad()">Try again</button>
+      <p v-if="session.loadDetail" class="muted detail">Details: {{ session.loadDetail }}</p>
+    </div>
   </div>
 
   <OnboardingView v-else-if="session.status === 'onboarding'" />
@@ -76,6 +80,21 @@ const view = computed(() => VIEWS[activeNav.value.id])
   min-height: 80vh;
   display: grid;
   place-items: center;
+}
+.load-error {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+}
+.load-error p {
+  margin: 0;
+}
+.detail {
+  font-size: 0.75rem;
+  font-family: monospace;
 }
 .loading {
   opacity: 0.7;
