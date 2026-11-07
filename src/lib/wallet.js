@@ -14,7 +14,17 @@ function load() {
 
 export const wallet = reactive(load())
 
-watch(wallet, value => localStorage.setItem(KEY, JSON.stringify(value)), { deep: true })
+watch(
+  wallet,
+  value => {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(value))
+    } catch {
+      // Storage can be blocked (private mode, sandboxed pages); the game still works for this visit.
+    }
+  },
+  { deep: true },
+)
 
 export function canAfford(price) {
   return wallet.shards >= price
