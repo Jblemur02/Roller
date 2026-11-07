@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import ShardIcon from '../../components/ShardIcon.vue'
 import ChronosIcon from '../../components/ChronosIcon.vue'
-import { player, session, collectionList, collectionValue, deckSize, deletePlayer } from '../../lib/player.js'
+import { player, session, collectionList, collectionValue, handSize, deletePlayer } from '../../lib/player.js'
 import { decodeCard } from '../../lib/cards.js'
 import { go } from '../../lib/router.js'
 import classes from '../../data/classes.json'
@@ -39,7 +39,7 @@ const confirmReset = ref(false)
       <div class="stat"><span>Packs opened</span><strong>{{ p.packsOpened }}</strong></div>
       <div class="stat"><span>Cards</span><strong>{{ totalCards }}</strong><small>{{ collectionList.length }} unique</small></div>
       <div class="stat"><span>Collection value</span><strong>{{ collectionValue.toLocaleString() }} <ChronosIcon /></strong></div>
-      <div class="stat"><span>Deck</span><strong>{{ deckSize }}</strong><small>cards</small></div>
+      <div class="stat"><span>Hand</span><strong>{{ handSize }}</strong><small>cards</small></div>
     </div>
 
     <h3>Recent auction sales</h3>

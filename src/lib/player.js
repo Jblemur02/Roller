@@ -1,8 +1,10 @@
-// The signed-in player's save: currencies, cards, gear, deck and class.
+// The signed-in player's save: currencies, cards, gear, hand and class.
 import { reactive, computed } from 'vue'
 import { canonicalId, decodeCard, rarityRank } from './cards.js'
 import { GEAR_SLOTS, gearItem, loadout, maxLevel, statsAt, upgradeCost } from './gear.js'
 import { canWear, classBuild } from './builds.js'
+import handRules from '../data/hand.json'
+import classData from '../data/classes.json'
 
 export { GEAR_SLOTS }
 
@@ -76,9 +78,8 @@ function normalise(p) {
     const card = decodeCard(uid)
     if (fits && card?.gear && card.gear.kind === fits.kind) gear[id] = canonicalId(uid)
   }
-  // Gear isn't played from the deck any more; those copies go back to being free.
-  const deck = merge(p.deck)
-  for (const uid of Object.keys(deck)) if (decodeCard(uid)?.gear) delete deck[uid]
+  // The Hand (stored as `deck`): drop anything that no longer belongs and trim to the rules.
+  const deck = trimHand(merge(p.deck), p.className).hand
 
   const gearLevels = {}
   for (const [uid, lv] of Object.entries(p.gearLevels || {})) gearLevels[canonicalId(uid)] = Math.max(gearLevels[canonicalId(uid)] || 1, lv)
@@ -260,7 +261,7 @@ export function ownedCount(uid) {
   return player.profile?.collection[uid] || 0
 }
 
-// Copies that are equipped or in the deck can't be sold or auctioned.
+// Copies that are equipped or in the Hand can't be sold or auctioned.
 export function reservedCount(uid) {
   const p = player.profile
   if (!p) return 0
@@ -454,17 +455,79 @@ export const ownedGear = computed(() =>
   collectionList.value.filter(c => c.gear).map(c => ({ ...gearInfo(c.uid), quantity: c.quantity, reserved: c.reserved })),
 )
 
-// ---------- deck ----------
+// ---------- hand ----------
+// The cards you take into battle: formations, actions (Talents) and minions. Stored as profile.deck.
 
-export function deckAdd(uid) {
-  if (decodeCard(uid)?.gear) throw new Error('Gear is equipped from the Gear tab, not played from the deck.')
-  if (freeCount(uid) < 1) throw new Error('No free copies of that card left.')
+export const HAND_RULES = handRules
+
+export function handSection(card) {
+  return card ? handRules.sections[card.type] || null : null
+}
+
+function classMinions(className) {
+  for (const s of classData.sides) for (const c of s.classes) if (c.name === className) return c.minions || 0
+  return 0
+}
+
+export function handLimit(section, className = player.profile?.className) {
+  return section === 'minions' ? classMinions(className) : handRules.limits[section] || 0
+}
+
+// Keep only cards that belong in a hand, within each section's limit and duplicate rule.
+function trimHand(deck, className) {
+  const hand = {}
+  const used = { formations: 0, actions: 0, minions: 0 }
+  const removed = []
+  for (const [uid, count] of Object.entries(deck || {})) {
+    const card = decodeCard(uid)
+    const sec = handSection(card)
+    if (!sec) {
+      if (card) removed.push(card.name)
+      continue
+    }
+    let n = handRules.duplicates[sec] ? count : Math.min(1, count)
+    n = Math.min(n, handLimit(sec, className) - used[sec])
+    if (n > 0) {
+      hand[uid] = n
+      used[sec] += n
+    }
+    if (n < count) removed.push(card.name)
+  }
+  return { hand, removed }
+}
+
+export const hand = computed(() => {
+  const out = { formations: [], actions: [], minions: [] }
+  for (const [uid, count] of Object.entries(player.profile?.deck || {})) {
+    const card = decodeCard(uid)
+    const sec = handSection(card)
+    if (sec) out[sec].push({ card, uid, count })
+  }
+  for (const list of Object.values(out)) list.sort((a, b) => a.card.name.localeCompare(b.card.name))
+  return out
+})
+
+export function handCount(section) {
+  return hand.value[section].reduce((s, e) => s + e.count, 0)
+}
+
+export function handAdd(uid) {
   const p = player.profile
+  const card = decodeCard(uid)
+  const sec = handSection(card)
+  if (card?.gear) throw new Error('Gear is equipped from the Gear tab, not carried in your Hand.')
+  if (card?.type === 'Augment') throw new Error('Augments are passive buffs, so they don\'t go in your Hand.')
+  if (!sec) throw new Error('That card can\'t go in your Hand.')
+  const limit = handLimit(sec)
+  if (sec === 'minions' && !limit) throw new Error('Choose a class first: it decides how many minions you can bring.')
+  if (handCount(sec) >= limit) throw new Error(`Your Hand already has ${limit} ${sec === 'formations' && limit === 1 ? 'formation' : sec}.`)
+  if (!handRules.duplicates[sec] && p.deck[uid]) throw new Error(`${card.name} is already in your Hand.`)
+  if (freeCount(uid) < 1) throw new Error('No free copies of that card left.')
   p.deck[uid] = (p.deck[uid] || 0) + 1
   save()
 }
 
-export function deckRemove(uid) {
+export function handRemove(uid) {
   const p = player.profile
   if (!p.deck[uid]) return
   p.deck[uid] -= 1
@@ -472,7 +535,7 @@ export function deckRemove(uid) {
   save()
 }
 
-export const deckSize = computed(() => Object.values(player.profile?.deck || {}).reduce((a, b) => a + b, 0))
+export const handSize = computed(() => Object.values(player.profile?.deck || {}).reduce((a, b) => a + b, 0))
 
 // ---------- class ----------
 
@@ -480,6 +543,9 @@ export function chooseClass(side, className) {
   player.profile.side = side
   player.profile.className = className
   const removed = dropUnwearable(player.profile)
+  // A new class can mean fewer minion slots.
+  const trimmed = trimHand(player.profile.deck, className)
+  player.profile.deck = trimmed.hand
   save()
-  return removed
+  return [...removed, ...trimmed.removed.map(n => `${n} (Hand)`)]
 }

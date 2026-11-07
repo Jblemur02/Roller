@@ -17,7 +17,7 @@ const NAV = [
   { id: 'shop', label: 'Shop', match: ['shop'] },
   { id: 'auction', label: 'Auction', match: ['auction', 'auction-mine'] },
   { id: 'play', label: 'Play', match: ['play', 'play-order', 'play-balance', 'play-chaos'] },
-  { id: 'collection', label: 'Account', match: ['account', 'profile', 'collection', 'gear', 'deck'] },
+  { id: 'collection', label: 'Account', match: ['account', 'profile', 'collection', 'gear', 'hand', 'deck'] },
 ]
 const VIEWS = { home: HomeView, shop: ShopView, auction: AuctionView, play: PlayView, collection: AccountView }
 

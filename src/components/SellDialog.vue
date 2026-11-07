@@ -32,7 +32,7 @@ function sell() {
       <GameCard :card="card" small />
       <div class="controls">
         <p class="name">{{ card.tier.name }} {{ card.name }}</p>
-        <p class="muted">You own {{ card.quantity }}<template v-if="card.reserved"> · {{ card.reserved }} in use (gear or deck)</template></p>
+        <p class="muted">You own {{ card.quantity }}<template v-if="card.reserved"> · {{ card.reserved }} in use (gear or Hand)</template></p>
         <p>Price per card: <strong>{{ card.value.toLocaleString() }}</strong> <ChronosIcon /></p>
 
         <template v-if="max > 0">
@@ -50,7 +50,7 @@ function sell() {
             </div>
           </div>
         </template>
-        <p v-else class="muted">Every copy is in use. Unequip it or take it out of your deck to sell it.</p>
+        <p v-else class="muted">Every copy is in use. Unequip it or take it out of your Hand to sell it.</p>
         <p v-if="error" class="error" role="alert">{{ error }}</p>
       </div>
     </div>

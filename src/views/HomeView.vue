@@ -23,7 +23,7 @@ const tiles = computed(() => [
   },
   { id: 'play', title: 'Play', text: 'Pick your side and class.', stat: p.value.className || 'No class yet' },
   { id: 'gear', title: 'Gear', text: 'Equip gear and build Inner Peace.', stat: `${Object.keys(p.value.gear).length} of 9 slots filled` },
-  { id: 'deck', title: 'Deck', text: 'Build the deck you\'ll battle with.', stat: `${Object.values(p.value.deck).reduce((a, b) => a + b, 0)} cards` },
+  { id: 'hand', title: 'Hand', text: 'Pick the formation, actions and minions you battle with.', stat: `${Object.values(p.value.deck).reduce((a, b) => a + b, 0)} cards` },
 ])
 </script>
 

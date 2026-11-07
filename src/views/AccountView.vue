@@ -3,16 +3,17 @@ import { computed, ref } from 'vue'
 import ProfileTab from './account/ProfileTab.vue'
 import CollectionTab from './account/CollectionTab.vue'
 import GearTab from './account/GearTab.vue'
-import DeckTab from './account/DeckTab.vue'
+import HandTab from './account/HandTab.vue'
 import { route, go } from '../lib/router.js'
 
 const TABS = [
   { id: 'profile', label: 'Profile', component: ProfileTab },
   { id: 'collection', label: 'Collection', component: CollectionTab },
   { id: 'gear', label: 'Gear', component: GearTab },
-  { id: 'deck', label: 'Deck', component: DeckTab },
+  { id: 'hand', label: 'Hand', component: HandTab },
 ]
-const current = computed(() => TABS.find(t => t.id === route.name) || TABS[0])
+// #deck is the old name for the Hand.
+const current = computed(() => TABS.find(t => t.id === (route.name === 'deck' ? 'hand' : route.name)) || TABS[0])
 
 const notice = ref('')
 let timer

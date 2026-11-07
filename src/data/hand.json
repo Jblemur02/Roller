@@ -1,0 +1,10 @@
+{
+  "_about": [
+    "Hand rules: the cards you take into battle.",
+    "sections maps a card type to its section. Augments are passive buffs and gear is equipped, so neither goes in the Hand.",
+    "Minion slots come from the class's minion stat (classes.json). duplicates: whether a section can hold more than one copy of the same card."
+  ],
+  "sections": { "Formation": "formations", "Talent": "actions", "Minion": "minions" },
+  "limits": { "formations": 1, "actions": 6 },
+  "duplicates": { "formations": false, "actions": false, "minions": true }
+}

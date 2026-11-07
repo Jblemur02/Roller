@@ -15,7 +15,7 @@ function choose(c) {
   const removed = chooseClass(side.value.id, c.name)
   notice.value =
     `You are now a ${c.name} of ${side.value.name}.` +
-    (removed.length ? ` Took off gear a ${classBuild(c.name).name} build can't wear: ${removed.join(', ')}.` : '')
+    (removed.length ? ` Removed what a ${c.name} can't use: ${removed.join(', ')}.` : '')
 }
 const isMine = c => player.profile.side === side.value?.id && player.profile.className === c.name
 
@@ -64,7 +64,7 @@ const wears = c => build(c).wears.map(w => WEIGHTS[w].name).join(' + ')
         </button>
       </div>
 
-      <p class="soon muted">Battles are being rebuilt. Your class and <a href="#deck">deck</a> will carry over when they're ready.</p>
+      <p class="soon muted">Battles are being rebuilt. Your class, gear and <a href="#hand">Hand</a> will carry over when they're ready.</p>
     </template>
 
     <!-- A side's classes -->

@@ -49,7 +49,7 @@ async function submit() {
           </p>
           <button class="primary" type="submit" :disabled="busy">{{ busy ? 'Listing…' : 'List it' }}</button>
         </template>
-        <p v-else class="muted">Every copy is in use. Unequip it or take it out of your deck first.</p>
+        <p v-else class="muted">Every copy is in use. Unequip it or take it out of your Hand first.</p>
         <p v-if="error" class="error" role="alert">{{ error }}</p>
       </form>
     </div>
