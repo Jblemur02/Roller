@@ -77,6 +77,19 @@
       ]
     },
     {
+      "id": "formation-pack",
+      "category": "packs",
+      "name": "Formation Pack",
+      "description": "Formations only. The strongest, like Abandon Hope, are the rarest.",
+      "image": "img/packs/formation_pack.svg",
+      "price": 4,
+      "contents": "FormationPack",
+      "theme": [
+        "#2a4f9e",
+        "#08102a"
+      ]
+    },
+    {
       "id": "basic-booster",
       "category": "boosters",
       "name": "Basic Booster Pack",
