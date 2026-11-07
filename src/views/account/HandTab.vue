@@ -2,7 +2,9 @@
 import { computed, ref } from 'vue'
 import GameCard from '../../components/GameCard.vue'
 import CardPicker from '../../components/CardPicker.vue'
-import { HAND_RULES, collectionList, freeCount, hand, handAdd, handCount, handLimit, handRemove, handSection, player, setStartFormation } from '../../lib/player.js'
+import ChronosIcon from '../../components/ChronosIcon.vue'
+import { HAND_RULES, collectionList, freeCount, hand, handAdd, handCount, handLimit, handRemove, handSection, levelInfo, player, setStartFormation, upgradeGear } from '../../lib/player.js'
+import { formationUnit, isBenefit } from '../../lib/formations.js'
 import { go } from '../../lib/router.js'
 
 const emit = defineEmits(['notice'])
@@ -31,6 +33,24 @@ const reserveSlots = computed(() => {
   const total = handLimit('formations') - 1
   return [...reserves, ...Array.from({ length: Math.max(0, total - reserves.length) }, () => null)]
 })
+// Formation effects at their current rank and level.
+const fx = uid => {
+  const info = levelInfo(uid)
+  const lines = Object.entries(info?.stats || {})
+    .filter(([, v]) => v)
+    .map(([k, v]) => ({ key: k, text: `${v > 0 ? '+' : ''}${v.toLocaleString(undefined, { maximumFractionDigits: 1 })}${formationUnit(k)} ${k}`, good: isBenefit(k, v) }))
+  return { info, lines }
+}
+function levelUp(uid) {
+  error.value = ''
+  try {
+    const lv = upgradeGear(uid)
+    emit('notice', `${levelInfo(uid).card.name} is now level ${lv}.`)
+  } catch (e) {
+    error.value = e.message
+  }
+}
+
 function makeStart(e) {
   setStartFormation(e.uid)
   emit('notice', `${e.card.name} is now your starting formation.`)
@@ -107,7 +127,18 @@ function statText(stats) {
           <div class="slot">
             <template v-if="startEntry">
               <GameCard :card="startEntry.card" small class="starting" />
-              <p class="stats">{{ statText(startEntry.card.stats) }}</p>
+              <div class="fx-box">
+                <p class="lvl">Lv {{ fx(startEntry.uid).info.level }}/{{ fx(startEntry.uid).info.maxLevel }}</p>
+                <span v-for="l in fx(startEntry.uid).lines" :key="l.key" :class="l.good ? 'good' : 'bad'">{{ l.text }}</span>
+              </div>
+              <button
+                class="secondary up"
+                :disabled="fx(startEntry.uid).info.upgradeCost === null || player.profile.chronos < fx(startEntry.uid).info.upgradeCost"
+                @click="levelUp(startEntry.uid)"
+              >
+                <template v-if="fx(startEntry.uid).info.upgradeCost === null">Max level</template>
+                <template v-else>Level up · {{ fx(startEntry.uid).info.upgradeCost.toLocaleString() }} <ChronosIcon /></template>
+              </button>
               <button class="secondary remove" @click="handRemove(startEntry.uid)">Remove</button>
             </template>
             <button v-else class="empty" :disabled="!ownedOf('formations')" @click="picking = 'formations'">
@@ -122,7 +153,18 @@ function statText(stats) {
             <div v-for="(e, i) in reserveSlots" :key="i" class="slot">
               <template v-if="e">
                 <GameCard :card="e.card" small />
-                <p class="stats">{{ statText(e.card.stats) }}</p>
+                <div class="fx-box">
+                  <p class="lvl">Lv {{ fx(e.uid).info.level }}/{{ fx(e.uid).info.maxLevel }}</p>
+                  <span v-for="l in fx(e.uid).lines" :key="l.key" :class="l.good ? 'good' : 'bad'">{{ l.text }}</span>
+                </div>
+                <button
+                  class="secondary up"
+                  :disabled="fx(e.uid).info.upgradeCost === null || player.profile.chronos < fx(e.uid).info.upgradeCost"
+                  @click="levelUp(e.uid)"
+                >
+                  <template v-if="fx(e.uid).info.upgradeCost === null">Max level</template>
+                  <template v-else>Level up · {{ fx(e.uid).info.upgradeCost.toLocaleString() }} <ChronosIcon /></template>
+                </button>
                 <div class="pair">
                   <button class="secondary" title="Start battles in this formation" @click="makeStart(e)">Make starting</button>
                   <button class="secondary" aria-label="Remove" title="Remove" @click="handRemove(e.uid)">✕</button>
@@ -307,6 +349,46 @@ h3 {
   outline: 2px solid var(--gold);
   outline-offset: 4px;
   border-radius: 14px;
+}
+.fx-box {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  min-height: 3.6em;
+  align-content: flex-start;
+}
+.fx-box .lvl {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.fx-box span {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.fx-box .good {
+  background: rgba(63, 209, 176, 0.14);
+  color: #8ff0da;
+}
+.fx-box .bad {
+  background: rgba(255, 90, 90, 0.14);
+  color: #ffb0b0;
+}
+.up {
+  width: 100%;
+  padding: 6px 0;
+  font-size: 0.78rem;
+}
+button.up:not(:disabled) {
+  border-color: rgba(201, 162, 74, 0.6);
+  color: var(--gold);
 }
 .pair {
   display: flex;

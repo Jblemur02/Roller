@@ -1,0 +1,136 @@
+{
+  "_about": [
+    "Formation stats. Formations use the same ranks as gear (Worn, Forged, Tempered, Masterwork, Ascended: see gear.json for multipliers, max levels and upgrade costs).",
+    "Each formation's 'stats' are bonuses for a Worn formation at level 1. They grow with the rank multiplier (same as gear) and by levelBonus per level, which is gentler than gear's so percentage bonuses don't max out halfway (a maxed Ascended formation is about 5x a Worn level 1). 'drawbacks' never grow, so a higher rank is always better.",
+    "Team = your hero and minions. Hero = your main character only. Enemy = the other side (negative values weaken them).",
+    "Numbers came from the original formation cards: Resilience -> Health/Armour, Aggression -> Damage, Cooperation -> Inner Peace, Opposition -> Enemy."
+  ],
+  "levelBonus": 0.01,
+  "stats": [
+    {
+      "key": "Team Damage",
+      "unit": "%",
+      "cap": 150,
+      "about": "More damage for your hero and minions."
+    },
+    {
+      "key": "Team Health",
+      "unit": "%",
+      "cap": 150,
+      "about": "More Health for your hero and minions."
+    },
+    {
+      "key": "Team Armour",
+      "unit": "%",
+      "cap": 40,
+      "about": "Extra Armour % for your hero and minions."
+    },
+    {
+      "key": "Team Evasion",
+      "unit": "%",
+      "cap": 30,
+      "about": "Extra Evasion % for your hero and minions."
+    },
+    {
+      "key": "Team Inner Peace",
+      "unit": "",
+      "cap": 30,
+      "about": "Extra Inner Peace for your hero and minions."
+    },
+    {
+      "key": "Hero Damage",
+      "unit": "%",
+      "cap": 150,
+      "about": "More damage for your main character only."
+    },
+    {
+      "key": "Hero Lethal chance",
+      "unit": "%",
+      "cap": 30,
+      "about": "Extra lethal chance for your main character only."
+    },
+    {
+      "key": "Enemy Inner Peace",
+      "unit": "",
+      "cap": -30,
+      "enemy": true,
+      "about": "Lowers the enemy team's Inner Peace."
+    },
+    {
+      "key": "Enemy Armour",
+      "unit": "%",
+      "cap": -30,
+      "enemy": true,
+      "about": "Lowers the enemy team's Armour %."
+    },
+    {
+      "key": "Enemy Evasion",
+      "unit": "%",
+      "cap": -30,
+      "enemy": true,
+      "about": "Lowers the enemy team's Evasion %."
+    }
+  ],
+  "items": {
+    "00007": {
+      "name": "Balance",
+      "stats": {
+        "Team Damage": 5,
+        "Team Health": 5
+      }
+    },
+    "00008": {
+      "name": "Discipline",
+      "stats": {
+        "Team Inner Peace": 5,
+        "Team Armour": 2
+      }
+    },
+    "00009": {
+      "name": "Disarray",
+      "stats": {
+        "Enemy Inner Peace": -5,
+        "Enemy Evasion": -3
+      },
+      "drawbacks": {
+        "Team Inner Peace": -2
+      }
+    },
+    "00010": {
+      "name": "Charge Forth",
+      "stats": {
+        "Team Damage": 15
+      },
+      "drawbacks": {
+        "Team Health": -10
+      }
+    },
+    "00011": {
+      "name": "Abandon Hope",
+      "stats": {
+        "Team Damage": 28,
+        "Team Inner Peace": 5,
+        "Enemy Inner Peace": -5,
+        "Enemy Armour": -4
+      },
+      "drawbacks": {
+        "Team Health": -40,
+        "Team Armour": -5
+      }
+    },
+    "00012": {
+      "name": "Defiance",
+      "stats": {
+        "Team Health": 8,
+        "Team Armour": 3
+      }
+    },
+    "00013": {
+      "name": "Determination",
+      "stats": {
+        "Hero Damage": 12,
+        "Hero Lethal chance": 3
+      }
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { canonicalId, decodeCard, rarityRank } from './cards.js'
 import { GEAR_SLOTS, gearItem, loadout, maxLevel, statsAt, upgradeCost } from './gear.js'
 import { canWear, classBuild } from './builds.js'
 import handRules from '../data/hand.json'
+import { formationStatsAt } from './formations.js'
 import classData from '../data/classes.json'
 
 export { GEAR_SLOTS }
@@ -81,6 +82,7 @@ function normalise(p) {
   // The Hand (stored as `deck`): drop anything that no longer belongs and trim to the rules.
   const deck = trimHand(merge(p.deck), p.className).hand
 
+  if (p.startFormation) p.startFormation = canonicalId(p.startFormation)
   const gearLevels = {}
   for (const [uid, lv] of Object.entries(p.gearLevels || {})) gearLevels[canonicalId(uid)] = Math.max(gearLevels[canonicalId(uid)] || 1, lv)
 
@@ -329,23 +331,31 @@ export function gearLevel(uid) {
   return player.profile?.gearLevels[uid] || 1
 }
 
-// Everything about one owned piece of gear at its current level.
-export function gearInfo(uid) {
+// Level, stats and upgrade cost for anything ranked (gear or a formation) at its current level.
+export function levelInfo(uid) {
   const card = decodeCard(uid)
-  if (!card?.gear) return null
+  if (!card?.ranked) return null
   const level = gearLevel(uid)
-  const stats = statsAt(card.number, card.tier.value, level)
   const next = upgradeCost(card.tier.value, level)
+  const statsFor = card.gear
+    ? l => statsAt(card.number, card.tier.value, l)
+    : l => formationStatsAt(card.number, card.tier.value, l)
   return {
     card,
     uid,
     level,
     maxLevel: maxLevel(card.tier),
-    side: gearItem(card.number).side,
-    stats,
-    nextStats: next === null ? null : statsAt(card.number, card.tier.value, level + 1),
+    stats: statsFor(level),
+    nextStats: next === null ? null : statsFor(level + 1),
     upgradeCost: next,
   }
+}
+
+// Everything about one owned piece of gear at its current level.
+export function gearInfo(uid) {
+  const info = levelInfo(uid)
+  if (!info?.card.gear) return null
+  return { ...info, side: gearItem(info.card.number).side }
 }
 
 function piecesOf(gearMap) {
@@ -440,10 +450,11 @@ export function equipBest() {
   save()
 }
 
+// Level up gear or a formation with Chronos.
 export function upgradeGear(uid) {
   const p = player.profile
-  const info = gearInfo(uid)
-  if (!info || ownedCount(uid) < 1) throw new Error('You don\'t own that gear.')
+  const info = levelInfo(uid)
+  if (!info || ownedCount(uid) < 1) throw new Error('You don\'t own that card.')
   if (info.upgradeCost === null) throw new Error('Already at max level.')
   if (p.chronos < info.upgradeCost) throw new Error(`You need ${info.upgradeCost.toLocaleString()} Chronos.`)
   p.chronos -= info.upgradeCost

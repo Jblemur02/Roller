@@ -7,6 +7,10 @@ import cards from '../data/cards.json'
 import tiers from '../data/tiers.json'
 import variants from '../data/variants.json'
 import { GEAR_RANK, gearItem, gearTierFor, isGearNumber } from './gear.js'
+import { isFormationNumber } from './formations.js'
+
+// Gear and formations use ranks (Worn ... Ascended) instead of card tiers.
+const isRanked = number => isGearNumber(number) || isFormationNumber(number)
 
 const cardsByNumber = new Map(cards.map(c => [c.number, c]))
 const tiersByValue = new Map(tiers.map(t => [t.value, t]))
@@ -31,7 +35,7 @@ export function parseId(uniqueID) {
 export function canonicalId(uniqueID) {
   const id = parseId(uniqueID)
   let tier = id.tier
-  if (isGearNumber(id.base)) tier = gearTierFor(tier)?.value || tier
+  if (isRanked(id.base)) tier = gearTierFor(tier)?.value || tier
   return [id.base, id.variant, tier, id.setId].join('-')
 }
 
@@ -40,7 +44,8 @@ export function decodeCard(uniqueID) {
   const id = parseId(uniqueID)
   const card = cardsByNumber.get(id.base)
   const gear = gearItem(id.base)
-  const tier = gear ? gearTierFor(id.tier) : tiersByValue.get(id.tier)
+  const ranked = isRanked(id.base)
+  const tier = ranked ? gearTierFor(id.tier) : tiersByValue.get(id.tier)
   if (!card || !tier) return null
 
   return {
@@ -56,6 +61,7 @@ export function decodeCard(uniqueID) {
     classCode: id.classCode,
     setId: id.setId,
     gear: gear ? { kind: gear.kind } : null,
+    ranked,
     tier: {
       name: tier.name,
       value: tier.value,
