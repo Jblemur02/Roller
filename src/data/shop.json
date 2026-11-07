@@ -1,0 +1,60 @@
+{
+  "categories": [
+    { "id": "packs", "label": "Packs" },
+    { "id": "boosters", "label": "Boosters" },
+    { "id": "bundles", "label": "Bundles" }
+  ],
+  "featured": ["basic-pack", "basic-booster", "basic-bundle"],
+  "items": [
+    {
+      "id": "basic-pack",
+      "category": "packs",
+      "name": "Basic Pack",
+      "description": "This is the basic pack.",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_pack.png",
+      "price": 1,
+      "contents": "BasicPack",
+      "theme": ["#3a4256", "#1b1f2b"]
+    },
+    {
+      "id": "advanced-pack",
+      "category": "packs",
+      "name": "Advanced Pack",
+      "description": "This is the advanced pack.",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/advanced_pack.png",
+      "price": 3,
+      "contents": "AdvancedPack",
+      "theme": ["#1d4e89", "#0b1a33"]
+    },
+    {
+      "id": "celestial-pack",
+      "category": "packs",
+      "name": "Celestial Pack",
+      "description": "This is the Celestial pack.",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/celestial_pack.png",
+      "price": 10,
+      "contents": null,
+      "theme": ["#5b3a8c", "#160d2b"]
+    },
+    {
+      "id": "basic-booster",
+      "category": "boosters",
+      "name": "Basic Booster Pack",
+      "description": "This is the basic booster.",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_booster.png",
+      "price": 100,
+      "contents": "BasicBoosterPack",
+      "theme": ["#8c3a3a", "#2b0d0d"]
+    },
+    {
+      "id": "basic-bundle",
+      "category": "bundles",
+      "name": "Basic Bundle",
+      "description": "This is the basic bundle.",
+      "image": "https://ik.imagekit.io/roller/packs/pack_images/basic_bundle.jpg",
+      "price": 50,
+      "contents": "BasicBundle",
+      "theme": ["#8c6d2a", "#2b200b"]
+    }
+  ]
+}

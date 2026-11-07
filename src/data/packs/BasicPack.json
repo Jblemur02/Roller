@@ -1,0 +1,39 @@
+{
+  "packNumber": "000",
+  "packName": "Basic Pack",
+  "pulls": 5,
+  "pullRates": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 1
+  },
+  "cards": [
+    {
+      "number": 0,
+      "uniqueID": "00048-00-25-000"
+    },
+    {
+      "number": 1,
+      "uniqueID": "00046-00-24-000"
+    },
+    {
+      "number": 2,
+      "uniqueID": "00047-00-23-000"
+    },
+    {
+      "number": 3,
+      "uniqueID": "00048-00-22-000"
+    },
+    {
+      "number": 4,
+      "uniqueID": "00046-00-21-000"
+    },
+    {
+      "number": 5,
+      "uniqueID": "00047-00-20-000"
+    }
+  ]
+}
