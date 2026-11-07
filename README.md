@@ -29,6 +29,8 @@ All the game's numbers are in `src/data/` so they can be tuned without touching 
 | `builds.json` | Light / Hybrid / Heavy builds, what each wears, every class's base stats |
 | `classes.json` | Sides (Order, Balance, Chaos), their classes, minion counts |
 | `hand.json` | Hand rules: 1 starting + 3 reserve formations, 6 actions, minions by class |
+| `formations.json` | Formation ranks, team effects, alignment and Inner Peace rules |
+| `battle.json` | Battle rules (AP, exhaustion, damage), what each action card does, minion combat stats, AI opponents and rewards |
 | `stats.json` | Base stats with no class chosen |
 
 Code: `src/lib/` (game logic: `packs.js`, `cards.js`, `gear.js`, `builds.js`, `player.js`, `auctions.js`),
@@ -37,9 +39,15 @@ Code: `src/lib/` (game logic: `packs.js`, `cards.js`, `gear.js`, `builds.js`, `p
 Art is in `public/img/`. The 28 class gear pieces use drawn SVG icons in `public/img/cards/new/`;
 replace any file with painted art of the same name and nothing else needs to change.
 
+## Battles
+
+Play → Battle. Your hero (class build, gear, Inner Peace) and the minions in your Hand fight an AI
+team. Each round you gain your AP rate in action points and spend them on Basic Attack, your action
+cards, or switching formation; then your minions attack and the enemy acts. Engine: `src/lib/battle.js`,
+screen: `src/views/BattleView.vue`.
+
 ## Not built yet
 
-- Battles (turn-based, cards in your Hand, AP per round)
-- What each action does in battle (AP / Mana / Energy costs and effects); only 4 action cards exist
+- More action cards (only 4 exist) and smarter / harder AI opponents
 - Where augments (passive buffs) are used
 - A way to earn Time Shards besides the starting 500

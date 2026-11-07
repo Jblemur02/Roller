@@ -1,0 +1,248 @@
+{
+  "_about": [
+    "Battle rules. Rounds: you gain your AP rate in action points each round (startAP on round 1, at most maxAP), spend them on actions, then end your turn: your minions attack, then the enemy acts.",
+    "Damage: attacker Damage x power, then the target may dodge (Evasion - attacker Grip, %), a lethal hit multiplies it by 1 + Lethal% (shrunk by Lethal protection, max 10x), and Armour % cuts it after Perforation. Small random spread.",
+    "Exhaustion: spells add (Mana cost x Exhaustion rate / 100). Each point weakens your hero's damage; it falls by recoverPerRound each round and restRecover when you Rest.",
+    "Actions are keyed by card number. power scales with the action card's tier (tierPower, rarest first).",
+    "Minion stats are their card's Health plus combat stats here, scaled by the minion's tier (minionTierMult)."
+  ],
+  "rules": {
+    "startAP": 3,
+    "maxAP": 8,
+    "resourceRegenPct": 15,
+    "exhaustion": {
+      "damageLossPerPoint": 0.4,
+      "maxDamageLoss": 60,
+      "recoverPerRound": 10,
+      "restRecover": 30
+    },
+    "spread": 0.1,
+    "lethalMax": 10,
+    "formationSwitchAP": 2
+  },
+  "basicAttack": {
+    "name": "Basic Attack",
+    "ap": 2,
+    "power": 1,
+    "about": "Strike one enemy with your hero's Damage."
+  },
+  "rest": {
+    "name": "Rest",
+    "about": "End your turn and catch your breath: recover extra exhaustion."
+  },
+  "tierPower": {
+    "00": 2.2,
+    "01": 2.0,
+    "02": 1.85,
+    "03": 1.7,
+    "04": 1.6,
+    "05": 1.5,
+    "06": 1.4,
+    "07": 1.3,
+    "08": 1.22,
+    "09": 1.15,
+    "10": 1.1,
+    "11": 1.06,
+    "12": 1.03,
+    "13": 1.0,
+    "14": 0.97
+  },
+  "actions": {
+    "00026": {
+      "name": "Flame",
+      "ap": 3,
+      "cost": {
+        "Mana": 25
+      },
+      "magic": true,
+      "target": "all-enemies",
+      "power": 0.7,
+      "status": {
+        "type": "burn",
+        "rounds": 2,
+        "pctOfDamage": 15
+      },
+      "about": "Burn every enemy for 70% damage, then they burn for 2 rounds."
+    },
+    "00030": {
+      "name": "Blind",
+      "ap": 2,
+      "cost": {
+        "Mana": 15
+      },
+      "magic": true,
+      "target": "enemy",
+      "power": 0,
+      "status": {
+        "type": "blind",
+        "rounds": 2,
+        "missChance": 50
+      },
+      "about": "Blind one enemy: its attacks miss half the time for 2 rounds."
+    },
+    "00035": {
+      "name": "Howl",
+      "ap": 3,
+      "cost": {
+        "Energy": 20
+      },
+      "magic": false,
+      "target": "all-enemies",
+      "power": 0,
+      "status": {
+        "type": "fear",
+        "rounds": 2,
+        "damagePct": -25
+      },
+      "about": "Terrify every enemy: they deal 25% less damage for 2 rounds."
+    },
+    "00043": {
+      "name": "Mystic Wind",
+      "ap": 2,
+      "cost": {
+        "Mana": 15
+      },
+      "magic": true,
+      "target": "team",
+      "power": 0,
+      "healPct": 12,
+      "status": {
+        "type": "windward",
+        "rounds": 2,
+        "evasion": 15
+      },
+      "about": "Heal your team 12% and give them +15% Evasion for 2 rounds."
+    }
+  },
+  "minionTierMult": {
+    "20": 3.0,
+    "21": 2.4,
+    "22": 1.9,
+    "23": 1.5,
+    "24": 1.2,
+    "25": 1.0
+  },
+  "minions": {
+    "00046": {
+      "name": "Archer",
+      "damage": 40,
+      "armour": 4,
+      "evasion": 12,
+      "grip": 6,
+      "lethalChance": 10,
+      "lethal": 50
+    },
+    "00047": {
+      "name": "Metrax",
+      "damage": 55,
+      "armour": 10,
+      "evasion": 4,
+      "grip": 3,
+      "lethalChance": 6,
+      "lethal": 40
+    },
+    "00048": {
+      "name": "Birgrad",
+      "damage": 30,
+      "armour": 25,
+      "evasion": 0,
+      "grip": 0,
+      "lethalChance": 3,
+      "lethal": 30
+    }
+  },
+  "enemies": {
+    "training-grounds": {
+      "name": "Training Grounds",
+      "about": "A sparring partner that barely fights back. Learn the ropes here.",
+      "reward": {
+        "shards": 5,
+        "chronos": 40
+      },
+      "ai": {
+        "hesitateChance": 50,
+        "targetMinionChance": 50
+      },
+      "units": [
+        {
+          "id": "e-hero",
+          "name": "Sparring Knight",
+          "kind": "hero",
+          "image": "img/cards/iron_helmet.webp",
+          "health": 220,
+          "damage": 12,
+          "armour": 0,
+          "evasion": 0,
+          "grip": 0,
+          "perforation": 0,
+          "lethalChance": 0,
+          "lethal": 0,
+          "lethalProtection": 0,
+          "apRate": 2,
+          "startAP": 2
+        }
+      ]
+    },
+    "bandit-camp": {
+      "name": "Bandit Camp",
+      "about": "A handful of bandits. A good first fight.",
+      "reward": {
+        "shards": 25,
+        "chronos": 150
+      },
+      "ai": {
+        "hesitateChance": 40,
+        "targetMinionChance": 50
+      },
+      "units": [
+        {
+          "id": "e-hero",
+          "name": "Bandit Lookout",
+          "kind": "hero",
+          "image": "img/cards/new/hood.svg",
+          "health": 300,
+          "damage": 20,
+          "armour": 5,
+          "evasion": 6,
+          "grip": 2,
+          "perforation": 0,
+          "lethalChance": 5,
+          "lethal": 50,
+          "lethalProtection": 0,
+          "apRate": 2,
+          "startAP": 2
+        },
+        {
+          "id": "e-m1",
+          "name": "Ruffian",
+          "kind": "minion",
+          "image": "img/cards/metrax.webp",
+          "health": 140,
+          "damage": 10,
+          "armour": 3,
+          "evasion": 4,
+          "grip": 0,
+          "perforation": 0,
+          "lethalChance": 3,
+          "lethal": 30,
+          "lethalProtection": 0
+        },
+        {
+          "id": "e-m2",
+          "name": "Slinger",
+          "kind": "minion",
+          "image": "img/cards/archer.webp",
+          "health": 110,
+          "damage": 8,
+          "armour": 0,
+          "evasion": 8,
+          "grip": 2,
+          "perforation": 0,
+          "lethalChance": 5,
+          "lethal": 30,
+          "lethalProtection": 0
+        }
+      ]
+    }
+  }
+}

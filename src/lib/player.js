@@ -396,9 +396,8 @@ function piecesOf(gearMap) {
 export const myBuild = computed(() => classBuild(player.profile?.className))
 
 // The starting formation moves Inner Peace through its alignment and any Team Inner Peace it gives.
-function formationPeaceSources() {
+function formationPeaceSources(uid = player.profile?.startFormation) {
   const p = player.profile
-  const uid = p?.startFormation
   if (!uid || !p.deck[uid]) return []
   const info = levelInfo(uid)
   if (!info) return []
@@ -430,6 +429,39 @@ function dropUnwearable(p) {
     }
   }
   return removed
+}
+
+// ---------- battle ----------
+
+// Everything a battle needs from the save: the hero's stats for any formation, and the Hand.
+export function battleSetup(enemy) {
+  const p = player.profile
+  const h = hand.value
+  const minions = h.minions.flatMap(e => Array.from({ length: e.count }, () => e.card))
+  const formations = h.formations.map(e => {
+    const info = levelInfo(e.uid)
+    return { uid: e.uid, card: e.card, stats: info?.stats || {}, side: formationItem(e.card.number)?.side || null }
+  })
+  return {
+    enemy,
+    hero: {
+      name: p.username,
+      image: p.side ? `img/classes/${p.side}.webp` : null,
+      sheetFor: uid => loadout(piecesOf(p.gear), p.side || null, myBuild.value?.stats, formationPeaceSources(uid)).final,
+    },
+    minions,
+    actions: h.actions.map(e => e.card),
+    formations,
+    startFormation: formations.find(f => f.uid === p.startFormation)?.uid || null,
+  }
+}
+
+export function grantBattleReward(reward) {
+  const p = player.profile
+  p.shards += reward.shards || 0
+  p.chronos += reward.chronos || 0
+  p.battlesWon = (p.battlesWon || 0) + 1
+  save()
 }
 
 export const currentLoadout = computed(() => loadoutFor(player.profile?.gear || {}))

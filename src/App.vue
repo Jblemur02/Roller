@@ -4,6 +4,7 @@ import HomeView from './views/HomeView.vue'
 import ShopView from './views/ShopView.vue'
 import AuctionView from './views/AuctionView.vue'
 import PlayView from './views/PlayView.vue'
+import BattleView from './views/BattleView.vue'
 import AccountView from './views/AccountView.vue'
 import OnboardingView from './views/OnboardingView.vue'
 import ShardIcon from './components/ShardIcon.vue'
@@ -16,7 +17,7 @@ const NAV = [
   { id: 'home', label: 'Home', match: ['home'] },
   { id: 'shop', label: 'Shop', match: ['shop'] },
   { id: 'auction', label: 'Auction', match: ['auction', 'auction-mine'] },
-  { id: 'play', label: 'Play', match: ['play', 'play-order', 'play-balance', 'play-chaos'] },
+  { id: 'play', label: 'Play', match: ['play', 'play-order', 'play-balance', 'play-chaos', 'battle'] },
   { id: 'collection', label: 'Account', match: ['account', 'profile', 'collection', 'gear', 'hand', 'deck'] },
 ]
 const VIEWS = { home: HomeView, shop: ShopView, auction: AuctionView, play: PlayView, collection: AccountView }
@@ -26,7 +27,7 @@ const compact = new Intl.NumberFormat('en', { notation: 'compact', maximumFracti
 const short = n => (n >= 1_000_000 ? compact.format(n) : n.toLocaleString())
 
 const activeNav = computed(() => NAV.find(n => n.match.includes(route.name)) || NAV[0])
-const view = computed(() => VIEWS[activeNav.value.id])
+const view = computed(() => (route.name === 'battle' ? BattleView : VIEWS[activeNav.value.id]))
 </script>
 
 <template>

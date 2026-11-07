@@ -64,7 +64,15 @@ const wears = c => build(c).wears.map(w => WEIGHTS[w].name).join(' + ')
         </button>
       </div>
 
-      <p class="soon muted">Battles are being rebuilt. Your class, gear and <a href="#hand">Hand</a> will carry over when they're ready.</p>
+      <div class="battle-cta">
+        <div>
+          <h2>Ready to fight?</h2>
+          <p class="muted">Take your class, gear and <a href="#hand">Hand</a> into a battle against the AI.</p>
+        </div>
+        <button class="primary" :disabled="!player.profile.className" @click="go('battle')">
+          {{ player.profile.className ? 'Battle' : 'Choose a class to battle' }}
+        </button>
+      </div>
     </template>
 
     <!-- A side's classes -->
@@ -212,6 +220,29 @@ const wears = c => build(c).wears.map(w => WEIGHTS[w].name).join(' + ')
     opacity: 0.9;
     max-height: none;
   }
+}
+.battle-cta {
+  margin-top: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 18px 22px;
+  border-radius: 16px;
+  border: 1px solid rgba(201, 162, 74, 0.45);
+  background: linear-gradient(120deg, rgba(201, 162, 74, 0.14), rgba(255, 255, 255, 0.02));
+}
+.battle-cta h2 {
+  margin: 0;
+  font-family: 'Cinzel', serif;
+}
+.battle-cta p {
+  margin: 4px 0 0;
+}
+.battle-cta button {
+  padding: 12px 34px;
+  font-size: 1.05rem;
 }
 .soon {
   text-align: center;
