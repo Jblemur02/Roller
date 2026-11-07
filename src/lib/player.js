@@ -4,7 +4,7 @@ import { canonicalId, decodeCard, rarityRank } from './cards.js'
 import { GEAR_SLOTS, gearItem, loadout, maxLevel, statsAt, upgradeCost } from './gear.js'
 import { canWear, classBuild } from './builds.js'
 import handRules from '../data/hand.json'
-import { formationStatsAt } from './formations.js'
+import { formationItem, formationPeace, formationStatsAt } from './formations.js'
 import classData from '../data/classes.json'
 
 export { GEAR_SLOTS }
@@ -369,8 +369,22 @@ function piecesOf(gearMap) {
 // The player's class build (base stats + what they can wear), or null with no class.
 export const myBuild = computed(() => classBuild(player.profile?.className))
 
+// The starting formation moves Inner Peace through its alignment and any Team Inner Peace it gives.
+function formationPeaceSources() {
+  const p = player.profile
+  const uid = p?.startFormation
+  if (!uid || !p.deck[uid]) return []
+  const info = levelInfo(uid)
+  if (!info) return []
+  const item = formationItem(info.card.number)
+  const out = [{ name: `${info.card.name} (formation)`, side: item.side, ...formationPeace(item.side, p.side) }]
+  const team = info.stats['Team Inner Peace']
+  if (team) out.push({ name: `${info.card.name} effect`, side: null, delta: team, reason: 'Team Inner Peace' })
+  return out
+}
+
 export function loadoutFor(gearMap = player.profile?.gear || {}) {
-  return loadout(piecesOf(gearMap), player.profile?.side || null, myBuild.value?.stats)
+  return loadout(piecesOf(gearMap), player.profile?.side || null, myBuild.value?.stats, formationPeaceSources())
 }
 
 export function wearable(uid) {

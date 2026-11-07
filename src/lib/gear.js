@@ -85,15 +85,19 @@ export function score(stats) {
  * Everything the gear screen needs for a loadout.
  * pieces: [{ number, tier (code), level, name }]
  */
-export function loadout(pieces, playerSide, base = BASE_STATS) {
+// extraPeace: other things that move Inner Peace, such as the starting formation: [{ name, delta, reason, side }].
+export function loadout(pieces, playerSide, base = BASE_STATS, extraPeace = []) {
   const gearStats = addStats(...pieces.map(p => statsAt(p.number, p.tier, p.level)))
 
   // Inner peace: base, then each item's side, then fixed peace bonuses (already in gearStats).
   const ipDef = DEF['Inner peace']
-  const breakdown = pieces.map(p => ({ name: p.name, side: gearItem(p.number)?.side || null, ...peaceFor(gearItem(p.number)?.side, playerSide) }))
+  const breakdown = [
+    ...pieces.map(p => ({ name: p.name, side: gearItem(p.number)?.side || null, ...peaceFor(gearItem(p.number)?.side, playerSide) })),
+    ...extraPeace,
+  ]
   const sideDelta = breakdown.reduce((s, b) => s + b.delta, 0)
   const rawPeace = base['Inner peace'] + sideDelta + (gearStats['Inner peace'] || 0)
-  const peace = Math.min(ipDef.max, Math.max(ipDef.min, rawPeace))
+  const peace = Math.round(Math.min(ipDef.max, Math.max(ipDef.min, rawPeace)))
 
   const final = {}
   for (const s of STAT_DEFS) {

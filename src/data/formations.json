@@ -1,41 +1,54 @@
 {
   "_about": [
     "Formation stats. Formations use the same ranks as gear (Worn, Forged, Tempered, Masterwork, Ascended: see gear.json for multipliers, max levels and upgrade costs).",
-    "Each formation's 'stats' are bonuses for a Worn formation at level 1. They grow with the rank multiplier (same as gear) and by levelBonus per level, which is gentler than gear's so percentage bonuses don't max out halfway (a maxed Ascended formation is about 5x a Worn level 1). 'drawbacks' never grow, so a higher rank is always better.",
+    "Each formation's 'stats' (bonuses) and 'drawbacks' are for a Worn formation at level 1. Both grow with the rank multiplier (same as gear) and by levelBonus per level, so drastic formations get more drastic as they rank up. Bonuses stop at 'cap'; drawbacks stop at 'floor'.",
+    "side: the formation's alignment. Drastic formations (big upsides and downsides) are Chaos, gentle ones with few debuffs are Order, the ones in between are Balance. Your starting formation moves your Inner Peace by alignmentPeace, like gear does.",
     "Team = your hero and minions. Hero = your main character only. Enemy = the other side (negative values weaken them).",
     "Numbers came from the original formation cards: Resilience -> Health/Armour, Aggression -> Damage, Cooperation -> Inner Peace, Opposition -> Enemy."
   ],
   "levelBonus": 0.01,
+  "alignmentPeace": {
+    "sameSide": 6,
+    "neutral": 0,
+    "balanceMismatch": -3,
+    "opposed": -12,
+    "noSide": 0
+  },
   "stats": [
     {
       "key": "Team Damage",
       "unit": "%",
       "cap": 150,
-      "about": "More damage for your hero and minions."
+      "about": "More damage for your hero and minions.",
+      "floor": -50
     },
     {
       "key": "Team Health",
       "unit": "%",
       "cap": 150,
-      "about": "More Health for your hero and minions."
+      "about": "More Health for your hero and minions.",
+      "floor": -90
     },
     {
       "key": "Team Armour",
       "unit": "%",
       "cap": 40,
-      "about": "Extra Armour % for your hero and minions."
+      "about": "Extra Armour % for your hero and minions.",
+      "floor": -25
     },
     {
       "key": "Team Evasion",
       "unit": "%",
       "cap": 30,
-      "about": "Extra Evasion % for your hero and minions."
+      "about": "Extra Evasion % for your hero and minions.",
+      "floor": -25
     },
     {
       "key": "Team Inner Peace",
       "unit": "",
       "cap": 30,
-      "about": "Extra Inner Peace for your hero and minions."
+      "about": "Extra Inner Peace for your hero and minions.",
+      "floor": -30
     },
     {
       "key": "Hero Damage",
@@ -74,6 +87,7 @@
   "items": {
     "00007": {
       "name": "Balance",
+      "side": "balance",
       "stats": {
         "Team Damage": 5,
         "Team Health": 5
@@ -81,6 +95,7 @@
     },
     "00008": {
       "name": "Discipline",
+      "side": "order",
       "stats": {
         "Team Inner Peace": 5,
         "Team Armour": 2
@@ -88,6 +103,7 @@
     },
     "00009": {
       "name": "Disarray",
+      "side": "chaos",
       "stats": {
         "Enemy Inner Peace": -5,
         "Enemy Evasion": -3
@@ -98,6 +114,7 @@
     },
     "00010": {
       "name": "Charge Forth",
+      "side": "chaos",
       "stats": {
         "Team Damage": 15
       },
@@ -107,6 +124,7 @@
     },
     "00011": {
       "name": "Abandon Hope",
+      "side": "chaos",
       "stats": {
         "Team Damage": 28,
         "Team Inner Peace": 5,
@@ -120,6 +138,7 @@
     },
     "00012": {
       "name": "Defiance",
+      "side": "order",
       "stats": {
         "Team Health": 8,
         "Team Armour": 3
@@ -127,6 +146,7 @@
     },
     "00013": {
       "name": "Determination",
+      "side": "balance",
       "stats": {
         "Hero Damage": 12,
         "Hero Lethal chance": 3

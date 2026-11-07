@@ -4,7 +4,8 @@ import GameCard from '../../components/GameCard.vue'
 import CardPicker from '../../components/CardPicker.vue'
 import ChronosIcon from '../../components/ChronosIcon.vue'
 import { HAND_RULES, collectionList, freeCount, hand, handAdd, handCount, handLimit, handRemove, handSection, levelInfo, player, setStartFormation, upgradeGear } from '../../lib/player.js'
-import { formationUnit, isBenefit } from '../../lib/formations.js'
+import { ALIGNMENT_PEACE, formationItem, formationPeace, formationUnit, isBenefit } from '../../lib/formations.js'
+import classes from '../../data/classes.json'
 import { go } from '../../lib/router.js'
 
 const emit = defineEmits(['notice'])
@@ -39,8 +40,11 @@ const fx = uid => {
   const lines = Object.entries(info?.stats || {})
     .filter(([, v]) => v)
     .map(([k, v]) => ({ key: k, text: `${v > 0 ? '+' : ''}${v.toLocaleString(undefined, { maximumFractionDigits: 1 })}${formationUnit(k)} ${k}`, good: isBenefit(k, v) }))
-  return { info, lines }
+  const side = info ? formationItem(info.card.number).side : null
+  const peace = formationPeace(side, player.profile.side)
+  return { info, lines, side, peace }
 }
+const SIDES = Object.fromEntries(classes.sides.map(s => [s.id, { name: s.name, color: s.colors[0] }]))
 function levelUp(uid) {
   error.value = ''
   try {
@@ -121,6 +125,13 @@ function statText(stats) {
         A {{ className }} brings {{ handLimit('minions') }} minions. You can bring more than one of the same minion.
       </p>
 
+      <p v-if="sec.id === 'formations'" class="muted small">
+        Drastic formations are <strong style="color: #c23b3b">Chaos</strong>, gentle ones with few debuffs are
+        <strong style="color: #2f6fd6">Order</strong>, and the ones in between are <strong style="color: #3fa66b">Balance</strong>.
+        Your starting formation changes your Inner Peace: your side +{{ ALIGNMENT_PEACE.sameSide }}, Balance/other side {{ ALIGNMENT_PEACE.balanceMismatch }},
+        opposing side {{ ALIGNMENT_PEACE.opposed }}.
+        <template v-if="!player.profile.side"><a href="#play">Choose a class</a> to see how each one fits you.</template>
+      </p>
       <div v-if="sec.id === 'formations'" class="formations">
         <div class="start-col">
           <p class="slot-tag start">Starting formation</p>
@@ -129,6 +140,12 @@ function statText(stats) {
               <GameCard :card="startEntry.card" small class="starting" />
               <div class="fx-box">
                 <p class="lvl">Lv {{ fx(startEntry.uid).info.level }}/{{ fx(startEntry.uid).info.maxLevel }}</p>
+                <p class="align">
+                  <span class="side" :style="{ background: SIDES[fx(startEntry.uid).side].color }">{{ SIDES[fx(startEntry.uid).side].name }}</span>
+                  <span v-if="player.profile.side" :class="fx(startEntry.uid).peace.delta > 0 ? 'good' : fx(startEntry.uid).peace.delta < 0 ? 'bad' : 'even'">
+                    {{ fx(startEntry.uid).peace.delta > 0 ? '+' : '' }}{{ fx(startEntry.uid).peace.delta }} Inner Peace
+                  </span>
+                </p>
                 <span v-for="l in fx(startEntry.uid).lines" :key="l.key" :class="l.good ? 'good' : 'bad'">{{ l.text }}</span>
               </div>
               <button
@@ -155,6 +172,12 @@ function statText(stats) {
                 <GameCard :card="e.card" small />
                 <div class="fx-box">
                   <p class="lvl">Lv {{ fx(e.uid).info.level }}/{{ fx(e.uid).info.maxLevel }}</p>
+                  <p class="align">
+                    <span class="side" :style="{ background: SIDES[fx(e.uid).side].color }">{{ SIDES[fx(e.uid).side].name }}</span>
+                    <span v-if="player.profile.side" class="muted" :title="'Inner Peace if this were your starting formation'">
+                      {{ fx(e.uid).peace.delta > 0 ? '+' : '' }}{{ fx(e.uid).peace.delta }} if starting
+                    </span>
+                  </p>
                   <span v-for="l in fx(e.uid).lines" :key="l.key" :class="l.good ? 'good' : 'bad'">{{ l.text }}</span>
                 </div>
                 <button
@@ -366,6 +389,29 @@ h3 {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--gold);
+}
+.align {
+  width: 100%;
+  margin: 0 0 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+}
+.align .side {
+  color: #fff;
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+.align .good {
+  color: #8ff0da;
+  background: none;
+}
+.align .bad {
+  color: #ffb0b0;
+  background: none;
 }
 .fx-box span {
   font-size: 0.7rem;

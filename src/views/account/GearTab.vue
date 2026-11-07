@@ -166,6 +166,7 @@ const armory = computed(() => {
         <p v-else class="muted tiny">
           You're <strong :style="{ color: sideColor(mySide) }">{{ sideName(mySide) }}</strong>.
           Your side's gear +4 each, Balance/other side −2, opposing side −10, neutral 0.
+          Your <a href="#hand">starting formation</a> counts too.
         </p>
         <div v-if="mySide && L.peace.breakdown.length" class="chips">
           <span v-for="(b, i) in L.peace.breakdown" :key="i" class="chip" :class="{ pos: b.delta > 0, neg: b.delta < 0 }">
