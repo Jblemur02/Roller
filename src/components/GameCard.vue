@@ -7,6 +7,7 @@ const props = defineProps({
   card: { type: Object, required: true },
   revealed: { type: Boolean, default: true },
   small: Boolean,
+  tease: { type: String, default: null }, // glow colour on the face-down back for special cards
 })
 defineEmits(['reveal'])
 
@@ -56,7 +57,7 @@ const rare = computed(() => rarityRank(props.card.tier) <= 6)
     @keydown.enter="!revealed && $emit('reveal')"
   >
     <div class="inner">
-      <div class="back">
+      <div class="back" :class="{ teasing: tease && !revealed }" :style="tease ? { '--tease': tease } : {}">
         <ChronosIcon size="64px" />
         <span>ROLLER</span>
       </div>
@@ -124,6 +125,15 @@ const rare = computed(() => rarityRank(props.card.tier) <= 6)
   font-weight: 800;
   letter-spacing: 0.3em;
   font-size: 0.85rem;
+}
+.back.teasing {
+  border-color: var(--tease);
+  color: var(--tease);
+  animation: tease 1.1s ease-in-out infinite;
+}
+@keyframes tease {
+  0%, 100% { box-shadow: 0 0 10px 1px var(--tease), inset 0 0 20px -6px var(--tease); }
+  50% { box-shadow: 0 0 28px 6px var(--tease), inset 0 0 36px -4px var(--tease); }
 }
 .front {
   transform: rotateY(180deg);

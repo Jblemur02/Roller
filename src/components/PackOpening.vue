@@ -1,6 +1,8 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import GameCard from './GameCard.vue'
+import TierReveal from './TierReveal.vue'
+import { themeFor } from '../lib/tierThemes.js'
 import ShardIcon from './ShardIcon.vue'
 import ChronosIcon from './ChronosIcon.vue'
 import { rarityRank } from '../lib/cards.js'
@@ -21,11 +23,51 @@ const best = computed(() =>
 
 revealed.value = props.cards.map(() => false)
 
-function reveal(i) {
-  revealed.value[i] = true
+// Cards above Legendary get a full-screen themed reveal.
+const themes = computed(() => props.cards.map(themeFor))
+const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+const showing = ref(null) // { i, card, theme }
+const busy = ref(false)
+let finishShow = null
+
+function playReveal(i) {
+  return new Promise(resolve => {
+    showing.value = { i, card: props.cards[i], theme: themes.value[i] }
+    finishShow = resolve
+  })
 }
-function revealAll() {
-  props.cards.forEach((_, i) => setTimeout(() => reveal(i), i * 120))
+function onRevealDone() {
+  revealed.value[showing.value.i] = true
+  showing.value = null
+  finishShow?.()
+}
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+
+async function reveal(i) {
+  if (revealed.value[i] || busy.value) return
+  if (themes.value[i] && !reducedMotion) {
+    busy.value = true
+    await playReveal(i)
+    busy.value = false
+  } else {
+    revealed.value[i] = true
+  }
+}
+
+// Flip the ordinary cards first, then the big ones, saving the rarest for last.
+async function revealAll() {
+  if (busy.value) return
+  busy.value = true
+  const hidden = props.cards.map((_, i) => i).filter(i => !revealed.value[i])
+  const plain = hidden.filter(i => !themes.value[i] || reducedMotion)
+  const special = hidden.filter(i => themes.value[i] && !reducedMotion).sort((a, b) => themes.value[b].rank - themes.value[a].rank)
+  for (const i of plain) {
+    revealed.value[i] = true
+    await sleep(110)
+  }
+  if (plain.length && special.length) await sleep(450)
+  for (const i of special) await playReveal(i)
+  busy.value = false
 }
 
 function onKey(e) {
@@ -46,7 +88,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
         <button class="close" aria-label="Close" @click="$emit('close')">×</button>
       </header>
 
-      <p class="hint" v-if="!allRevealed">Click a card to flip it.</p>
+      <p class="hint" v-if="!allRevealed">Click a card to flip it. Glowing cards are something special.</p>
+      <p class="hint preview" v-if="item.preview">Test pack: these cards aren't added to your collection.</p>
 
       <div class="cards">
         <GameCard
@@ -54,6 +97,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
           :key="i"
           :card="card"
           :revealed="revealed[i]"
+          :tease="themes[i]?.glow"
           :style="{ animationDelay: `${i * 70}ms` }"
           class="dealt"
           @reveal="reveal(i)"
@@ -74,10 +118,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
           </div>
         </template>
         <div v-else class="actions">
-          <button class="primary" @click="revealAll">Reveal all</button>
+          <button class="primary" :disabled="busy" @click="revealAll">Reveal all</button>
         </div>
       </footer>
     </section>
+    <TierReveal v-if="showing" :key="showing.i" :card="showing.card" :theme="showing.theme" @done="onRevealDone" />
   </div>
 </template>
 
@@ -181,6 +226,10 @@ button.secondary {
   background: transparent;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+.hint.preview {
+  color: var(--gold);
+  opacity: 0.9;
 }
 @media (prefers-reduced-motion: reduce) {
   .dealt { animation: none; }

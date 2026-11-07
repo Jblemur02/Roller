@@ -11,6 +11,11 @@
     {
       "id": "bundles",
       "label": "Bundles"
+    },
+    {
+      "id": "testing",
+      "label": "Testing",
+      "ownerOnly": true
     }
   ],
   "featured": [
@@ -82,6 +87,20 @@
       "theme": [
         "#8c6d2a",
         "#2b200b"
+      ]
+    },
+    {
+      "id": "test-pack",
+      "category": "testing",
+      "name": "Test Pack",
+      "description": "Owner only. Heavy top-tier odds for testing reveals. Free, and cards aren't kept.",
+      "image": "img/packs/celestial_pack.webp",
+      "price": 0,
+      "contents": "TestPack",
+      "preview": true,
+      "theme": [
+        "#5b3a8c",
+        "#160d2b"
       ]
     }
   ]

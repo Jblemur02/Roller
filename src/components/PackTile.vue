@@ -25,7 +25,7 @@ const tileStyle = computed(() => ({
     <div class="body">
       <h3>{{ item.name }}</h3>
       <p class="desc">{{ item.description }}</p>
-      <p class="price">{{ item.price.toLocaleString() }} <ShardIcon /></p>
+      <p class="price"><template v-if="item.price">{{ item.price.toLocaleString() }} <ShardIcon /></template><template v-else>Free</template></p>
 
       <button
         class="buy"

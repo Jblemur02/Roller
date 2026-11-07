@@ -4,9 +4,9 @@ import PackTile from '../components/PackTile.vue'
 import PackOpening from '../components/PackOpening.vue'
 import OddsDialog from '../components/OddsDialog.vue'
 import { categories, featured, items, openPack } from '../lib/packs.js'
-import { buyPack } from '../lib/player.js'
+import { buyPack, session } from '../lib/player.js'
 
-const tabs = [{ id: 'featured', label: 'Featured' }, ...categories]
+const tabs = computed(() => [{ id: 'featured', label: 'Featured' }, ...categories.filter(c => !c.ownerOnly || session.isOwner)])
 const tab = ref('featured')
 
 const shown = computed(() =>
@@ -27,7 +27,8 @@ function buy(item) {
     error.value = e.message
     return
   }
-  if (!buyPack(item, cards)) {
+  // Test packs are free and their cards aren't kept.
+  if (!item.preview && !buyPack(item, cards)) {
     error.value = `You need ${item.price} Time Shards to open ${item.name}.`
     return
   }
@@ -112,7 +113,17 @@ h1 {
   border-radius: 999px;
   padding: 5px;
   width: fit-content;
+  max-width: 100%;
+  flex-wrap: wrap;
   margin: 0 auto 30px;
+}
+@media (max-width: 520px) {
+  .tabs {
+    border-radius: 18px;
+  }
+  .tabs button {
+    padding: 8px 14px;
+  }
 }
 .tabs button {
   border: none;
