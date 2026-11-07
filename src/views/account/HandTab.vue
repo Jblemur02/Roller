@@ -2,14 +2,14 @@
 import { computed, ref } from 'vue'
 import GameCard from '../../components/GameCard.vue'
 import CardPicker from '../../components/CardPicker.vue'
-import { HAND_RULES, collectionList, freeCount, hand, handAdd, handCount, handLimit, handRemove, handSection, player } from '../../lib/player.js'
+import { HAND_RULES, collectionList, freeCount, hand, handAdd, handCount, handLimit, handRemove, handSection, player, setStartFormation } from '../../lib/player.js'
 import { go } from '../../lib/router.js'
 
 const emit = defineEmits(['notice'])
 const error = ref('')
 
 const SECTIONS = [
-  { id: 'formations', title: 'Formation', about: 'How your army lines up. Buffs or debuffs your whole team.', empty: 'formation' },
+  { id: 'formations', title: 'Formations', about: 'How your army lines up. You start with one, and can switch to a reserve during battle.', empty: 'formation' },
   { id: 'actions', title: 'Actions', about: 'Spells and moves you play in battle with your action points.', empty: 'action' },
   { id: 'minions', title: 'Minions', about: 'The fighters at your side. Your class decides how many you bring.', empty: 'minion' },
 ]
@@ -22,6 +22,18 @@ function slotsFor(sec) {
   for (const e of hand.value[sec]) for (let i = 0; i < e.count; i++) filled.push(e)
   const empties = Math.max(0, handLimit(sec) - filled.length)
   return [...filled.map(e => ({ entry: e })), ...Array.from({ length: empties }, () => ({ entry: null }))]
+}
+
+// Formations: the starting one, then up to 3 reserves (empty slots padded).
+const startEntry = computed(() => hand.value.formations.find(e => e.uid === player.profile.startFormation) || null)
+const reserveSlots = computed(() => {
+  const reserves = hand.value.formations.filter(e => e.uid !== player.profile.startFormation)
+  const total = handLimit('formations') - 1
+  return [...reserves, ...Array.from({ length: Math.max(0, total - reserves.length) }, () => null)]
+})
+function makeStart(e) {
+  setStartFormation(e.uid)
+  emit('notice', `${e.card.name} is now your starting formation.`)
 }
 
 const picking = ref(null)
@@ -89,7 +101,43 @@ function statText(stats) {
         A {{ className }} brings {{ handLimit('minions') }} minions. You can bring more than one of the same minion.
       </p>
 
-      <div class="slots">
+      <div v-if="sec.id === 'formations'" class="formations">
+        <div class="start-col">
+          <p class="slot-tag start">Starting formation</p>
+          <div class="slot">
+            <template v-if="startEntry">
+              <GameCard :card="startEntry.card" small class="starting" />
+              <p class="stats">{{ statText(startEntry.card.stats) }}</p>
+              <button class="secondary remove" @click="handRemove(startEntry.uid)">Remove</button>
+            </template>
+            <button v-else class="empty" :disabled="!ownedOf('formations')" @click="picking = 'formations'">
+              <span>+</span>
+              {{ ownedOf('formations') ? 'Add formation' : 'No formation cards yet' }}
+            </button>
+          </div>
+        </div>
+        <div class="reserve-col">
+          <p class="slot-tag">Reserves · switching to one in battle costs {{ HAND_RULES.formationSwitchAP }} AP</p>
+          <div class="slots tight">
+            <div v-for="(e, i) in reserveSlots" :key="i" class="slot">
+              <template v-if="e">
+                <GameCard :card="e.card" small />
+                <p class="stats">{{ statText(e.card.stats) }}</p>
+                <div class="pair">
+                  <button class="secondary" title="Start battles in this formation" @click="makeStart(e)">Make starting</button>
+                  <button class="secondary" aria-label="Remove" title="Remove" @click="handRemove(e.uid)">✕</button>
+                </div>
+              </template>
+              <button v-else class="empty" :disabled="!ownedOf('formations') || !startEntry" @click="picking = 'formations'">
+                <span>+</span>
+                {{ !ownedOf('formations') ? 'No formation cards yet' : startEntry ? 'Add reserve' : 'Add a starting one first' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-else class="slots">
         <div v-for="(slot, i) in slotsFor(sec.id)" :key="i" class="slot">
           <template v-if="slot.entry">
             <GameCard :card="slot.entry.card" small />
@@ -224,6 +272,53 @@ h3 {
 .empty:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+.formations {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.start-col {
+  padding-right: 28px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+@media (max-width: 760px) {
+  .start-col {
+    border-right: none;
+    padding-right: 0;
+  }
+}
+.slot-tag {
+  margin: 0 0 10px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+.slot-tag.start {
+  color: var(--gold);
+  opacity: 1;
+}
+.slots.tight {
+  margin-top: 0;
+}
+.starting {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+.pair {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+.pair button {
+  padding: 6px 8px;
+  font-size: 0.78rem;
+}
+.pair button:first-child {
+  flex: 1;
 }
 .note {
   margin-top: 26px;

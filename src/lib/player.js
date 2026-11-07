@@ -93,10 +93,11 @@ function normalise(p) {
     deck,
   }
   dropUnwearable(out)
+  fixStartFormation(out)
   return out
 }
 function newProfileDefaults() {
-  return { level: 1, shards: 0, chronos: 0, collection: {}, gear: {}, gearLevels: {}, deck: {}, side: null, className: null, packsOpened: 0, recentPulls: [], sales: [] }
+  return { level: 1, shards: 0, chronos: 0, collection: {}, gear: {}, gearLevels: {}, deck: {}, startFormation: null, side: null, className: null, packsOpened: 0, recentPulls: [], sales: [] }
 }
 
 // ---------- storage backends ----------
@@ -496,6 +497,19 @@ function trimHand(deck, className) {
   return { hand, removed }
 }
 
+// The starting formation must be one of the Hand's formations; fall back to the first one.
+function fixStartFormation(p) {
+  const formations = Object.keys(p.deck || {}).filter(uid => handSection(decodeCard(uid)) === 'formations').sort()
+  if (!formations.includes(p.startFormation)) p.startFormation = formations[0] || null
+}
+
+export function setStartFormation(uid) {
+  const p = player.profile
+  if (!p.deck[uid] || handSection(decodeCard(uid)) !== 'formations') throw new Error('That formation isn\'t in your Hand.')
+  p.startFormation = uid
+  save()
+}
+
 export const hand = computed(() => {
   const out = { formations: [], actions: [], minions: [] }
   for (const [uid, count] of Object.entries(player.profile?.deck || {})) {
@@ -524,6 +538,7 @@ export function handAdd(uid) {
   if (!handRules.duplicates[sec] && p.deck[uid]) throw new Error(`${card.name} is already in your Hand.`)
   if (freeCount(uid) < 1) throw new Error('No free copies of that card left.')
   p.deck[uid] = (p.deck[uid] || 0) + 1
+  fixStartFormation(p)
   save()
 }
 
@@ -532,6 +547,7 @@ export function handRemove(uid) {
   if (!p.deck[uid]) return
   p.deck[uid] -= 1
   if (p.deck[uid] <= 0) delete p.deck[uid]
+  fixStartFormation(p)
   save()
 }
 

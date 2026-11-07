@@ -2,9 +2,22 @@
   "_about": [
     "Hand rules: the cards you take into battle.",
     "sections maps a card type to its section. Augments are passive buffs and gear is equipped, so neither goes in the Hand.",
-    "Minion slots come from the class's minion stat (classes.json). duplicates: whether a section can hold more than one copy of the same card."
+    "Minion slots come from the class's minion stat (classes.json). duplicates: whether a section can hold more than one copy of the same card.",
+    "Formations: one starting formation (active when the battle begins) plus reserves you can switch to during battle. formationSwitchAP is the action-point cost to switch: a placeholder until battles are built."
   ],
-  "sections": { "Formation": "formations", "Talent": "actions", "Minion": "minions" },
-  "limits": { "formations": 1, "actions": 6 },
-  "duplicates": { "formations": false, "actions": false, "minions": true }
+  "sections": {
+    "Formation": "formations",
+    "Talent": "actions",
+    "Minion": "minions"
+  },
+  "limits": {
+    "formations": 4,
+    "actions": 6
+  },
+  "duplicates": {
+    "formations": false,
+    "actions": false,
+    "minions": true
+  },
+  "formationSwitchAP": 2
 }
