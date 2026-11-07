@@ -1,0 +1,43 @@
+{
+  "_about": [
+    "Class builds. Each class has a build (light, hybrid or heavy); its base stats are the build's stats plus the class's own tweaks.",
+    "wears: the gear weights the build can equip. Head, body, feet and weapons have a weight; jewels, amulets and charms have none and anyone can wear them.",
+    "Exhaustion rate is a %: 100 is normal, higher means you tire faster from heavy use (a battle mechanic)."
+  ],
+  "builds": {
+    "light": {
+      "name": "Light",
+      "about": "Fast and fragile. High AP rate, Evasion and lethal hits; low Health and Armour.",
+      "wears": ["light"],
+      "stats": { "Health": 160, "Damage": 45, "Armour": 0, "Evasion": 15, "Lethal protection": 0, "Perforation": 0, "Lethal chance": 10, "Lethal": 50, "Grip": 5, "Mana": 50, "Energy": 80, "AP rate": 3, "Exhaustion rate": 80, "Inner peace": 100 }
+    },
+    "hybrid": {
+      "name": "Hybrid",
+      "about": "A bit of everything. Steady AP rate with solid Damage and some protection.",
+      "wears": ["light", "medium"],
+      "stats": { "Health": 260, "Damage": 55, "Armour": 8, "Evasion": 5, "Lethal protection": 5, "Perforation": 3, "Lethal chance": 5, "Lethal": 30, "Grip": 3, "Mana": 50, "Energy": 100, "AP rate": 2, "Exhaustion rate": 100, "Inner peace": 100 }
+    },
+    "heavy": {
+      "name": "Heavy",
+      "about": "Slow and hard-hitting. Low AP rate, high Damage, Health and Armour, and tires faster.",
+      "wears": ["medium", "heavy"],
+      "stats": { "Health": 400, "Damage": 70, "Armour": 18, "Evasion": 0, "Lethal protection": 15, "Perforation": 5, "Lethal chance": 2, "Lethal": 20, "Grip": 0, "Mana": 20, "Energy": 120, "AP rate": 1, "Exhaustion rate": 130, "Inner peace": 100 }
+    }
+  },
+  "weights": {
+    "light": { "name": "Light", "color": "#6fe3c9" },
+    "medium": { "name": "Medium", "color": "#c9a24a" },
+    "heavy": { "name": "Heavy", "color": "#ff8a6a" }
+  },
+  "classes": {
+    "General": { "build": "hybrid", "tweaks": { "Inner peace": 5, "Lethal protection": 5, "Damage": -5 }, "note": "Calm leader: higher Inner Peace." },
+    "Paladin": { "build": "heavy", "tweaks": { "Armour": 5, "Lethal protection": 10, "Damage": -10, "Mana": 40 }, "note": "Protector: extra Armour and faith-fuelled Mana." },
+    "Samurai": { "build": "hybrid", "tweaks": { "Damage": 10, "Lethal chance": 5, "Armour": -3 }, "note": "Blade master: more Damage and lethal hits." },
+    "Mystic Bladeslinger": { "build": "light", "tweaks": { "Damage": 15, "Mana": 60, "Health": -20 }, "note": "Spellblade: huge burst, even more fragile." },
+    "Bandit": { "build": "light", "tweaks": { "Lethal chance": 10, "Lethal": 100, "Evasion": 5, "Health": -30 }, "note": "Ambusher: devastating lethal hits, paper-thin." },
+    "Wizard": { "build": "light", "tweaks": { "Mana": 150, "Damage": -10, "Energy": -40 }, "note": "Spellcaster: a deep Mana pool." },
+    "Soothsayer": { "build": "light", "tweaks": { "Mana": 100, "Evasion": 5, "Damage": -10 }, "note": "Deceiver: Mana and slipperiness." },
+    "Dead Knight": { "build": "heavy", "tweaks": { "Health": 100, "Armour": 7, "Lethal protection": 10, "Damage": -15 }, "note": "Lone wolf: very tough, hits softer." },
+    "Shadow Warrior": { "build": "hybrid", "tweaks": { "Evasion": 8, "Perforation": 5, "Health": -20 }, "note": "Shadow fighter: Evasion and Perforation." }
+  }
+}

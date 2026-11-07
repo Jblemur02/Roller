@@ -9,12 +9,15 @@ import {
   equipBest,
   freeCount,
   gearInfo,
+  myBuild,
   ownedGear,
   player,
   scoreDelta,
   upgradeGear,
+  wearable,
 } from '../../lib/player.js'
-import { STAT_DEFS } from '../../lib/gear.js'
+import { STAT_DEFS, gearItem } from '../../lib/gear.js'
+import { WEIGHTS, buildsThatWear } from '../../lib/builds.js'
 import { go } from '../../lib/router.js'
 import classes from '../../data/classes.json'
 
@@ -32,14 +35,21 @@ function fmt(key, v, signed = true) {
   const sign = signed && v > 0 ? '+' : ''
   return `${sign}${Math.round(v).toLocaleString()}${unit}`
 }
+// A stat change is bad if it's negative, or positive on a lower-is-better stat (Exhaustion rate).
+const isBad = (k, v) => (DEF[k]?.lowerIsBetter ? v > 0 : v < 0)
 const statLines = stats =>
   Object.entries(stats)
     .filter(([, v]) => v)
-    .map(([k, v]) => ({ key: k, text: `${fmt(k, v)} ${k}`, neg: v < 0 }))
+    .map(([k, v]) => ({ key: k, text: `${fmt(k, v)} ${k}`, neg: isBad(k, v) }))
+
+const weightOf = g => gearItem(g.card.number)?.weight || null
+const lockReason = g => `${WEIGHTS[weightOf(g)].name} gear: ${buildsThatWear(weightOf(g)).join(' and ')} builds only`
+const wearsText = computed(() => (myBuild.value ? myBuild.value.wears.map(w => WEIGHTS[w].name).join(' and ') : ''))
 
 const L = currentLoadout
 const equipped = computed(() => Object.fromEntries(GEAR_SLOTS.map(s => [s.id, player.profile.gear[s.id] ? gearInfo(player.profile.gear[s.id]) : null])))
-const optionsFor = slot => ownedGear.value.filter(g => g.card.gear.kind === slot.kind)
+const ownedFor = slot => ownedGear.value.filter(g => g.card.gear.kind === slot.kind)
+const optionsFor = slot => ownedFor(slot).filter(g => wearable(g.uid))
 
 function run(fn, msg) {
   error.value = ''
@@ -76,6 +86,7 @@ const candidates = computed(() => {
     .map(g => ({ ...g, current: g.uid === current, delta: g.uid === current ? 0 : scoreDelta(slot.id, g.uid) }))
     .sort((a, b) => b.current - a.current || b.delta - a.delta)
 })
+const lockedCandidates = computed(() => (picking.value ? ownedFor(picking.value).filter(g => !wearable(g.uid)) : []))
 const bestDelta = computed(() => Math.max(0, ...candidates.value.filter(c => !c.current).map(c => c.delta)))
 function pick(g) {
   const slot = picking.value
@@ -91,7 +102,7 @@ const armory = computed(() => {
     if (uid) (where[uid] ||= []).push(s.label)
   }
   return [...ownedGear.value]
-    .map(g => ({ ...g, where: where[g.uid] || [] }))
+    .map(g => ({ ...g, where: where[g.uid] || [], locked: !wearable(g.uid) }))
     .sort((a, b) => b.where.length - a.where.length || a.card.gear.kind.localeCompare(b.card.gear.kind) || b.level - a.level)
 })
 </script>
@@ -106,6 +117,25 @@ const armory = computed(() => {
       <button class="primary" :disabled="!ownedGear.length" @click="doEquipBest">Equip best</button>
     </div>
     <p v-if="error" class="error" role="alert">{{ error }}</p>
+
+    <!-- Build -->
+    <div class="build" :class="myBuild?.id">
+      <template v-if="myBuild">
+        <span class="label">Your build</span>
+        <p class="build-name">
+          <strong>{{ player.profile.className }}</strong> · {{ myBuild.name }} build
+          <span class="muted">· wears {{ wearsText }} armor and weapons, plus any jewel, amulet or charm</span>
+        </p>
+        <p class="muted tiny">{{ myBuild.about }} {{ myBuild.note }}</p>
+      </template>
+      <template v-else>
+        <span class="label">No class yet</span>
+        <p class="muted tiny">
+          Your class decides your base stats and which armor and weapons you can wear (Light, Medium or Heavy).
+          Until you <a href="#play">choose a class</a>, you can try on anything.
+        </p>
+      </template>
+    </div>
 
     <!-- Score + Inner Peace -->
     <div class="summary">
@@ -165,6 +195,9 @@ const armory = computed(() => {
                 <p class="tier" :style="{ color: equipped[slot.id].card.tier.color, fontFamily: equipped[slot.id].card.tier.font }">
                   {{ equipped[slot.id].card.tier.name }} · Lv {{ equipped[slot.id].level }}/{{ equipped[slot.id].maxLevel }}
                 </p>
+                <p v-if="weightOf(equipped[slot.id])" class="weight" :style="{ color: WEIGHTS[weightOf(equipped[slot.id])].color }">
+                  {{ WEIGHTS[weightOf(equipped[slot.id])].name }}
+                </p>
               </div>
             </div>
             <div class="stat-chips">
@@ -186,9 +219,11 @@ const armory = computed(() => {
           </template>
 
           <template v-else>
-            <button class="add" :disabled="!optionsFor(slot).length" @click="picking = slot">
+            <button class="add" :disabled="!ownedFor(slot).length" @click="picking = slot">
               <span>+</span>
-              {{ optionsFor(slot).length ? `Equip (${optionsFor(slot).length} owned)` : 'None owned yet' }}
+              <template v-if="optionsFor(slot).length">Equip ({{ optionsFor(slot).length }} owned)</template>
+              <template v-else-if="ownedFor(slot).length">{{ ownedFor(slot).length }} owned, none fit your build</template>
+              <template v-else>None owned yet</template>
             </button>
           </template>
         </div>
@@ -197,7 +232,7 @@ const armory = computed(() => {
       <!-- Stat sheet -->
       <aside class="sheet">
         <h3>Your stats</h3>
-        <p class="muted tiny">(base + gear) × {{ L.peace.value }}% Inner Peace</p>
+        <p class="muted tiny">({{ myBuild ? player.profile.className : 'base' }} stats + gear) × {{ L.peace.value }}% Inner Peace</p>
         <div v-for="g in groups" :key="g.name" class="group">
           <h4>{{ g.name }}</h4>
           <dl>
@@ -205,7 +240,7 @@ const armory = computed(() => {
               <dt :title="s.about">{{ s.key }}</dt>
               <dd :title="`Base ${fmt(s.key, L.base[s.key], false)} + gear ${fmt(s.key, L.gear[s.key] || 0, false)}${s.noPeace ? '' : ` × ${L.peace.value}%`}${s.cap !== undefined ? ` (max ${s.cap}${s.unit})` : ''}`">
                 {{ fmt(s.key, L.final[s.key], false) }}
-                <small v-if="L.gear[s.key]" :class="{ neg: L.gear[s.key] < 0 }">{{ fmt(s.key, L.gear[s.key]) }}</small>
+                <small v-if="L.gear[s.key]" :class="{ neg: isBad(s.key, L.gear[s.key]) }">{{ fmt(s.key, L.gear[s.key]) }}</small>
               </dd>
             </template>
           </dl>
@@ -225,7 +260,7 @@ const armory = computed(() => {
       <button class="linkish" @click="go('shop')">Open a pack</button>
     </p>
     <div class="armory">
-      <div v-for="g in armory" :key="g.uid" class="arm-row">
+      <div v-for="g in armory" :key="g.uid" class="arm-row" :class="{ locked: g.locked }">
         <img :src="g.card.image" alt="" />
         <div class="arm-main">
           <p class="name">
@@ -234,12 +269,16 @@ const armory = computed(() => {
           <p class="tier tiny" :style="{ color: g.card.tier.color, fontFamily: g.card.tier.font }">
             {{ g.card.tier.name }} · Lv {{ g.level }}/{{ g.maxLevel }}
             <span class="side mini" :style="{ background: sideColor(g.side) }">{{ sideName(g.side) }}</span>
+            <span v-if="weightOf(g)" class="wtag" :style="{ color: WEIGHTS[weightOf(g)].color }">{{ WEIGHTS[weightOf(g)].name }}</span>
           </p>
         </div>
         <div class="stat-chips">
           <span v-for="l in statLines(g.stats)" :key="l.key" :class="{ neg: l.neg }">{{ l.text }}</span>
         </div>
-        <span class="where tiny" :class="{ on: g.where.length }">{{ g.where.length ? 'Equipped: ' + g.where.join(', ') : 'Not equipped' }}</span>
+        <span class="where tiny" :class="{ on: g.where.length }">
+          <template v-if="g.locked">🔒 {{ lockReason(g) }}</template>
+          <template v-else>{{ g.where.length ? 'Equipped: ' + g.where.join(', ') : 'Not equipped' }}</template>
+        </span>
         <button
           class="secondary up"
           :disabled="g.upgradeCost === null || player.profile.chronos < g.upgradeCost"
@@ -254,7 +293,7 @@ const armory = computed(() => {
     <!-- Picker -->
     <BaseDialog v-if="picking" :title="`Equip: ${picking.label}`" eyebrow="Gear" @close="picking = null">
       <p class="muted tiny">Gear Score change includes Inner Peace, so off-side gear can score worse than it looks.</p>
-      <p v-if="!candidates.length" class="muted">You don't have a free piece for this slot.</p>
+      <p v-if="!candidates.length" class="muted">You don't have a free piece your build can wear here.</p>
       <div class="picks">
         <div v-for="c in candidates" :key="c.uid" class="pick" :class="{ current: c.current }">
           <img :src="c.card.image" alt="" />
@@ -266,6 +305,7 @@ const armory = computed(() => {
             <p class="tier tiny" :style="{ color: c.card.tier.color, fontFamily: c.card.tier.font }">
               {{ c.card.tier.name }} · Lv {{ c.level }}
               <span class="side mini" :style="{ background: sideColor(c.side) }">{{ sideName(c.side) }}</span>
+              <span v-if="weightOf(c)" class="wtag" :style="{ color: WEIGHTS[weightOf(c)].color }">{{ WEIGHTS[weightOf(c)].name }}</span>
             </p>
             <div class="stat-chips">
               <span v-for="l in statLines(c.stats)" :key="l.key" :class="{ neg: l.neg }">{{ l.text }}</span>
@@ -280,6 +320,19 @@ const armory = computed(() => {
           </div>
         </div>
       </div>
+      <template v-if="lockedCandidates.length">
+        <h4 class="locked-title">Can't wear with your build</h4>
+        <div class="picks">
+          <div v-for="c in lockedCandidates" :key="c.uid" class="pick locked">
+            <img :src="c.card.image" alt="" />
+            <div class="pick-main">
+              <p class="name">{{ c.card.name }}</p>
+              <p class="tier tiny" :style="{ color: c.card.tier.color, fontFamily: c.card.tier.font }">{{ c.card.tier.name }} · Lv {{ c.level }}</p>
+              <p class="muted tiny">🔒 {{ lockReason(c) }}</p>
+            </div>
+          </div>
+        </div>
+      </template>
     </BaseDialog>
   </div>
 </template>
@@ -306,6 +359,53 @@ h2 {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   opacity: 0.7;
+}
+
+/* build */
+.build {
+  margin-top: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #6b6b78;
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+.build.light {
+  border-left-color: #6fe3c9;
+}
+.build.hybrid {
+  border-left-color: #c9a24a;
+}
+.build.heavy {
+  border-left-color: #ff8a6a;
+}
+.build p {
+  margin: 2px 0 0;
+}
+.build-name {
+  font-size: 1.05rem;
+}
+.weight {
+  margin: 2px 0 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.wtag {
+  margin-left: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.arm-row.locked,
+.pick.locked {
+  opacity: 0.55;
+}
+.locked-title {
+  margin-top: 18px;
 }
 
 /* summary */

@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import classes from '../data/classes.json'
-import baseStats from '../data/stats.json'
+import { classBuild, WEIGHTS } from '../lib/builds.js'
 import { player, chooseClass } from '../lib/player.js'
 import { route, go } from '../lib/router.js'
 
@@ -12,12 +12,15 @@ const failed = ref({})
 const notice = ref('')
 
 function choose(c) {
-  chooseClass(side.value.id, c.name)
-  notice.value = `You are now a ${c.name} of ${side.value.name}.`
+  const removed = chooseClass(side.value.id, c.name)
+  notice.value =
+    `You are now a ${c.name} of ${side.value.name}.` +
+    (removed.length ? ` Took off gear a ${classBuild(c.name).name} build can't wear: ${removed.join(', ')}.` : '')
 }
 const isMine = c => player.profile.side === side.value?.id && player.profile.className === c.name
 
-const base = baseStats.base
+const build = c => classBuild(c.name)
+const wears = c => build(c).wears.map(w => WEIGHTS[w].name).join(' + ')
 </script>
 
 <template>
@@ -85,12 +88,19 @@ const base = baseStats.base
             {{ c.name.charAt(0) }}
           </div>
           <h3>{{ c.name }}</h3>
+          <p class="build-tag" :class="build(c).id">{{ build(c).name }} build · wears {{ wears(c) }}</p>
           <p class="desc">{{ c.description }}</p>
+          <p class="note">{{ build(c).note }}</p>
           <dl>
+            <dt>Health</dt><dd>{{ build(c).stats.Health }}</dd>
+            <dt>Damage</dt><dd>{{ build(c).stats.Damage }}</dd>
+            <dt>AP rate</dt><dd>{{ build(c).stats['AP rate'] }}</dd>
+            <dt>Armour</dt><dd>{{ build(c).stats.Armour }}%</dd>
+            <dt>Evasion</dt><dd>{{ build(c).stats.Evasion }}%</dd>
+            <dt>Lethal chance</dt><dd>{{ build(c).stats['Lethal chance'] }}%</dd>
+            <dt>Mana</dt><dd>{{ build(c).stats.Mana }}</dd>
+            <dt>Exhaustion rate</dt><dd>{{ build(c).stats['Exhaustion rate'] }}%</dd>
             <dt>Minions</dt><dd>{{ c.minions }}</dd>
-            <dt>Damage</dt><dd>{{ base.aggression.damage }}</dd>
-            <dt>Health</dt><dd>{{ base.resilience.health }}</dd>
-            <dt>Inner peace</dt><dd>{{ base.inner_peace }}</dd>
           </dl>
           <button v-if="isMine(c)" class="secondary" disabled>Your class</button>
           <button v-else class="primary" @click="choose(c)">Choose {{ c.name }}</button>
@@ -260,6 +270,21 @@ h3 {
   opacity: 0.8;
   flex: 1;
 }
+.note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--gold);
+}
+.build-tag {
+  margin: -4px 0 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.build-tag.light { color: #6fe3c9; }
+.build-tag.hybrid { color: #c9a24a; }
+.build-tag.heavy { color: #ff8a6a; }
 dl {
   display: grid;
   grid-template-columns: 1fr auto;

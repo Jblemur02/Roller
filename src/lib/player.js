@@ -2,6 +2,7 @@
 import { reactive, computed } from 'vue'
 import { canonicalId, decodeCard, rarityRank } from './cards.js'
 import { GEAR_SLOTS, gearItem, loadout, maxLevel, statsAt, upgradeCost } from './gear.js'
+import { canWear, classBuild } from './builds.js'
 
 export { GEAR_SLOTS }
 
@@ -82,7 +83,7 @@ function normalise(p) {
   const gearLevels = {}
   for (const [uid, lv] of Object.entries(p.gearLevels || {})) gearLevels[canonicalId(uid)] = Math.max(gearLevels[canonicalId(uid)] || 1, lv)
 
-  return {
+  const out = {
     ...newProfileDefaults(),
     ...p,
     collection,
@@ -90,6 +91,8 @@ function normalise(p) {
     gearLevels,
     deck,
   }
+  dropUnwearable(out)
+  return out
 }
 function newProfileDefaults() {
   return { level: 1, shards: 0, chronos: 0, collection: {}, gear: {}, gearLevels: {}, deck: {}, side: null, className: null, packsOpened: 0, recentPulls: [], sales: [] }
@@ -339,8 +342,30 @@ function piecesOf(gearMap) {
 }
 
 // Full stat sheet for a set of equipped gear (defaults to what's equipped now).
+// The player's class build (base stats + what they can wear), or null with no class.
+export const myBuild = computed(() => classBuild(player.profile?.className))
+
 export function loadoutFor(gearMap = player.profile?.gear || {}) {
-  return loadout(piecesOf(gearMap), player.profile?.side || null)
+  return loadout(piecesOf(gearMap), player.profile?.side || null, myBuild.value?.stats)
+}
+
+export function wearable(uid) {
+  const card = decodeCard(uid)
+  return !!card?.gear && canWear(card.number, myBuild.value)
+}
+
+// Take off anything the current class can't wear; returns the names removed.
+function dropUnwearable(p) {
+  const build = classBuild(p.className)
+  const removed = []
+  for (const [slot, uid] of Object.entries(p.gear)) {
+    const card = decodeCard(uid)
+    if (card && !canWear(card.number, build)) {
+      removed.push(card.name)
+      delete p.gear[slot]
+    }
+  }
+  return removed
 }
 
 export const currentLoadout = computed(() => loadoutFor(player.profile?.gear || {}))
@@ -360,6 +385,7 @@ export function equip(slotId, uid) {
     const slot = GEAR_SLOTS.find(s => s.id === slotId)
     const card = decodeCard(uid)
     if (!slot || !card?.gear || card.gear.kind !== slot.kind) throw new Error('That card doesn\'t fit this slot.')
+    if (!canWear(card.number, myBuild.value)) throw new Error(`${card.name} is too ${gearItem(card.number).weight} for a ${myBuild.value.name} build.`)
     if (p.gear[slotId] !== uid && freeCount(uid) < 1) throw new Error('All your copies of that card are already in use.')
     p.gear[slotId] = uid
   } else {
@@ -385,7 +411,7 @@ export function equipBest() {
       let pickScore = pick ? loadoutFor(best).score : loadoutFor(without).score
       for (const uid of Object.keys(owned)) {
         if (owned[uid] - (used[uid] || 0) < 1) continue
-        if (decodeCard(uid).gear.kind !== slot.kind) continue
+        if (decodeCard(uid).gear.kind !== slot.kind || !wearable(uid)) continue
         const sc = loadoutFor({ ...without, [slot.id]: uid }).score
         if (sc > pickScore) {
           pick = uid
@@ -441,5 +467,7 @@ export const deckSize = computed(() => Object.values(player.profile?.deck || {})
 export function chooseClass(side, className) {
   player.profile.side = side
   player.profile.className = className
+  const removed = dropUnwearable(player.profile)
   save()
+  return removed
 }

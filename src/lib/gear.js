@@ -13,9 +13,10 @@ const tierByValue = new Map(GEAR_TIERS.map(t => [t.value, t]))
 const tierByCardTier = new Map(GEAR_TIERS.flatMap(t => t.fromCardTiers.map(ct => [ct, t])))
 const tierIndex = code => GEAR_TIERS.findIndex(t => t.value === code)
 
-// Base stats, read from stats.json ("resilience.health" etc).
+// Base stats with no class chosen, read from stats.json ("resilience.health" etc).
+// Each class has its own base stats instead (builds.json).
 export const BASE_STATS = Object.fromEntries(
-  STAT_DEFS.map(s => [s.key, Number(s.from.split('.').reduce((o, k) => o?.[k], baseFile.base)) || 0]),
+  STAT_DEFS.map(s => [s.key, (Number(s.from.split('.').reduce((o, k) => o?.[k], baseFile.base)) || 0) * (s.scale || 1)]),
 )
 
 export function isGearNumber(number) {
@@ -84,14 +85,14 @@ export function score(stats) {
  * Everything the gear screen needs for a loadout.
  * pieces: [{ number, tier (code), level, name }]
  */
-export function loadout(pieces, playerSide) {
+export function loadout(pieces, playerSide, base = BASE_STATS) {
   const gearStats = addStats(...pieces.map(p => statsAt(p.number, p.tier, p.level)))
 
   // Inner peace: base, then each item's side, then fixed peace bonuses (already in gearStats).
   const ipDef = DEF['Inner peace']
   const breakdown = pieces.map(p => ({ name: p.name, side: gearItem(p.number)?.side || null, ...peaceFor(gearItem(p.number)?.side, playerSide) }))
   const sideDelta = breakdown.reduce((s, b) => s + b.delta, 0)
-  const rawPeace = BASE_STATS['Inner peace'] + sideDelta + (gearStats['Inner peace'] || 0)
+  const rawPeace = base['Inner peace'] + sideDelta + (gearStats['Inner peace'] || 0)
   const peace = Math.min(ipDef.max, Math.max(ipDef.min, rawPeace))
 
   const final = {}
@@ -100,15 +101,15 @@ export function loadout(pieces, playerSide) {
       final[s.key] = peace
       continue
     }
-    let v = BASE_STATS[s.key] + (gearStats[s.key] || 0)
+    let v = (base[s.key] || 0) + (gearStats[s.key] || 0)
     if (!s.noPeace) v = (v * peace) / 100
     if (s.cap !== undefined) v = Math.min(s.cap, v)
     final[s.key] = Math.max(0, Math.round(v))
   }
   return {
-    base: BASE_STATS,
+    base,
     gear: gearStats,
-    peace: { value: peace, base: BASE_STATS['Inner peace'], fromSides: sideDelta, fromItems: gearStats['Inner peace'] || 0, breakdown },
+    peace: { value: peace, base: base['Inner peace'], fromSides: sideDelta, fromItems: gearStats['Inner peace'] || 0, breakdown },
     final,
     score: score(final),
   }
