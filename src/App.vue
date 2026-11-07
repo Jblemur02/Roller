@@ -81,15 +81,30 @@ const view = computed(() => VIEWS[activeNav.value.id])
   position: sticky;
   top: 0;
   z-index: 10;
-  display: flex;
+  /* equal outer columns keep the links at the true centre of the page */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 18px;
   padding: 12px 24px;
   background: rgba(14, 12, 24, 0.88);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  flex-wrap: wrap;
 }
+.topbar > .brand {
+  justify-self: start;
+}
+@media (max-width: 1100px) {
+  .topbar {
+    grid-template-columns: 1fr auto;
+    row-gap: 8px;
+  }
+  .topbar > nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
 .brand {
   background: none;
   border: none;
@@ -103,7 +118,6 @@ const view = computed(() => VIEWS[activeNav.value.id])
 nav {
   display: flex;
   gap: 4px;
-  flex: 1;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -126,6 +140,7 @@ nav button.active {
   display: flex;
   gap: 8px;
   align-items: center;
+  justify-self: end;
 }
 .balances span {
   display: flex;
@@ -171,5 +186,29 @@ nav button.active {
   border-radius: 6px;
   padding: 4px 10px;
   font-size: 0.8rem;
+}
+@media (max-width: 600px) {
+  .topbar {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  .brand {
+    letter-spacing: 0.2em;
+    font-size: 1rem;
+  }
+  .who {
+    display: none;
+  }
+  .balances span {
+    padding: 4px 9px;
+  }
+  nav {
+    flex-wrap: nowrap;
+    gap: 2px;
+  }
+  nav button {
+    padding: 7px 10px;
+    font-size: 0.92rem;
+  }
 }
 </style>
