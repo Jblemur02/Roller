@@ -21,7 +21,7 @@ const byType = computed(() => {
   return out
 })
 
-const available = computed(() => collectionList.value.filter(c => freeCount(c.uid) > 0))
+const available = computed(() => collectionList.value.filter(c => !c.gear && freeCount(c.uid) > 0))
 
 function add(card) {
   error.value = ''
@@ -46,7 +46,7 @@ function add(card) {
       <button class="primary" @click="adding = true">Add cards</button>
     </div>
     <p class="muted small">
-      Deck rules will come with the new battle system. For now you can add any card you own. Cards in your deck can't be sold or auctioned.
+      Deck rules will come with the new battle system. Gear isn't played from the deck; equip it in the Gear tab. Cards in your deck can't be sold or auctioned.
     </p>
     <p v-if="error" class="error" role="alert">{{ error }}</p>
 

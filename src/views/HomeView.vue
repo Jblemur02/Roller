@@ -22,7 +22,7 @@ const tiles = computed(() => [
     stat: soldWaiting.value ? `${soldWaiting.value} sold, Chronos to collect` : `${auctions.live.length} live listings`,
   },
   { id: 'play', title: 'Play', text: 'Pick your side and class.', stat: p.value.className || 'No class yet' },
-  { id: 'gear', title: 'Gear', text: 'Equip helmets, armor, weapons.', stat: `${Object.keys(p.value.gear).length} of 8 slots filled` },
+  { id: 'gear', title: 'Gear', text: 'Equip gear and build Inner Peace.', stat: `${Object.keys(p.value.gear).length} of 9 slots filled` },
   { id: 'deck', title: 'Deck', text: 'Build the deck you\'ll battle with.', stat: `${Object.values(p.value.deck).reduce((a, b) => a + b, 0)} cards` },
 ])
 </script>

@@ -27,7 +27,8 @@ function pct(x) {
           <tr v-for="row in rows" :key="row.tier.value">
             <td>
               <span :style="{ fontFamily: row.tier.font }">{{ row.tier.name }}</span>
-              <small v-if="Number(row.tier.value) >= 20" class="minion"> minion</small>
+              <small v-if="row.tier.value.startsWith('G')" class="minion"> gear</small>
+              <small v-else-if="Number(row.tier.value) >= 20" class="minion"> minion</small>
             </td>
             <td>{{ row.cards }}</td>
             <td>

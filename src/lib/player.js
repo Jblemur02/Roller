@@ -1,21 +1,14 @@
 // The signed-in player's save: currencies, cards, gear, deck and class.
 import { reactive, computed } from 'vue'
 import { canonicalId, decodeCard, rarityRank } from './cards.js'
+import { GEAR_SLOTS, gearItem, loadout, maxLevel, statsAt, upgradeCost } from './gear.js'
+
+export { GEAR_SLOTS }
 
 export const STARTING_SHARDS = 500
 const LOCAL_KEY = 'roller.player.v1'
 const OLD_WALLET_KEY = 'roller.wallet.v1'
 
-export const GEAR_SLOTS = [
-  { id: 'head', label: 'Head', accepts: c => c.type === 'Head' },
-  { id: 'neck', label: 'Neck', accepts: c => c.type === 'Jewelry' && ['Amulet', 'Necklace'].includes(c.subtype) },
-  { id: 'body', label: 'Body', accepts: c => c.type === 'Body' },
-  { id: 'back', label: 'Back', accepts: c => ['Cape', 'Backpack'].includes(c.subtype) },
-  { id: 'leftHand', label: 'Left hand', accepts: c => c.type === 'Arms' },
-  { id: 'rightHand', label: 'Right hand', accepts: c => c.type === 'Arms' },
-  { id: 'waist', label: 'Waist', accepts: c => c.subtype === 'Belt' },
-  { id: 'feet', label: 'Feet', accepts: c => c.type === 'Feet' },
-]
 
 export const session = reactive({
   status: 'connecting', // connecting | onboarding | ready | error
@@ -40,6 +33,7 @@ function newProfile(username) {
     chronos: 0,
     collection: {},
     gear: {},
+    gearLevels: {},
     deck: {},
     side: null,
     className: null,
@@ -70,18 +64,35 @@ function normalise(p) {
     }
     return out
   }
+  const collection = merge(p.collection)
+
+  // Gear slots from before the gear rework: hands became main/off hand; back and waist are gone.
+  const RENAMED = { leftHand: 'mainHand', rightHand: 'offHand' }
   const gear = {}
-  for (const [slot, uid] of Object.entries(p.gear || {})) gear[slot] = canonicalId(uid)
+  for (const [slot, uid] of Object.entries(p.gear || {})) {
+    const id = RENAMED[slot] || slot
+    const fits = GEAR_SLOTS.find(s => s.id === id)
+    const card = decodeCard(uid)
+    if (fits && card?.gear && card.gear.kind === fits.kind) gear[id] = canonicalId(uid)
+  }
+  // Gear isn't played from the deck any more; those copies go back to being free.
+  const deck = merge(p.deck)
+  for (const uid of Object.keys(deck)) if (decodeCard(uid)?.gear) delete deck[uid]
+
+  const gearLevels = {}
+  for (const [uid, lv] of Object.entries(p.gearLevels || {})) gearLevels[canonicalId(uid)] = Math.max(gearLevels[canonicalId(uid)] || 1, lv)
+
   return {
     ...newProfileDefaults(),
     ...p,
-    collection: merge(p.collection),
+    collection,
     gear,
-    deck: merge(p.deck),
+    gearLevels,
+    deck,
   }
 }
 function newProfileDefaults() {
-  return { level: 1, shards: 0, chronos: 0, collection: {}, gear: {}, deck: {}, side: null, className: null, packsOpened: 0, recentPulls: [], sales: [] }
+  return { level: 1, shards: 0, chronos: 0, collection: {}, gear: {}, gearLevels: {}, deck: {}, side: null, className: null, packsOpened: 0, recentPulls: [], sales: [] }
 }
 
 // ---------- storage backends ----------
@@ -297,12 +308,58 @@ export const collectionValue = computed(() => collectionList.value.reduce((s, c)
 
 // ---------- gear ----------
 
+export function gearLevel(uid) {
+  return player.profile?.gearLevels[uid] || 1
+}
+
+// Everything about one owned piece of gear at its current level.
+export function gearInfo(uid) {
+  const card = decodeCard(uid)
+  if (!card?.gear) return null
+  const level = gearLevel(uid)
+  const stats = statsAt(card.number, card.tier.value, level)
+  const next = upgradeCost(card.tier.value, level)
+  return {
+    card,
+    uid,
+    level,
+    maxLevel: maxLevel(card.tier),
+    side: gearItem(card.number).side,
+    stats,
+    nextStats: next === null ? null : statsAt(card.number, card.tier.value, level + 1),
+    upgradeCost: next,
+  }
+}
+
+function piecesOf(gearMap) {
+  return Object.values(gearMap)
+    .map(gearInfo)
+    .filter(Boolean)
+    .map(i => ({ number: i.card.number, tier: i.card.tier.value, level: i.level, name: i.card.name }))
+}
+
+// Full stat sheet for a set of equipped gear (defaults to what's equipped now).
+export function loadoutFor(gearMap = player.profile?.gear || {}) {
+  return loadout(piecesOf(gearMap), player.profile?.side || null)
+}
+
+export const currentLoadout = computed(() => loadoutFor(player.profile?.gear || {}))
+
+// Score change if `uid` went into `slotId` (null = empty the slot).
+export function scoreDelta(slotId, uid) {
+  const now = currentLoadout.value.score
+  const next = { ...player.profile.gear }
+  if (uid) next[slotId] = uid
+  else delete next[slotId]
+  return loadoutFor(next).score - now
+}
+
 export function equip(slotId, uid) {
   const p = player.profile
   if (uid) {
     const slot = GEAR_SLOTS.find(s => s.id === slotId)
     const card = decodeCard(uid)
-    if (!slot || !card || !slot.accepts(card)) throw new Error('That card doesn\'t fit this slot.')
+    if (!slot || !card?.gear || card.gear.kind !== slot.kind) throw new Error('That card doesn\'t fit this slot.')
     if (p.gear[slotId] !== uid && freeCount(uid) < 1) throw new Error('All your copies of that card are already in use.')
     p.gear[slotId] = uid
   } else {
@@ -311,18 +368,58 @@ export function equip(slotId, uid) {
   save()
 }
 
-export const gearStats = computed(() => {
-  const totals = {}
-  for (const uid of Object.values(player.profile?.gear || {})) {
-    const card = decodeCard(uid)
-    for (const [k, v] of Object.entries(card?.stats || {})) totals[k] = (totals[k] || 0) + v
+// Fill the slots with whatever gives the highest final score, Inner Peace included.
+// Greedy, two passes so later slots can correct earlier picks.
+export function equipBest() {
+  const p = player.profile
+  const owned = {}
+  for (const c of collectionList.value) if (c.gear) owned[c.uid] = c.quantity - (p.deck[c.uid] || 0)
+  let best = {}
+  for (let pass = 0; pass < 2; pass++) {
+    for (const slot of GEAR_SLOTS) {
+      const used = {}
+      for (const [sid, uid] of Object.entries(best)) if (sid !== slot.id) used[uid] = (used[uid] || 0) + 1
+      let pick = best[slot.id] || null
+      const without = { ...best }
+      delete without[slot.id]
+      let pickScore = pick ? loadoutFor(best).score : loadoutFor(without).score
+      for (const uid of Object.keys(owned)) {
+        if (owned[uid] - (used[uid] || 0) < 1) continue
+        if (decodeCard(uid).gear.kind !== slot.kind) continue
+        const sc = loadoutFor({ ...without, [slot.id]: uid }).score
+        if (sc > pickScore) {
+          pick = uid
+          pickScore = sc
+        }
+      }
+      if (pick) best[slot.id] = pick
+      else delete best[slot.id]
+    }
   }
-  return totals
-})
+  p.gear = best
+  save()
+}
+
+export function upgradeGear(uid) {
+  const p = player.profile
+  const info = gearInfo(uid)
+  if (!info || ownedCount(uid) < 1) throw new Error('You don\'t own that gear.')
+  if (info.upgradeCost === null) throw new Error('Already at max level.')
+  if (p.chronos < info.upgradeCost) throw new Error(`You need ${info.upgradeCost.toLocaleString()} Chronos.`)
+  p.chronos -= info.upgradeCost
+  p.gearLevels[uid] = info.level + 1
+  save()
+  return info.level + 1
+}
+
+export const ownedGear = computed(() =>
+  collectionList.value.filter(c => c.gear).map(c => ({ ...gearInfo(c.uid), quantity: c.quantity, reserved: c.reserved })),
+)
 
 // ---------- deck ----------
 
 export function deckAdd(uid) {
+  if (decodeCard(uid)?.gear) throw new Error('Gear is equipped from the Gear tab, not played from the deck.')
   if (freeCount(uid) < 1) throw new Error('No free copies of that card left.')
   const p = player.profile
   p.deck[uid] = (p.deck[uid] || 0) + 1

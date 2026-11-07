@@ -1,6 +1,9 @@
 // Loads pack contents and rolls cards out of them.
 import shop from '../data/shop.json'
-import { decodeCard } from './cards.js'
+import { decodeCard, rarityRank } from './cards.js'
+
+// Odds table order: card tiers, then gear tiers, then minion tiers, rarest first within each.
+const tierOrder = t => (t.value.startsWith('G') ? 100 : Number(t.value) >= 20 ? 200 : 0) + rarityRank(t)
 
 const packFiles = import.meta.glob('../data/packs/*.json', { eager: true, import: 'default' })
 const contentsByName = Object.fromEntries(
@@ -78,5 +81,5 @@ export function tierOdds(item) {
   }
   return [...byTier.values()]
     .map(r => ({ ...r, chance: r.weight / pool.total }))
-    .sort((a, b) => Number(a.tier.value) - Number(b.tier.value))
+    .sort((a, b) => tierOrder(a.tier) - tierOrder(b.tier))
 }

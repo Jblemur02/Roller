@@ -1,0 +1,156 @@
+{
+  "_about": [
+    "Gear rules. Every number in the gear system lives in this file.",
+    "Tiers: packs roll a normal card tier, which converts to a gear tier via fromCardTiers.",
+    "Item stats are for a Worn piece at level 1. Higher tiers multiply them by statMult and each level adds levelBonus (12%). Stats under 'fixed' never scale; 'minTier' means the item only has that stat from that gear tier up.",
+    "Upgrade cost from level L to L+1 = round(levelCostBase * L^1.5 * tier levelCostMult) Chronos.",
+    "Inner peace: each equipped item moves it by peace[relationship] depending on the item's side and yours, then fixed Inner peace bonuses add on. Final stats = (base + gear) x inner peace %, except Inner peace and AP rate.",
+    "Base stats come from stats.json via baseFrom."
+  ],
+  "levelBonus": 0.12,
+  "levelCostBase": 15,
+
+  "stats": [
+    { "key": "Health", "group": "Defense", "unit": "", "from": "resilience.health", "weight": 0.1, "about": "How much damage you can take." },
+    { "key": "Armour", "group": "Defense", "unit": "%", "from": "resilience.armour", "weight": 4, "cap": 75, "about": "Cuts the damage you take by this %." },
+    { "key": "Evasion", "group": "Defense", "unit": "%", "from": "evasion", "weight": 4, "cap": 60, "about": "Chance to dodge an attack completely." },
+    { "key": "Lethal protection", "group": "Defense", "unit": "%", "from": "resilience.lethal_protection", "weight": 1, "cap": 90, "about": "Shrinks the extra damage of lethal hits against you." },
+    { "key": "Damage", "group": "Offense", "unit": "", "from": "aggression.damage", "weight": 1, "about": "Base damage of your attacks." },
+    { "key": "Perforation", "group": "Offense", "unit": "%", "from": "aggression.perforation", "weight": 3, "cap": 100, "about": "Ignores this much of the enemy's Armour %." },
+    { "key": "Lethal chance", "group": "Offense", "unit": "%", "from": "aggression.lethal_chance", "weight": 4, "cap": 100, "about": "Chance for an attack to be a lethal hit." },
+    { "key": "Lethal", "group": "Offense", "unit": "%", "from": "aggression.lethal", "weight": 0.5, "cap": 900, "about": "Extra damage on a lethal hit. 900% means 10x damage." },
+    { "key": "Grip", "group": "Offense", "unit": "%", "from": "grip", "weight": 3, "cap": 100, "about": "Ignores this much of the enemy's Evasion %." },
+    { "key": "Mana", "group": "Resources", "unit": "", "from": "mana", "weight": 0.3, "about": "Pays for spells." },
+    { "key": "Energy", "group": "Resources", "unit": "", "from": "energy", "weight": 0.3, "about": "Pays for physical skills." },
+    { "key": "AP rate", "group": "Resources", "unit": "", "from": "ap_rate", "weight": 60, "noPeace": true, "about": "Action points you get each round." },
+    { "key": "Inner peace", "group": "Peace", "unit": "", "from": "inner_peace", "weight": 0, "min": 50, "max": 130, "noPeace": true, "about": "Your stats are multiplied by this %. Built by the gear you wear." }
+  ],
+
+  "peace": {
+    "sameSide": 4,
+    "neutral": 0,
+    "balanceMismatch": -2,
+    "opposed": -10,
+    "noSide": 0
+  },
+
+  "tiers": [
+    {
+      "value": "G1",
+      "name": "Worn",
+      "fromCardTiers": ["13", "14"],
+      "cost": 2,
+      "statMult": 1,
+      "maxLevel": 5,
+      "levelCostMult": 1,
+      "color": "#e2e2e6",
+      "background": "linear-gradient(160deg, #6a6a70, #2a2a2f)",
+      "backgroundType": "color",
+      "font": "'Roboto', sans-serif"
+    },
+    {
+      "value": "G2",
+      "name": "Forged",
+      "fromCardTiers": ["11", "12"],
+      "cost": 5,
+      "statMult": 1.4,
+      "maxLevel": 10,
+      "levelCostMult": 1.5,
+      "color": "#b8f5cc",
+      "background": "linear-gradient(160deg, #2f8a55, #10301f)",
+      "backgroundType": "color",
+      "font": "'Oswald', sans-serif"
+    },
+    {
+      "value": "G3",
+      "name": "Tempered",
+      "fromCardTiers": ["08", "09", "10"],
+      "cost": 15,
+      "statMult": 1.9,
+      "maxLevel": 15,
+      "levelCostMult": 2.2,
+      "color": "#c4e2ff",
+      "background": "linear-gradient(160deg, #2c66b8, #0d1f40)",
+      "backgroundType": "color",
+      "font": "'Oswald', sans-serif",
+      "aura": "0px 0px 24px 2px rgba(80, 150, 255, 0.55)"
+    },
+    {
+      "value": "G4",
+      "name": "Masterwork",
+      "fromCardTiers": ["05", "06", "07"],
+      "cost": 50,
+      "statMult": 2.6,
+      "maxLevel": 20,
+      "levelCostMult": 3.2,
+      "color": "#ecd2ff",
+      "background": "linear-gradient(160deg, #7a34c2, #1f0d38)",
+      "backgroundType": "color",
+      "font": "'Cinzel', serif",
+      "aura": "0px 0px 60px 8px rgba(170, 80, 255, 0.75)"
+    },
+    {
+      "value": "G5",
+      "name": "Ascended",
+      "fromCardTiers": ["00", "01", "02", "03", "04"],
+      "cost": 200,
+      "statMult": 3.5,
+      "maxLevel": 25,
+      "levelCostMult": 4.5,
+      "color": "#ffffff",
+      "background": "img/tiers/eternal.webp",
+      "backgroundType": "image",
+      "font": "'Cinzel', serif",
+      "aura": "0px 0px 112px 24px rgba(255, 196, 46, 0.9)"
+    }
+  ],
+
+  "slots": [
+    { "id": "head", "label": "Head", "kind": "head" },
+    { "id": "body", "label": "Body", "kind": "body" },
+    { "id": "feet", "label": "Feet", "kind": "feet" },
+    { "id": "mainHand", "label": "Main hand", "kind": "weapon" },
+    { "id": "offHand", "label": "Off hand", "kind": "weapon" },
+    { "id": "neck", "label": "Neck", "kind": "amulet" },
+    { "id": "jewel1", "label": "Jewel", "kind": "jewel" },
+    { "id": "jewel2", "label": "Jewel", "kind": "jewel" },
+    { "id": "charm", "label": "Charm", "kind": "charm" }
+  ],
+
+  "items": {
+    "00014": { "name": "Iron Helmet", "kind": "head", "side": "order", "stats": { "Health": 120, "Armour": 3 } },
+    "00015": { "name": "Shadowviel", "kind": "head", "side": "chaos", "stats": { "Evasion": 4, "Perforation": 3 } },
+    "00016": { "name": "Clunky Headgear", "kind": "head", "side": null, "stats": { "Health": 100, "Armour": 5, "Evasion": -2 } },
+    "00017": { "name": "Mysterious Mask", "kind": "head", "side": "chaos", "stats": { "Lethal chance": 4, "Evasion": 2 } },
+    "00018": { "name": "Crown Of Deliverance", "kind": "head", "side": "order", "stats": { "Health": 300, "Lethal protection": 10, "Mana": 20 } },
+
+    "00019": { "name": "Bronze Armor", "kind": "body", "side": null, "stats": { "Health": 250, "Armour": 5 } },
+    "00020": { "name": "Iron Armor", "kind": "body", "side": "order", "stats": { "Health": 300, "Armour": 7 } },
+    "00021": { "name": "Steel Armor", "kind": "body", "side": "order", "stats": { "Health": 350, "Armour": 9, "Evasion": -2 } },
+
+    "00022": { "name": "Boots of the Thief", "kind": "feet", "side": "chaos", "stats": { "Evasion": 5, "Grip": 3 } },
+    "00023": { "name": "Steel Boots", "kind": "feet", "side": "order", "stats": { "Health": 100, "Armour": 3 } },
+
+    "00024": { "name": "Steel Sword", "kind": "weapon", "side": "order", "stats": { "Damage": 30, "Perforation": 3 } },
+    "00029": { "name": "Bronze Dagger", "kind": "weapon", "side": "chaos", "stats": { "Damage": 16, "Lethal chance": 6, "Lethal": 40 } },
+    "00033": { "name": "Vortex Blade", "kind": "weapon", "side": "chaos", "stats": { "Damage": 34, "Perforation": 6, "Lethal": 30 } },
+    "00040": { "name": "Enchanted Sword", "kind": "weapon", "side": "balance", "stats": { "Damage": 28, "Mana": 30 } },
+    "00042": { "name": "Golden Spear", "kind": "weapon", "side": "order", "stats": { "Damage": 26, "Grip": 5, "Perforation": 4 } },
+
+    "00025": { "name": "Ancient Amulet", "kind": "amulet", "side": "balance", "stats": { "Lethal protection": 15, "Armour": 2 } },
+    "00037": { "name": "Talisman of the Cosmos", "kind": "amulet", "side": "balance", "stats": { "Mana": 40, "Energy": 40 }, "fixed": { "AP rate": { "value": 1, "minTier": "G5" } } },
+
+    "00027": { "name": "Mystic Crystal", "kind": "jewel", "side": "balance", "stats": { "Mana": 40 } },
+    "00031": { "name": "Omni Gem", "kind": "jewel", "side": null, "stats": { "Health": 40, "Damage": 5, "Armour": 1, "Evasion": 1 } },
+    "00034": { "name": "Light's Jewel", "kind": "jewel", "side": "order", "stats": { "Health": 150, "Lethal protection": 5 } },
+    "00036": { "name": "Crystal of Eternity", "kind": "jewel", "side": "balance", "stats": { "Energy": 40, "Health": 80 } },
+    "00039": { "name": "Echoing Stone", "kind": "jewel", "side": "chaos", "stats": { "Lethal": 50 } },
+    "00041": { "name": "Essence Stone", "kind": "jewel", "side": null, "stats": { "Damage": 14 } },
+    "00045": { "name": "Radiant Crystal", "kind": "jewel", "side": "order", "stats": { "Grip": 5 } },
+
+    "00028": { "name": "Lunar Charm", "kind": "charm", "side": "chaos", "stats": { "Evasion": 4, "Mana": 20 } },
+    "00032": { "name": "Heavenly Charm", "kind": "charm", "side": "order", "stats": { "Health": 150, "Lethal protection": 8 } },
+    "00038": { "name": "Celestial Charm", "kind": "charm", "side": "balance", "stats": { "Mana": 15 }, "fixed": { "Inner peace": { "value": 5 } } },
+    "00044": { "name": "Phoenix Feather", "kind": "charm", "side": null, "stats": { "Health": 200, "Energy": 30 } }
+  }
+}

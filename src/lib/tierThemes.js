@@ -102,6 +102,29 @@ export const TIER_THEMES = {
     burst: { count: 180, speed: [3, 13], size: [1.5, 3.5], shape: 'star' },
     shake: true,
   },
+  // Gear tiers: a forge theme for Ascended and Masterwork gear.
+  G5: {
+    key: 'ascended',
+    rank: 1,
+    glow: '#ffc42e',
+    colors: ['#fff6d5', '#ffd76a', '#ff9d2e', '#ffffff'],
+    bg: 'radial-gradient(circle at 50% 60%, rgba(255, 150, 40, 0.5), rgba(60, 25, 0, 0.94) 55%, #050200 85%)',
+    layers: ['rays', 'halo', 'flames'],
+    ambient: { mode: 'rise', rate: 4, size: [1, 3], shape: 'spark' },
+    burst: { count: 240, speed: [5, 18], size: [1.5, 4], shape: 'spark' },
+    shake: true,
+  },
+  G4: {
+    key: 'masterwork',
+    rank: 6,
+    glow: '#b26bff',
+    colors: ['#f0dcff', '#c48bff', '#8a3dff', '#ffffff'],
+    bg: 'radial-gradient(circle at 50% 50%, rgba(120, 50, 200, 0.5), rgba(25, 8, 50, 0.95) 55%, #040108 85%)',
+    layers: ['ripple', 'halo'],
+    ambient: { mode: 'orbit', rate: 3, size: [1, 2.5], shape: 'spark' },
+    burst: { count: 170, speed: [4, 14], size: [1.5, 3.5], shape: 'spark' },
+    shake: false,
+  },
 }
 
 export function themeFor(card) {

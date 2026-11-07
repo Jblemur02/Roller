@@ -5,6 +5,7 @@ import ChronosIcon from '../../components/ChronosIcon.vue'
 import SellDialog from '../../components/SellDialog.vue'
 import ListDialog from '../../components/ListDialog.vue'
 import { collectionList, collectionValue } from '../../lib/player.js'
+import { rarityRank } from '../../lib/cards.js'
 import { go } from '../../lib/router.js'
 
 const emit = defineEmits(['notice'])
@@ -34,7 +35,7 @@ function setSort(id) {
 
 // "Natural" direction first: rarest tier, highest value, most copies, A→Z.
 const compare = {
-  tier: (a, b) => Number(a.tier.value) % 20 - Number(b.tier.value) % 20 || b.value - a.value,
+  tier: (a, b) => rarityRank(a.tier) - rarityRank(b.tier) || b.value - a.value,
   value: (a, b) => b.value - a.value,
   totalValue: (a, b) => b.totalValue - a.totalValue,
   quantity: (a, b) => b.quantity - a.quantity,

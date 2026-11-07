@@ -6,6 +6,7 @@
 import cards from '../data/cards.json'
 import tiers from '../data/tiers.json'
 import variants from '../data/variants.json'
+import { GEAR_RANK, gearItem, gearTierFor, isGearNumber } from './gear.js'
 
 const cardsByNumber = new Map(cards.map(c => [c.number, c]))
 const tiersByValue = new Map(tiers.map(t => [t.value, t]))
@@ -25,16 +26,21 @@ export function parseId(uniqueID) {
 
 // The current ID format. Older packs put a class code in the middle (00012-00-05-LA0-000);
 // that was dropped from IDs in Oct 2024, so it's stripped here to keep one stack per card.
+// Gear also swaps its card tier for its gear tier (00024-00-09-000 -> 00024-00-G3-000), so every
+// Tempered Steel Sword is one stack whichever card tier the pack rolled.
 export function canonicalId(uniqueID) {
   const id = parseId(uniqueID)
-  return [id.base, id.variant, id.tier, id.setId].join('-')
+  let tier = id.tier
+  if (isGearNumber(id.base)) tier = gearTierFor(tier)?.value || tier
+  return [id.base, id.variant, tier, id.setId].join('-')
 }
 
 // Returns null when the ID points at a card or tier that doesn't exist yet.
 export function decodeCard(uniqueID) {
   const id = parseId(uniqueID)
   const card = cardsByNumber.get(id.base)
-  const tier = tiersByValue.get(id.tier)
+  const gear = gearItem(id.base)
+  const tier = gear ? gearTierFor(id.tier) : tiersByValue.get(id.tier)
   if (!card || !tier) return null
 
   return {
@@ -49,6 +55,7 @@ export function decodeCard(uniqueID) {
     variant: variants[id.variant] || 'Unknown',
     classCode: id.classCode,
     setId: id.setId,
+    gear: gear ? { kind: gear.kind } : null,
     tier: {
       name: tier.name,
       value: tier.value,
@@ -64,7 +71,8 @@ export function decodeCard(uniqueID) {
   }
 }
 
-// Lower tier value = rarer (00 Eternal is the top). Tiers 20+ are the minion tiers.
+// Lower = rarer (00 Eternal is the top). Tiers 20+ are the minion tiers; G1-G5 are gear tiers.
 export function rarityRank(tier) {
+  if (tier.value in GEAR_RANK) return GEAR_RANK[tier.value]
   return Number(tier.value) % 20
 }
