@@ -1,6 +1,6 @@
 // The signed-in player's save: currencies, cards, gear, deck and class.
 import { reactive, computed } from 'vue'
-import { decodeCard, rarityRank } from './cards.js'
+import { canonicalId, decodeCard, rarityRank } from './cards.js'
 
 export const STARTING_SHARDS = 500
 const LOCAL_KEY = 'roller.player.v1'
@@ -61,12 +61,23 @@ function newProfile(username) {
 }
 
 function normalise(p) {
+  // Merge any old-format card IDs into the current format.
+  const merge = obj => {
+    const out = {}
+    for (const [uid, n] of Object.entries(obj || {})) {
+      const id = canonicalId(uid)
+      out[id] = (out[id] || 0) + n
+    }
+    return out
+  }
+  const gear = {}
+  for (const [slot, uid] of Object.entries(p.gear || {})) gear[slot] = canonicalId(uid)
   return {
     ...newProfileDefaults(),
     ...p,
-    collection: { ...(p.collection || {}) },
-    gear: { ...(p.gear || {}) },
-    deck: { ...(p.deck || {}) },
+    collection: merge(p.collection),
+    gear,
+    deck: merge(p.deck),
   }
 }
 function newProfileDefaults() {

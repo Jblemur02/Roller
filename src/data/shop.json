@@ -28,7 +28,7 @@
       "id": "basic-pack",
       "category": "packs",
       "name": "Basic Pack",
-      "description": "This is the basic pack.",
+      "description": "Minions only: Archer, Metrax and Birgrad.",
       "image": "img/packs/basic_pack.webp",
       "price": 1,
       "contents": "BasicPack",
@@ -54,10 +54,10 @@
       "id": "celestial-pack",
       "category": "packs",
       "name": "Celestial Pack",
-      "description": "This is the Celestial pack.",
+      "description": "Every card in the game, with far better odds of a top-tier pull.",
       "image": "img/packs/celestial_pack.webp",
       "price": 10,
-      "contents": null,
+      "contents": "CelestialPack",
       "theme": [
         "#5b3a8c",
         "#160d2b"

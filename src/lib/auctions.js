@@ -4,7 +4,7 @@
 // the cards. The seller's Chronos wait on the listing until the seller collects them,
 // because nobody can write into another player's private save.
 import { reactive } from 'vue'
-import { decodeCard } from './cards.js'
+import { canonicalId, decodeCard } from './cards.js'
 import { player, session, removeCards, addCards, save } from './player.js'
 
 const LOCAL_KEY = 'roller.auctions.v1'
@@ -31,7 +31,7 @@ function clean(id, d) {
   return {
     id,
     card,
-    uid: d.uid,
+    uid: card.uid,
     qty,
     price,
     sellerId: String(d.sellerId || ''),
@@ -161,7 +161,7 @@ export async function cancelListing(a) {
     if (!d || d.sellerId !== session.uid) throw new Error('This listing no longer exists.')
     if (d.status !== 'active') throw new Error('Too late, this listing just sold. Collect your Chronos instead.')
     await ref.delete()
-    addCards([{ uid: d.uid, qty: Number(d.qty) }])
+    addCards([{ uid: canonicalId(d.uid), qty: Number(d.qty) }])
     await save({ now: true })
   })
 }

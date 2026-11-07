@@ -23,6 +23,13 @@ export function parseId(uniqueID) {
   }
 }
 
+// The current ID format. Older packs put a class code in the middle (00012-00-05-LA0-000);
+// that was dropped from IDs in Oct 2024, so it's stripped here to keep one stack per card.
+export function canonicalId(uniqueID) {
+  const id = parseId(uniqueID)
+  return [id.base, id.variant, id.tier, id.setId].join('-')
+}
+
 // Returns null when the ID points at a card or tier that doesn't exist yet.
 export function decodeCard(uniqueID) {
   const id = parseId(uniqueID)
@@ -31,7 +38,7 @@ export function decodeCard(uniqueID) {
   if (!card || !tier) return null
 
   return {
-    uid: uniqueID,
+    uid: canonicalId(uniqueID),
     number: card.number,
     name: card.name,
     type: card.type,
