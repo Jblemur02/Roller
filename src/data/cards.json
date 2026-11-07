@@ -541,5 +541,257 @@
       "Speed": 1,
       "Range": 1
     }
+  },
+  {
+    "number": "00049",
+    "type": "Head",
+    "subtype": "Helmet",
+    "name": "Commander's Helm",
+    "description": "A plumed helm that steadies the troops around its wearer.",
+    "multiplier": 10,
+    "image": "img/cards/new/helm_plume.svg"
+  },
+  {
+    "number": "00050",
+    "type": "Arms",
+    "subtype": "Sword",
+    "name": "Marshal's Sabre",
+    "description": "A curved blade for leading the charge.",
+    "multiplier": 12,
+    "image": "img/cards/new/sabre.svg"
+  },
+  {
+    "number": "00051",
+    "type": "Charm",
+    "subtype": "Relic",
+    "name": "Rallying Horn",
+    "description": "Its call restores the will to fight.",
+    "multiplier": 8,
+    "image": "img/cards/new/horn.svg"
+  },
+  {
+    "number": "00052",
+    "type": "Feet",
+    "subtype": "Boots",
+    "name": "Marching Boots",
+    "description": "Sturdy boots made for long campaigns.",
+    "multiplier": 5,
+    "image": "img/cards/new/boots.svg"
+  },
+  {
+    "number": "00053",
+    "type": "Arms",
+    "subtype": "Shield",
+    "name": "Aegis of Dawn",
+    "description": "A tower shield blessed at first light.",
+    "multiplier": 15,
+    "image": "img/cards/new/shield.svg"
+  },
+  {
+    "number": "00054",
+    "type": "Body",
+    "subtype": "Armor",
+    "name": "Sanctified Plate",
+    "description": "Full plate etched with prayers of protection.",
+    "multiplier": 18,
+    "image": "img/cards/new/plate.svg"
+  },
+  {
+    "number": "00055",
+    "type": "Feet",
+    "subtype": "Greaves",
+    "name": "Templar Greaves",
+    "description": "Heavy greaves that never give ground.",
+    "multiplier": 8,
+    "image": "img/cards/new/greaves.svg"
+  },
+  {
+    "number": "00056",
+    "type": "Arms",
+    "subtype": "Sword",
+    "name": "Honor Katana",
+    "description": "A blade that grows keener with every duel.",
+    "multiplier": 16,
+    "image": "img/cards/new/katana.svg"
+  },
+  {
+    "number": "00057",
+    "type": "Body",
+    "subtype": "Armor",
+    "name": "Lacquered Do",
+    "description": "Layered lacquer plates, light enough to dance in.",
+    "multiplier": 10,
+    "image": "img/cards/new/do.svg"
+  },
+  {
+    "number": "00058",
+    "type": "Head",
+    "subtype": "Helmet",
+    "name": "Kabuto of the Rising Sun",
+    "description": "A horned helm crowned with a golden sun.",
+    "multiplier": 10,
+    "image": "img/cards/new/kabuto.svg"
+  },
+  {
+    "number": "00059",
+    "type": "Arms",
+    "subtype": "Sword",
+    "name": "Runed Saber",
+    "description": "Runes along the blade flare with every spell.",
+    "multiplier": 14,
+    "image": "img/cards/new/saber_rune.svg"
+  },
+  {
+    "number": "00060",
+    "type": "Body",
+    "subtype": "Cloak",
+    "name": "Spellweave Coat",
+    "description": "Threads of mana woven into a fencer's coat.",
+    "multiplier": 10,
+    "image": "img/cards/new/coat.svg"
+  },
+  {
+    "number": "00061",
+    "type": "Arms",
+    "subtype": "Knife",
+    "name": "Twin Fangs",
+    "description": "A matched pair of daggers for quick, deep cuts.",
+    "multiplier": 14,
+    "image": "img/cards/new/daggers.svg"
+  },
+  {
+    "number": "00062",
+    "type": "Head",
+    "subtype": "Hood",
+    "name": "Smuggler's Hood",
+    "description": "Keeps your face out of the light and your eyes on the gap.",
+    "multiplier": 6,
+    "image": "img/cards/new/hood.svg"
+  },
+  {
+    "number": "00063",
+    "type": "Feet",
+    "subtype": "Light Boots",
+    "name": "Softstep Boots",
+    "description": "Padded soles that make no sound at all.",
+    "multiplier": 6,
+    "image": "img/cards/new/boots_soft.svg"
+  },
+  {
+    "number": "00064",
+    "type": "Arms",
+    "subtype": "Staff",
+    "name": "Arcanist's Staff",
+    "description": "A gnarled staff humming with stored power.",
+    "multiplier": 14,
+    "image": "img/cards/new/staff.svg"
+  },
+  {
+    "number": "00065",
+    "type": "Body",
+    "subtype": "Robe",
+    "name": "Sage's Robe",
+    "description": "A scholar's robe that wards off stray magic.",
+    "multiplier": 10,
+    "image": "img/cards/new/robe.svg"
+  },
+  {
+    "number": "00066",
+    "type": "Charm",
+    "subtype": "Charm",
+    "name": "Orb of Equilibrium",
+    "description": "Half light, half shadow, perfectly still.",
+    "multiplier": 12,
+    "image": "img/cards/new/orb.svg"
+  },
+  {
+    "number": "00067",
+    "type": "Head",
+    "subtype": "Hood",
+    "name": "Veil of Whispers",
+    "description": "Voices only the wearer can hear.",
+    "multiplier": 8,
+    "image": "img/cards/new/veil.svg"
+  },
+  {
+    "number": "00068",
+    "type": "Body",
+    "subtype": "Robe",
+    "name": "Hexbound Robe",
+    "description": "Stitched with curses that turn blows aside.",
+    "multiplier": 10,
+    "image": "img/cards/new/robe_hex.svg"
+  },
+  {
+    "number": "00069",
+    "type": "Charm",
+    "subtype": "Charm",
+    "name": "Fortune Bones",
+    "description": "Cast them, and fate leans your way.",
+    "multiplier": 8,
+    "image": "img/cards/new/bones.svg"
+  },
+  {
+    "number": "00070",
+    "type": "Body",
+    "subtype": "Armor",
+    "name": "Deathplate",
+    "description": "Black plate that drinks the light around it.",
+    "multiplier": 18,
+    "image": "img/cards/new/plate_dark.svg"
+  },
+  {
+    "number": "00071",
+    "type": "Head",
+    "subtype": "Helmet",
+    "name": "Gravewrought Helm",
+    "description": "Forged from iron dug out of old graves.",
+    "multiplier": 10,
+    "image": "img/cards/new/helm_dark.svg"
+  },
+  {
+    "number": "00072",
+    "type": "Arms",
+    "subtype": "Sword",
+    "name": "Soulreaver Greatsword",
+    "description": "Each wound it deals feeds its wielder.",
+    "multiplier": 18,
+    "image": "img/cards/new/greatsword.svg"
+  },
+  {
+    "number": "00073",
+    "type": "Feet",
+    "subtype": "Heavy Boots",
+    "name": "Ironbound Sabatons",
+    "description": "Spiked iron boots that crack the ground.",
+    "multiplier": 8,
+    "image": "img/cards/new/sabatons.svg"
+  },
+  {
+    "number": "00074",
+    "type": "Arms",
+    "subtype": "Sword",
+    "name": "Duskblade",
+    "description": "A blade that is hardest to see at sundown.",
+    "multiplier": 14,
+    "image": "img/cards/new/duskblade.svg"
+  },
+  {
+    "number": "00075",
+    "type": "Body",
+    "subtype": "Armor",
+    "name": "Nightguard Mail",
+    "description": "Dark chainmail that doesn't rattle.",
+    "multiplier": 10,
+    "image": "img/cards/new/mail.svg"
+  },
+  {
+    "number": "00076",
+    "type": "Feet",
+    "subtype": "Boots",
+    "name": "Shade Treads",
+    "description": "Boots that step from shadow to shadow.",
+    "multiplier": 6,
+    "image": "img/cards/new/boots_shade.svg"
   }
 ]

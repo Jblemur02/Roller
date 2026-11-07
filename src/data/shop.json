@@ -64,6 +64,19 @@
       ]
     },
     {
+      "id": "armory-pack",
+      "category": "packs",
+      "name": "Armory Pack",
+      "description": "Gear only: armor, weapons, jewels and charms for every class.",
+      "image": "img/packs/armory_pack.svg",
+      "price": 5,
+      "contents": "ArmoryPack",
+      "theme": [
+        "#7a5a1c",
+        "#1a1206"
+      ]
+    },
+    {
       "id": "basic-booster",
       "category": "boosters",
       "name": "Basic Booster Pack",

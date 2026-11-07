@@ -583,6 +583,339 @@
         "Health": 200,
         "Energy": 30
       }
+    },
+    "00049": {
+      "name": "Commander's Helm",
+      "kind": "head",
+      "side": "order",
+      "weight": "medium",
+      "stats": {
+        "Health": 110,
+        "Lethal protection": 8,
+        "Armour": 2
+      }
+    },
+    "00050": {
+      "name": "Marshal's Sabre",
+      "kind": "weapon",
+      "side": "order",
+      "weight": "medium",
+      "stats": {
+        "Damage": 28,
+        "Grip": 4,
+        "Lethal chance": 3
+      }
+    },
+    "00051": {
+      "name": "Rallying Horn",
+      "kind": "charm",
+      "side": "order",
+      "stats": {
+        "Energy": 40,
+        "Lethal protection": 6
+      }
+    },
+    "00052": {
+      "name": "Marching Boots",
+      "kind": "feet",
+      "side": "order",
+      "weight": "medium",
+      "stats": {
+        "Health": 90,
+        "Armour": 2,
+        "Energy": 20
+      }
+    },
+    "00053": {
+      "name": "Aegis of Dawn",
+      "kind": "weapon",
+      "side": "order",
+      "weight": "heavy",
+      "stats": {
+        "Armour": 6,
+        "Health": 150,
+        "Lethal protection": 10
+      },
+      "fixed": {
+        "Exhaustion rate": {
+          "value": 4
+        }
+      }
+    },
+    "00054": {
+      "name": "Sanctified Plate",
+      "kind": "body",
+      "side": "order",
+      "weight": "heavy",
+      "stats": {
+        "Health": 420,
+        "Armour": 11,
+        "Mana": 20
+      },
+      "fixed": {
+        "Exhaustion rate": {
+          "value": 8
+        }
+      }
+    },
+    "00055": {
+      "name": "Templar Greaves",
+      "kind": "feet",
+      "side": "order",
+      "weight": "heavy",
+      "stats": {
+        "Health": 130,
+        "Armour": 4
+      },
+      "fixed": {
+        "Exhaustion rate": {
+          "value": 3
+        }
+      }
+    },
+    "00056": {
+      "name": "Honor Katana",
+      "kind": "weapon",
+      "side": "order",
+      "weight": "medium",
+      "stats": {
+        "Damage": 36,
+        "Lethal chance": 5,
+        "Lethal": 30
+      }
+    },
+    "00057": {
+      "name": "Lacquered Do",
+      "kind": "body",
+      "side": "order",
+      "weight": "medium",
+      "stats": {
+        "Health": 260,
+        "Armour": 6,
+        "Evasion": 2
+      }
+    },
+    "00058": {
+      "name": "Kabuto of the Rising Sun",
+      "kind": "head",
+      "side": "order",
+      "weight": "medium",
+      "stats": {
+        "Health": 90,
+        "Armour": 3,
+        "Lethal chance": 2
+      }
+    },
+    "00059": {
+      "name": "Runed Saber",
+      "kind": "weapon",
+      "side": "balance",
+      "weight": "light",
+      "stats": {
+        "Damage": 32,
+        "Mana": 30,
+        "Perforation": 3
+      }
+    },
+    "00060": {
+      "name": "Spellweave Coat",
+      "kind": "body",
+      "side": "balance",
+      "weight": "light",
+      "stats": {
+        "Health": 160,
+        "Evasion": 4,
+        "Mana": 40
+      }
+    },
+    "00061": {
+      "name": "Twin Fangs",
+      "kind": "weapon",
+      "side": "balance",
+      "weight": "light",
+      "stats": {
+        "Damage": 18,
+        "Lethal chance": 7,
+        "Lethal": 60
+      }
+    },
+    "00062": {
+      "name": "Smuggler's Hood",
+      "kind": "head",
+      "side": "balance",
+      "weight": "light",
+      "stats": {
+        "Evasion": 5,
+        "Lethal chance": 3
+      }
+    },
+    "00063": {
+      "name": "Softstep Boots",
+      "kind": "feet",
+      "side": "balance",
+      "weight": "light",
+      "stats": {
+        "Evasion": 6,
+        "Grip": 2
+      }
+    },
+    "00064": {
+      "name": "Arcanist's Staff",
+      "kind": "weapon",
+      "side": "balance",
+      "weight": "light",
+      "stats": {
+        "Damage": 20,
+        "Mana": 80
+      }
+    },
+    "00065": {
+      "name": "Sage's Robe",
+      "kind": "body",
+      "side": "balance",
+      "weight": "light",
+      "stats": {
+        "Health": 140,
+        "Mana": 60,
+        "Lethal protection": 4
+      }
+    },
+    "00066": {
+      "name": "Orb of Equilibrium",
+      "kind": "charm",
+      "side": "balance",
+      "stats": {
+        "Mana": 50
+      },
+      "fixed": {
+        "Inner peace": {
+          "value": 3
+        }
+      }
+    },
+    "00067": {
+      "name": "Veil of Whispers",
+      "kind": "head",
+      "side": "chaos",
+      "weight": "light",
+      "stats": {
+        "Evasion": 4,
+        "Mana": 40
+      }
+    },
+    "00068": {
+      "name": "Hexbound Robe",
+      "kind": "body",
+      "side": "chaos",
+      "weight": "light",
+      "stats": {
+        "Health": 140,
+        "Evasion": 4,
+        "Mana": 50
+      }
+    },
+    "00069": {
+      "name": "Fortune Bones",
+      "kind": "charm",
+      "side": "chaos",
+      "stats": {
+        "Lethal chance": 5,
+        "Evasion": 2
+      }
+    },
+    "00070": {
+      "name": "Deathplate",
+      "kind": "body",
+      "side": "chaos",
+      "weight": "heavy",
+      "stats": {
+        "Health": 450,
+        "Armour": 10,
+        "Lethal protection": 6
+      },
+      "fixed": {
+        "Exhaustion rate": {
+          "value": 10
+        }
+      }
+    },
+    "00071": {
+      "name": "Gravewrought Helm",
+      "kind": "head",
+      "side": "chaos",
+      "weight": "heavy",
+      "stats": {
+        "Health": 160,
+        "Armour": 5
+      },
+      "fixed": {
+        "Exhaustion rate": {
+          "value": 5
+        }
+      }
+    },
+    "00072": {
+      "name": "Soulreaver Greatsword",
+      "kind": "weapon",
+      "side": "chaos",
+      "weight": "heavy",
+      "stats": {
+        "Damage": 40,
+        "Perforation": 6,
+        "Health": 80
+      },
+      "fixed": {
+        "Exhaustion rate": {
+          "value": 5
+        }
+      }
+    },
+    "00073": {
+      "name": "Ironbound Sabatons",
+      "kind": "feet",
+      "side": "chaos",
+      "weight": "heavy",
+      "stats": {
+        "Health": 140,
+        "Armour": 4
+      },
+      "fixed": {
+        "Exhaustion rate": {
+          "value": 3
+        }
+      }
+    },
+    "00074": {
+      "name": "Duskblade",
+      "kind": "weapon",
+      "side": "chaos",
+      "weight": "medium",
+      "stats": {
+        "Damage": 32,
+        "Perforation": 5,
+        "Evasion": 2
+      }
+    },
+    "00075": {
+      "name": "Nightguard Mail",
+      "kind": "body",
+      "side": "chaos",
+      "weight": "medium",
+      "stats": {
+        "Health": 280,
+        "Armour": 6,
+        "Evasion": 3
+      }
+    },
+    "00076": {
+      "name": "Shade Treads",
+      "kind": "feet",
+      "side": "chaos",
+      "weight": "medium",
+      "stats": {
+        "Evasion": 4,
+        "Armour": 2
+      }
     }
   }
 }

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 780" width="560" height="780">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#8a6420"/><stop offset="0.55" stop-color="#2b1c08"/><stop offset="1" stop-color="#0a0603"/></radialGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.5" stop-color="#c9c3b5"/><stop offset="1" stop-color="#5a5244"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2c4"/><stop offset="0.5" stop-color="#d9a640"/><stop offset="1" stop-color="#6a4a12"/></linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffcf6a" stop-opacity="0.55"/><stop offset="1" stop-color="#ffcf6a" stop-opacity="0"/></radialGradient>
+    <filter id="sh"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.7"/></filter>
+  </defs>
+  <rect width="560" height="780" fill="url(#bg)"/>
+  <g stroke="#ffcf6a" stroke-opacity="0.06">
+    <line x1="0" y1="100" x2="560" y2="100"/><line x1="0" y1="220" x2="560" y2="220"/><line x1="0" y1="560" x2="560" y2="560"/>
+  </g>
+  <circle cx="280" cy="300" r="230" fill="url(#halo)"/>
+  <g filter="url(#sh)">
+    <g transform="rotate(-38 280 300)">
+      <rect x="268" y="80" width="24" height="300" fill="url(#steel)"/><path d="M268 80 L280 52 L292 80 Z" fill="url(#steel)"/>
+      <rect x="220" y="380" width="120" height="18" rx="6" fill="url(#gold)"/><rect x="270" y="398" width="20" height="70" fill="#3a2a12"/><circle cx="280" cy="480" r="14" fill="url(#gold)"/>
+    </g>
+    <g transform="rotate(38 280 300)">
+      <rect x="268" y="80" width="24" height="300" fill="url(#steel)"/><path d="M268 80 L280 52 L292 80 Z" fill="url(#steel)"/>
+      <rect x="220" y="380" width="120" height="18" rx="6" fill="url(#gold)"/><rect x="270" y="398" width="20" height="70" fill="#3a2a12"/><circle cx="280" cy="480" r="14" fill="url(#gold)"/>
+    </g>
+    <path d="M280 190 L370 220 C370 320 340 390 280 430 C220 390 190 320 190 220 Z" fill="url(#gold)"/>
+    <path d="M280 210 L352 234 C352 316 328 372 280 406 C232 372 208 316 208 234 Z" fill="#2a1c08"/>
+    <path d="M268 250 L292 250 L292 300 L336 300 L336 324 L292 324 L292 380 L268 380 L268 324 L224 324 L224 300 L268 300 Z" fill="url(#gold)"/>
+  </g>
+</svg>
