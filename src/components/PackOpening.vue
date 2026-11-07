@@ -2,8 +2,9 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import GameCard from './GameCard.vue'
 import ShardIcon from './ShardIcon.vue'
+import ChronosIcon from './ChronosIcon.vue'
 import { rarityRank } from '../lib/cards.js'
-import { canAfford } from '../lib/wallet.js'
+import { canAfford } from '../lib/player.js'
 
 const props = defineProps({
   item: { type: Object, required: true },
@@ -63,7 +64,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
         <template v-if="allRevealed">
           <p class="summary">
             Best pull: <strong :style="{ fontFamily: best.tier.font }">{{ best.tier.name }} {{ best.name }}</strong>
-            · Total value <strong>{{ totalValue.toLocaleString() }}</strong> <ShardIcon />
+            · Total value <strong>{{ totalValue.toLocaleString() }}</strong> <ChronosIcon />
           </p>
           <div class="actions">
             <button class="secondary" @click="$emit('close')">Back to shop</button>

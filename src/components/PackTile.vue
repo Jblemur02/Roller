@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import ShardIcon from './ShardIcon.vue'
 import { isOpenable } from '../lib/packs.js'
-import { canAfford } from '../lib/wallet.js'
+import { canAfford } from '../lib/player.js'
 
 const props = defineProps({ item: { type: Object, required: true } })
 defineEmits(['open', 'odds'])

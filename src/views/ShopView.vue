@@ -4,7 +4,7 @@ import PackTile from '../components/PackTile.vue'
 import PackOpening from '../components/PackOpening.vue'
 import OddsDialog from '../components/OddsDialog.vue'
 import { categories, featured, items, openPack } from '../lib/packs.js'
-import { addCards, spend } from '../lib/wallet.js'
+import { buyPack } from '../lib/player.js'
 
 const tabs = [{ id: 'featured', label: 'Featured' }, ...categories]
 const tab = ref('featured')
@@ -27,11 +27,10 @@ function buy(item) {
     error.value = e.message
     return
   }
-  if (!spend(item.price)) {
+  if (!buyPack(item, cards)) {
     error.value = `You need ${item.price} Time Shards to open ${item.name}.`
     return
   }
-  addCards(cards)
   opening.value = { item, cards, n: ++openCount }
 }
 </script>
@@ -41,6 +40,7 @@ function buy(item) {
     <div class="hero">
       <p class="eyebrow">Card Pack Shop</p>
       <h1>Spend your Time Shards. Pull something legendary.</h1>
+      <p class="sub">Cards you pull go straight to your <a href="#collection">collection</a>.</p>
     </div>
 
     <nav class="tabs" role="tablist">
@@ -95,6 +95,13 @@ h1 {
   margin: 8px 0 0;
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-family: 'Cinzel', serif;
+}
+.sub {
+  margin: 10px 0 0;
+  opacity: 0.65;
+}
+.sub a {
+  color: var(--gold);
 }
 .tabs {
   display: flex;

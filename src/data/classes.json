@@ -1,0 +1,103 @@
+{
+  "sides": [
+    {
+      "id": "order",
+      "name": "Order",
+      "quote": "Fight with honor",
+      "tagline": "Fight with honor",
+      "image": "https://ik.imagekit.io/roller/classes/types/order?updatedAt=1730420093693",
+      "points": [
+        "Defeat your enemies with style and honor",
+        "Live by the book",
+        "You'd probably find Lord Shimura here"
+      ],
+      "colors": [
+        "#2f6fd6",
+        "#0d1d3d"
+      ],
+      "classes": [
+        {
+          "name": "General",
+          "description": "A born leader. Specializes in buffing their team and inspiring cooperation among their troops",
+          "minions": 5
+        },
+        {
+          "name": "Paladin",
+          "description": "A guardian of the faith. This class specializes in protecting their allies and maintaining harmony in their battlefield",
+          "minions": 3
+        },
+        {
+          "name": "Samurai",
+          "description": "A warrior of Honor. This class specializes in blade and swordplay. This class gets stronger the more they fight",
+          "minions": 4
+        }
+      ]
+    },
+    {
+      "id": "balance",
+      "name": "Balance",
+      "quote": "Balance the forces",
+      "tagline": "Balance everything",
+      "image": "https://ik.imagekit.io/roller/classes/types/balance.jpg",
+      "points": [
+        "The hybrid style",
+        "Fight with confusion and honor? Wait that doesn't make sense....",
+        "Make both sides lose their mind"
+      ],
+      "colors": [
+        "#3fa66b",
+        "#0d2b1b"
+      ],
+      "classes": [
+        {
+          "name": "Mystic Bladeslinger",
+          "description": "A swordsman adept in the magical arts. Deals massive ammounts of damage quickly. Low defensive capabilities",
+          "minions": 3
+        },
+        {
+          "name": "Bandit",
+          "description": "A class specifically designed for the element of surprise. Deals insanely high damage, but very low defense",
+          "minions": 3
+        },
+        {
+          "name": "Wizard",
+          "description": "A skilled magician. This class specializes in spells and potions.",
+          "minions": 5
+        }
+      ]
+    },
+    {
+      "id": "chaos",
+      "name": "Chaos",
+      "quote": "Seek chaos",
+      "tagline": "Chaos take the world",
+      "image": "https://ik.imagekit.io/roller/classes/types/chaos?updatedAt=1730420036248",
+      "points": [
+        "Crush your enemies with malice",
+        "Cause confusion and disorder",
+        "Discipline? Never heard of it"
+      ],
+      "colors": [
+        "#c23b3b",
+        "#2b0c0c"
+      ],
+      "classes": [
+        {
+          "name": "Soothsayer",
+          "description": "A master of confusion and deception. This class specializes in moral disruption and manipulating others.",
+          "minions": 4
+        },
+        {
+          "name": "Dead Knight",
+          "description": "A lone wolf in battle. Low damage and high defensive capabilities, however, this class excels in draining the life force of their enemies",
+          "minions": 2
+        },
+        {
+          "name": "Shadow Warrior",
+          "description": "A warrior of shadows. This class specializes in shadow attacks and defensive abilities. This class gets stronger the more they fight",
+          "minions": 3
+        }
+      ]
+    }
+  ]
+}

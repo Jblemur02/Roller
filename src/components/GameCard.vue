@@ -1,11 +1,12 @@
 <script setup>
 import { computed, ref } from 'vue'
-import ShardIcon from './ShardIcon.vue'
+import ChronosIcon from './ChronosIcon.vue'
 import { rarityRank } from '../lib/cards.js'
 
 const props = defineProps({
   card: { type: Object, required: true },
   revealed: { type: Boolean, default: true },
+  small: Boolean,
 })
 defineEmits(['reveal'])
 
@@ -41,7 +42,7 @@ const rare = computed(() => rarityRank(props.card.tier) <= 6)
 <template>
   <div
     class="card"
-    :class="{ flipped: revealed, rare }"
+    :class="{ flipped: revealed, rare, small }"
     role="button"
     :aria-label="revealed ? `${card.name}, ${card.tier.name}` : 'Face-down card, click to reveal'"
     tabindex="0"
@@ -50,7 +51,7 @@ const rare = computed(() => rarityRank(props.card.tier) <= 6)
   >
     <div class="inner">
       <div class="back">
-        <ShardIcon size="64px" />
+        <ChronosIcon size="64px" />
         <span>ROLLER</span>
       </div>
 
@@ -63,7 +64,7 @@ const rare = computed(() => rarityRank(props.card.tier) <= 6)
         </div>
         <h3 class="name">{{ card.name }}</h3>
         <p class="tier" :style="{ fontFamily: card.tier.font }">{{ card.tier.name }}</p>
-        <p class="value">{{ card.value.toLocaleString() }} <ShardIcon /></p>
+        <p class="value">{{ card.value.toLocaleString() }} <ChronosIcon /></p>
       </div>
     </div>
   </div>
@@ -186,6 +187,31 @@ const rare = computed(() => rarityRank(props.card.tier) <= 6)
   font-size: 0.9rem;
   font-weight: 600;
   color: #fff;
+}
+.card.small {
+  width: 160px;
+  height: 232px;
+}
+.card.small .front {
+  padding: 10px 8px;
+}
+.card.small .art {
+  width: 84px;
+  height: 84px;
+  margin: 8px 0 6px;
+}
+.card.small .name {
+  font-size: 0.92rem;
+}
+.card.small .tier {
+  font-size: 0.95rem;
+  margin-top: 3px;
+}
+.card.small .type {
+  font-size: 0.62rem;
+}
+.card.small .value {
+  font-size: 0.8rem;
 }
 @media (prefers-reduced-motion: reduce) {
   .inner { transition: none; }
