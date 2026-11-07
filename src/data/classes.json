@@ -5,7 +5,7 @@
       "name": "Order",
       "quote": "Fight with honor",
       "tagline": "Fight with honor",
-      "image": "https://ik.imagekit.io/roller/classes/types/order?updatedAt=1730420093693",
+      "image": "img/classes/order.webp",
       "points": [
         "Defeat your enemies with style and honor",
         "Live by the book",
@@ -38,7 +38,7 @@
       "name": "Balance",
       "quote": "Balance the forces",
       "tagline": "Balance everything",
-      "image": "https://ik.imagekit.io/roller/classes/types/balance.jpg",
+      "image": "img/classes/balance.webp",
       "points": [
         "The hybrid style",
         "Fight with confusion and honor? Wait that doesn't make sense....",
@@ -71,7 +71,7 @@
       "name": "Chaos",
       "quote": "Seek chaos",
       "tagline": "Chaos take the world",
-      "image": "https://ik.imagekit.io/roller/classes/types/chaos?updatedAt=1730420036248",
+      "image": "img/classes/chaos.webp",
       "points": [
         "Crush your enemies with malice",
         "Cause confusion and disorder",

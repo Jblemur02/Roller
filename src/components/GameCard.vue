@@ -32,9 +32,15 @@ const faceStyle = computed(() => {
   return {
     background,
     color: t.color,
-    boxShadow: t.aura || undefined,
+    boxShadow: (props.small ? shrinkAura(t.aura) : t.aura) || undefined,
   }
 })
+
+// Tier auras are sized for the big pack-opening cards; in grids they'd swamp the neighbours.
+function shrinkAura(aura) {
+  if (!aura) return aura
+  return aura.replace(/(-?\d+(?:\.\d+)?)px/g, (_, n) => `${Math.round(Number(n) * 0.22)}px`)
+}
 
 const rare = computed(() => rarityRank(props.card.tier) <= 6)
 </script>

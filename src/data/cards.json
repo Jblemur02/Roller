@@ -6,7 +6,7 @@
     "name": "Divinity",
     "description": "Massively increase the Resilience of the user",
     "multiplier": 1000,
-    "image": "https://ik.imagekit.io/roller/packs/images/divinity.jpeg",
+    "image": "img/cards/divinity.webp",
     "stats": {
       "Health": 1.5,
       "Defense": 1.2
@@ -19,7 +19,7 @@
     "subtype": "Power",
     "description": "Massively increase the Aggression of the user",
     "multiplier": 1000,
-    "image": "https://ik.imagekit.io/roller/packs/images/malevolance.jpg",
+    "image": "img/cards/malevolance.webp",
     "stats": {
       "Attack": 1.5,
       "Perforation": 1.2
@@ -32,7 +32,7 @@
     "name": "Strengthen",
     "description": "Massively increase the defense of the user",
     "multiplier": 20,
-    "image": "https://ik.imagekit.io/roller/packs/images/strengthen.png",
+    "image": "img/cards/strengthen.webp",
     "stats": {
       "Defense": 1.1
     }
@@ -44,7 +44,7 @@
     "name": "Battle Sight",
     "description": "Massively increase the user's Perforation",
     "multiplier": 20,
-    "image": "https://ik.imagekit.io/roller/packs/images/battle_sight.jpg",
+    "image": "img/cards/battle_sight.webp",
     "stats": {
       "Perforation": 100
     }
@@ -56,7 +56,7 @@
     "name": "Toughness",
     "description": "Massively increase the user's Health",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/toughness-min.jpg",
+    "image": "img/cards/toughness.webp",
     "stats": {
       "Health": 10000
     }
@@ -68,7 +68,7 @@
     "name": "Indomitable",
     "description": "Massively increase the user's Attack",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/Indomitable-min.jpg",
+    "image": "img/cards/indomitable.webp",
     "stats": {
       "Attack": 1000
     }
@@ -80,7 +80,7 @@
     "name": "Bravery",
     "description": "Massively increase the user's Defense",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/bravery-min.jpg",
+    "image": "img/cards/bravery.webp",
     "stats": {
       "Defense": 1000
     }
@@ -92,7 +92,7 @@
     "name": "Balance",
     "description": "Slighty increase the Resilience and Aggression of the Team",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/balance-min.jpg",
+    "image": "img/cards/balance.webp",
     "stats": {
       "Resilience": 5,
       "Aggression": 5
@@ -105,7 +105,7 @@
     "name": "Discipline",
     "description": "Increase the Cooperation of the Team",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/Discipline.jpeg",
+    "image": "img/cards/discipline.webp",
     "stats": {
       "Cooperation": 15
     }
@@ -117,7 +117,7 @@
     "name": "Disarray",
     "description": "Slightly decrease the Cooperation of the Team and massively decrease the Cooperation of the opposition",
     "multiplier": 20,
-    "image": "https://ik.imagekit.io/roller/packs/images/disarray-min.jpg",
+    "image": "img/cards/disarray.webp",
     "stats": {
       "Cooperation": -5,
       "Opposition Cooperation": -20
@@ -130,7 +130,7 @@
     "name": "Charge Forth",
     "description": "Increase the Aggression of the team while decreasing the Resilience of the opposition",
     "multiplier": 15,
-    "image": "https://ik.imagekit.io/roller/packs/images/charge_forth-min.jpg",
+    "image": "img/cards/charge_forth.webp",
     "stats": {
       "Aggression": 20,
       "Resilience": -10
@@ -143,7 +143,7 @@
     "name": "Abandon Hope",
     "description": "Check Stats",
     "multiplier": 50,
-    "image": "https://ik.imagekit.io/roller/packs/images/abandon_hope.jpg",
+    "image": "img/cards/abandon_hope.webp",
     "stats": {
       "Resilience": -90,
       "Aggression": 80,
@@ -159,7 +159,7 @@
     "name": "Defiance",
     "description": "Increase the Resilience of the team",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/defiance.jpeg",
+    "image": "img/cards/defiance.webp",
     "stats": {
       "Resilience": 10
     }
@@ -171,7 +171,7 @@
     "name": "Determination",
     "description": "Increase the Agression of the user",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/determination.jpg",
+    "image": "img/cards/determination.webp",
     "stats": {
       "Agression": 10
     }
@@ -183,7 +183,7 @@
     "name": "Iron Helmet",
     "description": "Probably stinks in here",
     "multiplier": 1,
-    "image": "https://ik.imagekit.io/roller/packs/images/iron_helmet.jpg",
+    "image": "img/cards/iron_helmet.webp",
     "stats": {
       "Armor": 1,
       "Health": 500
@@ -196,7 +196,7 @@
     "name": "Shadowviel",
     "description": "Perfect for a bad day",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/shadowveil.jpeg",
+    "image": "img/cards/shadowveil.webp",
     "stats": {
       "Perforation": 5,
       "Defense": 5
@@ -209,7 +209,7 @@
     "name": "Clunky Headgear",
     "description": "Hope you aren't an assassin",
     "multiplier": 1,
-    "image": "https://ik.imagekit.io/roller/packs/images/clunky_headgear.jpg",
+    "image": "img/cards/clunky_headgear.webp",
     "stats": {
       "Armor": 10,
       "Health": 500
@@ -222,7 +222,7 @@
     "name": "Mysterious Mask",
     "description": "Don't tell anyone",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/mysterious_mask.png",
+    "image": "img/cards/mysterious_mask.webp",
     "stats": {
       "Perforation": 10,
       "Defense": 10
@@ -235,7 +235,7 @@
     "name": "Crown Of Deliverance",
     "description": "Make way, the king is here!",
     "multiplier": 20,
-    "image": "https://ik.imagekit.io/roller/packs/images/crown_of_deliverance.jpg",
+    "image": "img/cards/crown_of_deliverance.webp",
     "stats": {
       "Armor": -5,
       "Health": 1000
@@ -248,7 +248,7 @@
     "name": "Bronze Armor",
     "description": "Blind your enimies!",
     "multiplier": 2,
-    "image": "https://ik.imagekit.io/roller/packs/images/bronze_armor-min.jpg",
+    "image": "img/cards/bronze_armor.webp",
     "stats": {
       "Armor": 5,
       "Health": 1500,
@@ -262,7 +262,7 @@
     "name": "Iron Armor",
     "description": "Protect yourself",
     "multiplier": 2,
-    "image": "https://ik.imagekit.io/roller/packs/images/iron_armor.jpg",
+    "image": "img/cards/iron_armor.webp",
     "stats": {
       "Armor": 10,
       "Health": 2000
@@ -275,7 +275,7 @@
     "name": "Steel Armor",
     "description": "Stronger than iron",
     "multiplier": 2,
-    "image": "https://ik.imagekit.io/roller/packs/images/steel_armor.jpg",
+    "image": "img/cards/steel_armor.webp",
     "stats": {
       "Armor": 15,
       "Health": 2500
@@ -288,7 +288,7 @@
     "name": "Boots of the Thief",
     "description": "They'll never hear you coming!",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/boots_of_the_thief.jpeg",
+    "image": "img/cards/boots_of_the_thief.webp",
     "stats": {
       "Perforation": 5,
       "Armor": -2
@@ -301,7 +301,7 @@
     "name": "Steel Boots",
     "description": "Take these off and the smell will win the battle for you.",
     "multiplier": 1,
-    "image": "https://ik.imagekit.io/roller/packs/images/steel_boots.jpg",
+    "image": "img/cards/steel_boots.webp",
     "stats": {
       "Armor": 5,
       "Health": 500
@@ -313,9 +313,8 @@
     "subtype": "Sword",
     "name": "Steel Sword",
     "description": "It's a sword.",
-
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/steel_sword-min.png",
+    "image": "img/cards/steel_sword.webp",
     "stats": {
       "Attack": 150,
       "Perforation": 1
@@ -328,7 +327,7 @@
     "name": "Ancient Amulet",
     "description": "Increases your Perforation by 10",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/ancient_amulet.jpeg",
+    "image": "img/cards/ancient_amulet.webp",
     "stats": {
       "Perforation": 10,
       "Defense": 10
@@ -341,7 +340,7 @@
     "name": "Flame",
     "description": "Burn all your enemies",
     "multiplier": 20,
-    "image": "https://ik.imagekit.io/roller/packs/images/flame.jpg",
+    "image": "img/cards/flame.webp",
     "stats": {
       "Perforation": 10,
       "Resilience": 10
@@ -353,7 +352,7 @@
     "subtype": "Jewel",
     "name": "Mystic Crystal",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/mystic_crystal.jpeg"
+    "image": "img/cards/mystic_crystal.webp"
   },
   {
     "number": "00028",
@@ -361,7 +360,7 @@
     "subtype": "Charm",
     "name": "Lunar Charm",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/lunar_charm.jpg"
+    "image": "img/cards/lunar_charm.webp"
   },
   {
     "number": "00029",
@@ -369,14 +368,14 @@
     "subtype": "Knife",
     "name": "Bronze Dagger",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/bronze_dagger.jpg"
+    "image": "img/cards/bronze_dagger.webp"
   },
   {
     "number": "00030",
     "type": "Talent",
     "name": "Blind",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/blind.png"
+    "image": "img/cards/blind.webp"
   },
   {
     "number": "00031",
@@ -384,7 +383,7 @@
     "subtype": "Jewel",
     "name": "Omni Gem",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/omni_gem.jpeg"
+    "image": "img/cards/omni_gem.webp"
   },
   {
     "number": "00032",
@@ -392,7 +391,7 @@
     "subtype": "Charm",
     "name": "Heavenly Charm",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/heavenly_charm.jpeg"
+    "image": "img/cards/heavenly_charm.webp"
   },
   {
     "number": "00033",
@@ -400,7 +399,7 @@
     "subtype": "Sword",
     "name": "Vortex Blade",
     "multiplier": 15,
-    "image": "https://ik.imagekit.io/roller/packs/images/vortex_blade.png"
+    "image": "img/cards/vortex_blade.webp"
   },
   {
     "number": "00034",
@@ -408,7 +407,7 @@
     "subtype": "Jewel",
     "name": "Light's Jewel",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/lights_jewel.png"
+    "image": "img/cards/lights_jewel.webp"
   },
   {
     "number": "00035",
@@ -416,7 +415,7 @@
     "subtype": "Death",
     "name": "Howl",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/howl.png"
+    "image": "img/cards/howl.webp"
   },
   {
     "number": "00036",
@@ -424,7 +423,7 @@
     "subtype": "Jewel",
     "name": "Crystal of Eternity",
     "multiplier": 1,
-    "image": "https://ik.imagekit.io/roller/packs/images/crystal_of_eternity.png"
+    "image": "img/cards/crystal_of_eternity.webp"
   },
   {
     "number": "00037",
@@ -432,7 +431,7 @@
     "subtype": "Amulet",
     "name": "Talisman of the Cosmos",
     "multiplier": 1,
-    "image": "https://ik.imagekit.io/roller/packs/images/talisman_of_the_cosmos.png"
+    "image": "img/cards/talisman_of_the_cosmos.webp"
   },
   {
     "number": "00038",
@@ -440,7 +439,7 @@
     "subtype": "Charm",
     "name": "Celestial Charm",
     "multiplier": 1,
-    "image": "https://ik.imagekit.io/roller/packs/images/celestial_charm.jpeg"
+    "image": "img/cards/celestial_charm.webp"
   },
   {
     "number": "00039",
@@ -448,7 +447,7 @@
     "subtype": "Jewel",
     "name": "Echoing Stone",
     "multiplier": 20,
-    "image": "https://ik.imagekit.io/roller/packs/images/echoing_stone.png"
+    "image": "img/cards/echoing_stone.webp"
   },
   {
     "number": "00040",
@@ -456,7 +455,7 @@
     "subtype": "Sword",
     "name": "Enchanted Sword",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/enchanted_sword.png"
+    "image": "img/cards/enchanted_sword.webp"
   },
   {
     "number": "00041",
@@ -464,7 +463,7 @@
     "subtype": "Jewel",
     "name": "Essence Stone",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/essence_stone.png"
+    "image": "img/cards/essence_stone.webp"
   },
   {
     "number": "00042",
@@ -472,7 +471,7 @@
     "subtype": "Spear",
     "name": "Golden Spear",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/golden_spear.png"
+    "image": "img/cards/golden_spear.webp"
   },
   {
     "number": "00043",
@@ -480,7 +479,7 @@
     "subtype": "Air",
     "name": "Mystic Wind",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/mystic_wind.png"
+    "image": "img/cards/mystic_wind.webp"
   },
   {
     "number": "00044",
@@ -488,7 +487,7 @@
     "subtype": "Relic",
     "name": "Phoenix Feather",
     "multiplier": 10,
-    "image": "https://ik.imagekit.io/roller/packs/images/phoenix_feather.png"
+    "image": "img/cards/phoenix_feather.webp"
   },
   {
     "number": "00045",
@@ -496,7 +495,7 @@
     "subtype": "Jewel",
     "name": "Radiant Crystal",
     "multiplier": 5,
-    "image": "https://ik.imagekit.io/roller/packs/images/radiant_crystal.png"
+    "image": "img/cards/radiant_crystal.webp"
   },
   {
     "number": "00046",
@@ -504,7 +503,7 @@
     "subtype": "Ranged",
     "name": "Archer",
     "multiplier": 1,
-    "image": "https://ik.imagekit.io/roller/minions/archer",
+    "image": "img/cards/archer.webp",
     "stats": {
       "Health": 500,
       "Energy": 100,
@@ -519,7 +518,7 @@
     "subtype": "Melee",
     "name": "Metrax",
     "multiplier": 1,
-    "image": "https://ik.imagekit.io/roller/minions/metrax",
+    "image": "img/cards/metrax.webp",
     "stats": {
       "Health": 1000,
       "Energy": 200,
@@ -534,7 +533,7 @@
     "subtype": "Tank",
     "name": "Birgrad",
     "multiplier": 1,
-    "image": "https://ik.imagekit.io/roller/minions/birgrad",
+    "image": "img/cards/birgrad.webp",
     "stats": {
       "Health": 2000,
       "Energy": 200,
